@@ -1,10 +1,16 @@
 import 'package:flutter/material.dart';
 
+import 'config/di/di.dart';
+import 'config/route_manager/route_generator.dart';
+import 'config/route_manager/routes.dart';
+
 void main() {
+  configureDependencies();
   runApp(const MyApp());
 }
 
 class MyApp extends StatelessWidget {
+
   const MyApp({super.key});
 
   // This widget is the root of your application.
@@ -31,6 +37,11 @@ class MyApp extends StatelessWidget {
         colorScheme: .fromSeed(seedColor: Colors.deepPurple),
       ),
       home: const MyHomePage(title: 'Flutter Demo Home Page'),
+
+
+      initialRoute: Routes.loginRoute,
+      onGenerateRoute: RouteGenerator.getRoute,
+
     );
   }
 }
