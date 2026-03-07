@@ -8,12 +8,14 @@ class AppTheme {
     scaffoldBackgroundColor: AppColors.baseWhite,
 
     inputDecorationTheme: InputDecorationTheme(
-      labelStyle: TextStyles.regular12.copyWith(color: AppColors.baseGray),
-      floatingLabelStyle: TextStyles.regular12.copyWith(
+      labelStyle: AppTextStyles.regular12.copyWith(color: AppColors.baseGray),
+      floatingLabelStyle: AppTextStyles.regular12.copyWith(
         color: AppColors.baseGray,
       ),
-      errorStyle: TextStyles.regular12,
-      hintStyle: TextStyles.regular14.copyWith(color: AppColors.hintTextGray),
+      errorStyle: AppTextStyles.regular12,
+      hintStyle: AppTextStyles.regular14.copyWith(
+        color: AppColors.hintTextGray,
+      ),
       contentPadding: EdgeInsets.symmetric(
         horizontal: MyResponsive.width(value: 8),
         vertical: MyResponsive.height(value: 12),
@@ -40,7 +42,7 @@ class AppTheme {
       style: ElevatedButton.styleFrom(
         elevation: 0,
         minimumSize: Size(double.infinity, MyResponsive.height(value: 48)),
-        textStyle: TextStyles.medium16,
+        textStyle: AppTextStyles.medium16,
         foregroundColor: AppColors.baseWhite,
         backgroundColor: AppColors.primaryColor,
         disabledBackgroundColor: AppColors.disabledGray,
@@ -54,7 +56,9 @@ class AppTheme {
       backgroundColor: AppColors.baseWhite,
       elevation: 0,
       scrolledUnderElevation: 0,
-      titleTextStyle: TextStyles.medium20.copyWith(color: AppColors.baseBlack),
+      titleTextStyle: AppTextStyles.medium20.copyWith(
+        color: AppColors.baseBlack,
+      ),
       iconTheme: IconThemeData(color: AppColors.baseBlack),
     ),
   );
