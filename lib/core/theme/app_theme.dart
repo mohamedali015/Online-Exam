@@ -53,6 +53,7 @@ class AppTheme {
     appBarTheme: AppBarTheme(
       backgroundColor: AppColors.baseWhite,
       elevation: 0,
+      scrolledUnderElevation: 0,
       titleTextStyle: TextStyles.medium20.copyWith(color: AppColors.baseBlack),
       iconTheme: IconThemeData(color: AppColors.baseBlack),
     ),
