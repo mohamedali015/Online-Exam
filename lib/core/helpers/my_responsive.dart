@@ -43,6 +43,23 @@ abstract class MyResponsive {
   }
 }
 
+/*
+      to use it in sized box
+
+            SizedBox(
+              width: MyResponsive.width(value: 30),
+              height: MyResponsive.height(value: 30),
+            ),
+
+
+      to use it with padding or margin
+
+            Container(
+              padding: MyResponsive.paddingSymmetric(horizontal: 20, vertical: 20),
+              margin: MyResponsive.paddingSymmetric(horizontal: 20, vertical: 20),
+            )
+ */
+
 // abstract class MyResponsive {
 //   static double height(BuildContext context, {required double value}) =>
 //       value.h; // ScreenUtil auto handles height
