@@ -1,16 +1,18 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/foundation.dart';
 import 'package:injectable/injectable.dart';
+import 'package:online_exam/core/values/api_end_points.dart';
 import 'package:pretty_dio_logger/pretty_dio_logger.dart';
 
-import '../Api/api_client.dart';
+import '../../features/auth/api/api_client.dart';
+
 
 @module
 abstract class ApiModule {
 
   @lazySingleton
   ApiClient provideApiClient(Dio dio) {
-    return ApiClient(dio, baseUrl: '////////////');
+    return ApiClient(dio, baseUrl: ApiEndPoints.baseUrl);
   }
 
   @lazySingleton
@@ -23,8 +25,8 @@ abstract class ApiModule {
   @lazySingleton
   BaseOptions providerOption() {
     return BaseOptions(
-      sendTimeout: Duration(seconds: 60),
-      receiveTimeout: Duration(seconds: 60),
+      sendTimeout: Duration(seconds: 10),
+      receiveTimeout: Duration(seconds: 10),
     );
   }
 
