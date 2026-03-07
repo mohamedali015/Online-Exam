@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:online_exam/core/theme/app_theme.dart';
 
 import 'core/helpers/custom_bloc_observer.dart';
 
@@ -26,6 +27,7 @@ class MyApp extends StatelessWidget {
       builder: (context, child) {
         return MaterialApp(
           title: 'Online Exam',
+          theme: AppTheme.appTheme,
           debugShowCheckedModeBanner: false,
           initialRoute: Routes.loginRoute,
           onGenerateRoute: RouteGenerator.getRoute,
@@ -34,3 +36,4 @@ class MyApp extends StatelessWidget {
     );
   }
 }
+
