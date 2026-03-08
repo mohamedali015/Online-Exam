@@ -44,6 +44,7 @@ dependencies:
   flutter_screenutil:
   flutter_bloc:
   equatable: ^2.0.8
+  flutter_secure_storage:
 
 dev_dependencies:
   flutter_test:
