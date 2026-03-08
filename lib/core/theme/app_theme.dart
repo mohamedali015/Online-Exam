@@ -12,6 +12,8 @@ class AppTheme {
       floatingLabelStyle: AppTextStyles.regular12.copyWith(
         color: AppColors.baseGray,
       ),
+      filled: true,
+      fillColor: AppColors.baseWhite,
       errorStyle: AppTextStyles.regular12,
       hintStyle: AppTextStyles.regular14.copyWith(
         color: AppColors.hintTextGray,
