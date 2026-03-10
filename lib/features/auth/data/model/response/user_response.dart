@@ -1,6 +1,9 @@
 import 'package:json_annotation/json_annotation.dart';
 
+import '../../../domain/entities/user_entity.dart';
+
 part 'user_response.g.dart';
+
 @JsonSerializable()
 class UserResponse {
   @JsonKey(name: "_id")
@@ -24,7 +27,7 @@ class UserResponse {
   @JsonKey(name: "passwordChangedAt")
   final String? passwordChangedAt;
 
-  UserResponse ({
+  UserResponse({
     this.id,
     this.username,
     this.firstName,
@@ -43,5 +46,18 @@ class UserResponse {
 
   Map<String, dynamic> toJson() {
     return _$UserResponseToJson(this);
+  }
+
+  UserEntity toUserEntity() {
+    return UserEntity(
+      id: id,
+      username: username,
+      firstName: firstName,
+      lastName: lastName,
+      email: email,
+      phone: phone,
+      role: role,
+      isVerified: isVerified,
+    );
   }
 }
