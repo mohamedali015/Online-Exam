@@ -69,7 +69,8 @@ abstract class AppStrings {
   static const String invalidPassword ="Invalid password";
 
 
-
+  static const String home ="Explore";
+  static const String result ="Result";
 
 
 }

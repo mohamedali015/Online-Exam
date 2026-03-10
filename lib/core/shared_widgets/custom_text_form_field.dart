@@ -71,6 +71,7 @@ class CustomTextFormField extends StatelessWidget {
       // ),
       // prefixIcon: prefixIcon,
       suffixIcon: suffixIcon,
+      floatingLabelBehavior: FloatingLabelBehavior.always,
     );
   }
 
@@ -152,12 +153,12 @@ class CustomTextFormField extends StatelessWidget {
             ? AppStrings.enterYouPassword
             : AppStrings.enterYouPassword,
 
-        suffixIcon: IconButton(
-          onPressed: onSuffixTapped,
-          icon: obsecure
-              ? Icon(Icons.visibility, color: AppColors.baseGray)
-              : Icon(Icons.visibility_off, color: AppColors.baseGray),
-        ),
+        // suffixIcon: IconButton(
+        //   onPressed: onSuffixTapped,
+        //   icon: obsecure
+        //       ? Icon(Icons.visibility, color: AppColors.baseGray)
+        //       : Icon(Icons.visibility_off, color: AppColors.baseGray),
+        // ),
       ),
     );
   }
