@@ -1,3 +1,4 @@
+import 'package:injectable/injectable.dart';
 import 'package:online_exam/config/error_handling/execute_api.dart';
 import 'package:online_exam/config/error_handling/result.dart';
 import 'package:online_exam/features/auth/api/api_client.dart';
@@ -5,6 +6,7 @@ import 'package:online_exam/features/auth/data/data_source/remote/auth_remote_da
 import 'package:online_exam/features/auth/data/model/request/register_request.dart';
 import 'package:online_exam/features/auth/data/model/response/auth_response.dart';
 
+@Injectable(as: AuthRemoteDataSource)
 class AuthRemoteDataSourceImpl implements AuthRemoteDataSource {
   final ApiClient _apiClient;
   AuthRemoteDataSourceImpl(this._apiClient);

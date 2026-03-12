@@ -1,5 +1,4 @@
 import 'package:dio/dio.dart';
-import 'package:injectable/injectable.dart';
 import 'package:online_exam/features/auth/data/model/request/register_request.dart';
 import 'package:online_exam/features/auth/data/model/response/auth_response.dart';
 import 'package:retrofit/error_logger.dart';
@@ -8,9 +7,8 @@ import '../../../core/values/api_end_points.dart';
 
 part 'api_client.g.dart';
 
-@injectable
 @RestApi(baseUrl: ApiEndPoints.baseUrl)
-abstract class ApiClient {
+abstract interface class ApiClient {
   factory ApiClient(Dio dio, {String? baseUrl}) = _ApiClient;
 
   @POST(ApiEndPoints.register)
