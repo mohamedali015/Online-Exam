@@ -12,6 +12,7 @@ class CustomTextFormField extends StatelessWidget {
     this.passController,
     this.obsecure = true,
     this.onSuffixTapped,
+    this.onChanged,
   });
 
   final TextFieldType type;
@@ -20,6 +21,7 @@ class CustomTextFormField extends StatelessWidget {
   final bool isFirstName = false;
   final bool obsecure;
   final void Function()? onSuffixTapped;
+  final void Function(String)? onChanged;
 
   // final void Function(String)? searchOnChange;
 
@@ -71,6 +73,7 @@ class CustomTextFormField extends StatelessWidget {
       // ),
       // prefixIcon: prefixIcon,
       suffixIcon: suffixIcon,
+      floatingLabelBehavior: FloatingLabelBehavior.always,
     );
   }
 
@@ -82,6 +85,7 @@ class CustomTextFormField extends StatelessWidget {
     return TextFormField(
       controller: controller,
       // style: _textStyle(context),
+      onChanged: onChanged,
       validator: validator,
       autovalidateMode: AutovalidateMode.onUserInteraction,
       keyboardType: TextInputType.name,
@@ -102,6 +106,7 @@ class CustomTextFormField extends StatelessWidget {
     return TextFormField(
       controller: controller,
       // style: _textStyle(context),
+      onChanged: onChanged,
       validator: validator,
       autovalidateMode: AutovalidateMode.onUserInteraction,
       keyboardType: TextInputType.name,
@@ -120,6 +125,7 @@ class CustomTextFormField extends StatelessWidget {
     return TextFormField(
       controller: controller,
       validator: validator,
+      onChanged: onChanged,
       // style: _textStyle(context),
       autovalidateMode: AutovalidateMode.onUserInteraction,
       keyboardType: TextInputType.emailAddress,
@@ -138,6 +144,7 @@ class CustomTextFormField extends StatelessWidget {
     return TextFormField(
       controller: controller,
       validator: validator,
+      onChanged: onChanged,
       // style: _textStyle(context),
       obscureText: obsecure,
       autovalidateMode: AutovalidateMode.onUserInteraction,
@@ -152,12 +159,12 @@ class CustomTextFormField extends StatelessWidget {
             ? AppStrings.enterYouPassword
             : AppStrings.enterYouPassword,
 
-        suffixIcon: IconButton(
-          onPressed: onSuffixTapped,
-          icon: obsecure
-              ? Icon(Icons.visibility, color: AppColors.baseGray)
-              : Icon(Icons.visibility_off, color: AppColors.baseGray),
-        ),
+        // suffixIcon: IconButton(
+        //   onPressed: onSuffixTapped,
+        //   icon: obsecure
+        //       ? Icon(Icons.visibility, color: AppColors.baseGray)
+        //       : Icon(Icons.visibility_off, color: AppColors.baseGray),
+        // ),
       ),
     );
   }
@@ -169,6 +176,7 @@ class CustomTextFormField extends StatelessWidget {
     return TextFormField(
       controller: controller,
       validator: validator,
+      onChanged: onChanged,
       autovalidateMode: AutovalidateMode.onUserInteraction,
       keyboardType: TextInputType.phone,
       decoration: _inputDecoration(

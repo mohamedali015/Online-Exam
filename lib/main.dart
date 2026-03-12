@@ -29,11 +29,10 @@ class MyApp extends StatelessWidget {
           title: 'Online Exam',
           theme: AppTheme.appTheme,
           debugShowCheckedModeBanner: false,
-          initialRoute: Routes.loginRoute,
+          initialRoute: Routes.forgetPasswordFlow,
           onGenerateRoute: RouteGenerator.getRoute,
         );
       },
     );
   }
 }
-
