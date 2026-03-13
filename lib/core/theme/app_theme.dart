@@ -8,13 +8,25 @@ class AppTheme {
     scaffoldBackgroundColor: AppColors.baseWhite,
 
     inputDecorationTheme: InputDecorationTheme(
-      labelStyle: AppTextStyles.regular12.copyWith(color: AppColors.baseGray),
-      floatingLabelStyle: AppTextStyles.regular12.copyWith(
-        color: AppColors.baseGray,
-      ),
+      floatingLabelBehavior: FloatingLabelBehavior.always,
+
+      labelStyle: WidgetStateTextStyle.resolveWith((states) {
+        if (states.contains(WidgetState.error)) {
+          return AppTextStyles.regular12.copyWith(color: AppColors.error);
+        }
+        return AppTextStyles.regular12.copyWith(color: AppColors.baseGray);
+      }),
+
+      floatingLabelStyle: WidgetStateTextStyle.resolveWith((states) {
+        if (states.contains(WidgetState.error)) {
+          return AppTextStyles.regular12.copyWith(color: AppColors.error);
+        }
+        return AppTextStyles.regular12.copyWith(color: AppColors.baseGray);
+      }),
       filled: true,
+
       fillColor: AppColors.baseWhite,
-      errorStyle: AppTextStyles.regular12,
+      errorStyle: AppTextStyles.regular12.copyWith(color: AppColors.error),
       hintStyle: AppTextStyles.regular14.copyWith(
         color: AppColors.hintTextGray,
       ),
@@ -43,6 +55,7 @@ class AppTheme {
     elevatedButtonTheme: ElevatedButtonThemeData(
       style: ElevatedButton.styleFrom(
         elevation: 0,
+        disabledForegroundColor: AppColors.baseWhite,
         minimumSize: Size(double.infinity, MyResponsive.height(value: 48)),
         textStyle: AppTextStyles.medium16,
         foregroundColor: AppColors.baseWhite,
