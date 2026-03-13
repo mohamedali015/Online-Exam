@@ -45,6 +45,7 @@ dependencies:
   flutter_bloc:
   equatable: ^2.0.8
   flutter_secure_storage:
+  flutter_svg: ^2.2.4
 
 dev_dependencies:
   flutter_test:
