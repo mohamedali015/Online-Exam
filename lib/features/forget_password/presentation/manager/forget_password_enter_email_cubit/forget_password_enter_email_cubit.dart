@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:injectable/injectable.dart';
-import 'package:online_exam/core/utils/app_constants.dart';
 import 'package:online_exam/features/forget_password/domain/use_cases/enter_email_forget_password_use_case.dart';
 
 import '../../../../../config/error_handling/result.dart';
@@ -33,8 +32,6 @@ class ForgetPasswordEnterEmailCubit
     emit(ForgetPasswordEnterEmailLoading());
     // Simulate a network call or any async operation
     var result = await enterEmailUseCase.call(email: emailController.text);
-
-    AppConstants.forgetPasswordEmail = emailController.text;
 
     switch (result) {
       case Success():

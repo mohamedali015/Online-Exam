@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:online_exam/core/utils/app_constants.dart';
 import 'package:online_exam/features/forget_password/domain/use_cases/get_new_password_forget_password_use_case.dart';
 
 import '../../../../../config/error_handling/result.dart';
@@ -23,13 +22,13 @@ class ForgetPasswordNewPasswordCubit
 
   GetNewPasswordForgetPasswordUseCase getNewPasswordUseCase;
 
-  void submitNewPassword() async {
+  void submitNewPassword({required String email}) async {
     if (!passwordFormKey.currentState!.validate()) {
       return;
     }
     emit(ForgetPasswordNewPasswordLoading());
     var result = await getNewPasswordUseCase.call(
-      email: AppConstants.forgetPasswordEmail!,
+      email: email,
       newPassword: passwordController.text,
     );
 

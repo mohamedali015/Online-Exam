@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:online_exam/core/shared_widgets/custom_button.dart';
 import 'package:online_exam/core/shared_widgets/custom_text_form_field.dart';
+import 'package:online_exam/features/forget_password/presentation/manager/forget_password_enter_email_cubit/forget_password_enter_email_cubit.dart';
 
 import '../../../../../config/route_manager/routes.dart';
 import '../../../../../core/helpers/app_snackbar.dart';
@@ -83,7 +84,11 @@ class ForgetPasswordNewPasswordViewBody extends StatelessWidget {
                     CustomButton(
                       title: AppStrings.continues,
                       onPressed: cubit.isFormValid
-                          ? cubit.submitNewPassword
+                          ? () => cubit.submitNewPassword(
+                              email: ForgetPasswordEnterEmailCubit.get(
+                                context,
+                              ).emailController.text,
+                            )
                           : null,
                       isLoadings: state is ForgetPasswordNewPasswordLoading,
                     ),
