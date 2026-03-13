@@ -15,17 +15,7 @@ import '../../widgets/auth_navigation_text.dart';
 import '../../widgets/remember_me_and_forget_widget.dart';
 
 class LoginScreen extends StatelessWidget {
-  LoginScreen({super.key});
-
-  final TextEditingController emailController = TextEditingController(
-    text: "fopob28788@feriwor.com",
-  );
-
-  final TextEditingController passwordController = TextEditingController(
-    text: "Elevate@123",
-  );
-
-  final GlobalKey<FormState> formKey = GlobalKey<FormState>();
+  const LoginScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -36,7 +26,9 @@ class LoginScreen extends StatelessWidget {
           automaticallyImplyLeading: false,
           title: Text(
             AppStrings.login,
-            style: AppTextStyles.medium20.copyWith(color: AppColors.baseBlack),
+            style: AppTextStyles.medium20.copyWith(
+              color: AppColors.baseBlack,
+            ),
           ),
         ),
         body: BlocConsumer<LoginCubit, LoginState>(
@@ -45,7 +37,10 @@ class LoginScreen extends StatelessWidget {
               case LoginSuccessState():
                 {
                   AppSnackbar.success(context, state.authEntity.message!);
-                  Navigator.pushReplacementNamed(context, Routes.homeRoute);
+                  Navigator.pushReplacementNamed(
+                    context,
+                    Routes.homeRoute,
+                  );
                 }
 
               case LoginFailureState():
@@ -65,21 +60,23 @@ class LoginScreen extends StatelessWidget {
                 vertical: 24,
               ),
               child: Form(
-                key: formKey,
+                key: cubit.formKey,
                 child: Column(
                   children: [
                     /// Email
                     CustomTextFormField(
-                      controller: emailController,
+                      controller: cubit.emailController,
                       type: TextFieldType.email,
+                      onChanged: (_) => cubit.validateForm(),
                     ),
 
                     SizedBox(height: MyResponsive.height(value: 24)),
 
                     /// Password
                     CustomTextFormField(
-                      controller: passwordController,
+                      controller: cubit.passwordController,
                       type: TextFieldType.password,
+                      onChanged: (_) => cubit.validateForm(),
                     ),
 
                     SizedBox(height: MyResponsive.height(value: 14)),
@@ -94,18 +91,17 @@ class LoginScreen extends StatelessWidget {
                     SizedBox(height: MyResponsive.height(value: 50)),
 
                     /// Login Button
-                     CustomButton(
-                            title: AppStrings.login,
-                            backgroundColor: AppColors.primaryColor,
-                            onPressed: () {
-                              if (formKey.currentState!.validate()) {
-                                cubit.loginWithEmailAndPassword(
-                                  email: emailController.text.trim(),
-                                  password: passwordController.text.trim(),
-                                );
-                              }
-                            },
-                          ),
+                    CustomButton(
+                      title: AppStrings.login,
+                      backgroundColor: state.isFormValid
+                          ? AppColors.primaryColor
+                          : Colors.grey,
+                      onPressed: state.isFormValid
+                          ? () {
+                        cubit.loginWithEmailAndPassword();
+                      }
+                          : null,
+                    ),
 
                     SizedBox(height: MyResponsive.height(value: 16)),
 
@@ -113,9 +109,7 @@ class LoginScreen extends StatelessWidget {
                     AuthNavigationText(
                       title: "${AppStrings.doNotHaveAnAccount}?",
                       actionText: AppStrings.signUp,
-                      onTap: () {
-                        // Navigator.pushNamed(context, Routes.register);
-                      },
+                      onTap: () {},
                     ),
                   ],
                 ),
