@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 
 import '../helpers/validator.dart';
-import '../utils/app_colors.dart';
 import '../values/app_strings.dart';
 
 class CustomTextFormField extends StatelessWidget {
@@ -13,6 +12,7 @@ class CustomTextFormField extends StatelessWidget {
     this.obsecure = true,
     this.onSuffixTapped,
     this.onChanged,
+    this.isLoading = false,
   });
 
   final TextFieldType type;
@@ -22,6 +22,7 @@ class CustomTextFormField extends StatelessWidget {
   final bool obsecure;
   final void Function()? onSuffixTapped;
   final void Function(String)? onChanged;
+  final bool isLoading;
 
   // final void Function(String)? searchOnChange;
 
@@ -89,6 +90,7 @@ class CustomTextFormField extends StatelessWidget {
       validator: validator,
       autovalidateMode: AutovalidateMode.onUserInteraction,
       keyboardType: TextInputType.name,
+      enabled: isLoading ? false : true,
       decoration: _inputDecoration(
         context,
         label: isFirstName ? AppStrings.firstName : AppStrings.lastName,
@@ -110,6 +112,7 @@ class CustomTextFormField extends StatelessWidget {
       validator: validator,
       autovalidateMode: AutovalidateMode.onUserInteraction,
       keyboardType: TextInputType.name,
+      enabled: isLoading ? false : true,
       decoration: _inputDecoration(
         context,
         label: AppStrings.userName,
@@ -129,6 +132,7 @@ class CustomTextFormField extends StatelessWidget {
       // style: _textStyle(context),
       autovalidateMode: AutovalidateMode.onUserInteraction,
       keyboardType: TextInputType.emailAddress,
+      enabled: isLoading ? false : true,
       decoration: _inputDecoration(
         context,
         label: AppStrings.email,
@@ -149,6 +153,7 @@ class CustomTextFormField extends StatelessWidget {
       obscureText: obsecure,
       autovalidateMode: AutovalidateMode.onUserInteraction,
       keyboardType: TextInputType.visiblePassword,
+      enabled: isLoading ? false : true,
       decoration: _inputDecoration(
         context,
         label: passController == null
@@ -179,6 +184,7 @@ class CustomTextFormField extends StatelessWidget {
       onChanged: onChanged,
       autovalidateMode: AutovalidateMode.onUserInteraction,
       keyboardType: TextInputType.phone,
+      enabled: isLoading ? false : true,
       decoration: _inputDecoration(
         context,
         label: AppStrings.phoneNumber,

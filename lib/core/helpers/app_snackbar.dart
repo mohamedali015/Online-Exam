@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 
-import '../utils/app_colors.dart';
-
 abstract class AppSnackbar {
   static void error(BuildContext context, String message) {
     ScaffoldMessenger.of(context).showSnackBar(

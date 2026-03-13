@@ -18,6 +18,7 @@ class AppTheme {
       hintStyle: AppTextStyles.regular14.copyWith(
         color: AppColors.hintTextGray,
       ),
+
       contentPadding: EdgeInsets.symmetric(
         horizontal: MyResponsive.width(value: 8),
         vertical: MyResponsive.height(value: 12),
@@ -37,6 +38,10 @@ class AppTheme {
       focusedErrorBorder: OutlineInputBorder(
         borderRadius: BorderRadius.circular(MyResponsive.radius(value: 4)),
         borderSide: BorderSide(color: AppColors.error),
+      ),
+      disabledBorder: OutlineInputBorder(
+        borderRadius: BorderRadius.circular(MyResponsive.radius(value: 4)),
+        borderSide: BorderSide(color: AppColors.baseGray),
       ),
     ),
 

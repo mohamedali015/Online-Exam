@@ -10,7 +10,7 @@ class RouteGenerator {
       case Routes.loginRoute:
         return CupertinoPageRoute(builder: (_) => Container());
 
-      case Routes.forgetPasswordFlow:
+      case Routes.forgetPasswordFlowRoute:
         return CupertinoPageRoute(
           builder: (_) => ForgetPasswordFlow(),
           settings: settings,

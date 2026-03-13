@@ -1,12 +1,13 @@
 class Routes {
   static const String loginRoute = "/login";
   static const String registerRoute = "/login";
-  static const String forgetPasswordFlow = '/forgetPasswordFlow';
+  static const String forgetPasswordFlowRoute = '/forgetPasswordFlow';
 
-  static const String forgetPasswordEnterEmailView =
+  static const String forgetPasswordEnterEmailViewRoute =
       '/forgetPasswordEnterEmailView';
 
-  static const String forgetPasswordOtpView = '/forgetPasswordOtpView';
+  static const String forgetPasswordOtpViewRoute = '/forgetPasswordOtpView';
 
-  static const String forgetPasswordNewPassView = '/forgetPasswordNewPassView';
+  static const String forgetPasswordNewPassViewRoute =
+      '/forgetPasswordNewPassView';
 }

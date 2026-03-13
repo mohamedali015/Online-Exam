@@ -1,28 +1,37 @@
 import 'package:dio/dio.dart';
 
+import '../../core/values/app_response_error_messages.dart';
+
 class NetworkException {
   static String getMessageError(Exception exception) {
     if (exception is DioException) {
       switch (exception.type) {
         case DioExceptionType.connectionTimeout:
-          return 'errors.connectionTimeout';
+          return AppResponseErrorMessages.connectionTimeoutMessage;
+
         case DioExceptionType.sendTimeout:
-          return 'errors.sendTimeout';
+          return AppResponseErrorMessages.sendTimeoutMessage;
+
         case DioExceptionType.receiveTimeout:
-          return 'errors.receiveTimeout';
+          return AppResponseErrorMessages.receiveTimeoutMessage;
+
         case DioExceptionType.badCertificate:
-          return 'errors.badCertificate';
+          return AppResponseErrorMessages.badCertificateMessage;
+
         case DioExceptionType.badResponse:
           return _handleMessageResponse(exception);
+
         case DioExceptionType.cancel:
-          return 'errors.cancel';
+          return AppResponseErrorMessages.requestCancelledMessage;
+
         case DioExceptionType.connectionError:
-          return 'errors.connectionError';
+          return AppResponseErrorMessages.connectionErrorMessage;
+
         case DioExceptionType.unknown:
-          return 'errors.unknown';
+          return AppResponseErrorMessages.unknownErrorMessage;
       }
     } else {
-      return exception.toString();
+      return AppResponseErrorMessages.unexpectedErrorMessage;
     }
   }
 
@@ -31,11 +40,20 @@ class NetworkException {
       final statusCode = e.response!.statusCode;
       final data = e.response!.data;
 
+      if (data is Map<String, dynamic>) {
+        if (data['message'] != null) {
+          return data['message'].toString();
+        }
+        if (data['error'] != null) {
+          return data['error'].toString();
+        }
+      }
+
       switch (statusCode) {
         case 400:
           return 'errors.error400';
         case 401:
-          return 'errors.error401${data['error']}';
+          return 'errors.error401';
         case 403:
           return 'errors.error403';
         case 404:
@@ -53,12 +71,10 @@ class NetworkException {
         case 504:
           return 'errors.error504';
         default:
-          if (data is Map && data['error'] != null) {
-            return data['error'].toString();
-          }
           return 'Server error (${statusCode ?? 'unknown'}). Please try again.';
       }
     }
+
     return 'errors.defaultError';
   }
 }
