@@ -1,7 +1,4 @@
 import 'package:flutter/material.dart';
-
-import '../../../../core/utils/app_colors.dart';
-import '../../../../core/utils/app_text_styles.dart';
 import '../../../../core/values/app_strings.dart';
 import '../widgets/forget_password_verify_otp_widgets/forget_password_verify_otp_view_body.dart';
 
@@ -20,10 +17,7 @@ class ForgetPasswordVerifyOtpView extends StatelessWidget {
       child: Scaffold(
         appBar: AppBar(
           automaticallyImplyLeading: false,
-          title: Text(
-            AppStrings.password,
-            style: AppTextStyles.medium20.copyWith(color: AppColors.baseBlack),
-          ),
+          title: Text(AppStrings.password),
           leading: IconButton(
             onPressed: () {
               Navigator.pop(context);

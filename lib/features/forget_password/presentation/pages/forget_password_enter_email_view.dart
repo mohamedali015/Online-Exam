@@ -1,8 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:online_exam/features/forget_password/presentation/widgets/forget_password_enter_email_widgets/forget_password_enter_email_view_body.dart';
-
-import '../../../../core/utils/app_colors.dart';
-import '../../../../core/utils/app_text_styles.dart';
 import '../../../../core/values/app_strings.dart';
 
 class ForgetPasswordEnterEmailView extends StatelessWidget {
@@ -15,7 +12,6 @@ class ForgetPasswordEnterEmailView extends StatelessWidget {
         automaticallyImplyLeading: false,
         title: Text(
           AppStrings.password,
-          style: AppTextStyles.medium20.copyWith(color: AppColors.baseBlack),
         ),
         leading: IconButton(
           onPressed: () {
