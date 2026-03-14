@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:online_exam/core/shared_widgets/svg_wrapper.dart';
 import '../../features/home/presentation/pages/home_screen.dart';
 import '../../features/profile/presentation/pages/profile_screen.dart';
 import '../../features/result/presentation/pages/result_screen.dart';
@@ -35,9 +36,7 @@ class _CustomBottomNavBarState extends State<CustomBottomNavBar> {
       body: _screens[currentIndex],
       bottomNavigationBar: BottomNavigationBar(
         currentIndex: currentIndex,
-        elevation: 10,
         onTap: _onTap,
-        showUnselectedLabels: true,
         items: [
           _buildItem(AppAssets.homePath, 'Explore', 0),
           _buildItem(AppAssets.resultPath, 'Result', 1),
@@ -50,17 +49,16 @@ class _CustomBottomNavBarState extends State<CustomBottomNavBar> {
   BottomNavigationBarItem _buildItem(String image, String label, int index) {
     return BottomNavigationBarItem(
       icon: Container(
-        padding: MyResponsive.paddingAll(value: 8),
+        padding: MyResponsive.paddingSymmetric(vertical: 8,horizontal: 20),
         decoration: BoxDecoration(
           color: currentIndex == index
               ? AppColors.selectedBlue
               : Colors.transparent,
-          borderRadius: BorderRadius.circular(12),
+          borderRadius: BorderRadius.circular(8),
         ),
-        child: SvgPicture.asset(
-          image,
-          width: 28,
-          height: 28,
+        child: SvgWrapper(
+          path: image,
+          width: 20,
           fit: BoxFit.contain,
           color: currentIndex == index
               ? AppColors.primaryColor
