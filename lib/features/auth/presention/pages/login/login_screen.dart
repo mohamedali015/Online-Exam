@@ -4,15 +4,15 @@ import 'package:online_exam/config/di/di.dart';
 import 'package:online_exam/config/route_manager/routes.dart';
 import 'package:online_exam/core/utils/app_colors.dart';
 import 'package:online_exam/core/utils/app_text_styles.dart';
-import 'package:online_exam/features/auth/presentation/manager/login/login_cubit.dart';
-import 'package:online_exam/features/auth/presentation/manager/login/login_state.dart';
 import '../../../../../core/helpers/app_snackbar.dart';
 import '../../../../../core/helpers/my_responsive.dart';
 import '../../../../../core/shared_widgets/custom_button.dart';
 import '../../../../../core/shared_widgets/custom_text_form_field.dart';
 import '../../../../../core/values/app_strings.dart';
-import '../../widgets/auth_navigation_text.dart';
-import '../../widgets/remember_me_and_forget_widget.dart';
+import '../../../presention/widgets/login/auth_navigation_text.dart';
+import '../../../presention/widgets/login/remember_me_and_forget_widget.dart';
+import '../../manager/login/login_cubit.dart';
+import '../../manager/login/login_state.dart';
 
 class LoginScreen extends StatelessWidget {
   const LoginScreen({super.key});
@@ -109,7 +109,9 @@ class LoginScreen extends StatelessWidget {
                     AuthNavigationText(
                       title: "${AppStrings.doNotHaveAnAccount}?",
                       actionText: AppStrings.signUp,
-                      onTap: () {},
+                      onTap: () {
+                        Navigator.pushNamed(context, Routes.registerRoute);
+                      },
                     ),
                   ],
                 ),

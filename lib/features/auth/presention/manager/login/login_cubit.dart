@@ -2,10 +2,10 @@ import 'package:bloc/bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:injectable/injectable.dart';
 import 'package:online_exam/config/error_handling/result.dart';
-import 'package:online_exam/features/auth/presentation/manager/login/login_state.dart';
 import '../../../../../config/cache/secure_cache/cache_keys.dart';
 import '../../../../../config/cache/secure_cache/secure_cache_helper.dart';
 import '../../../domain/use_case/login_use_case.dart';
+import 'login_state.dart';
 
 @injectable
 class LoginCubit extends Cubit<LoginState> {

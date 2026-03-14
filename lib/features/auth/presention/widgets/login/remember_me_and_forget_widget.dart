@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:online_exam/core/utils/app_colors.dart';
 import 'package:online_exam/core/values/app_strings.dart';
-import '../../../../core/utils/app_text_styles.dart';
+import '../../../../../core/utils/app_text_styles.dart';
 
 class RememberMeAndForgetWidget extends StatefulWidget {
   const RememberMeAndForgetWidget({

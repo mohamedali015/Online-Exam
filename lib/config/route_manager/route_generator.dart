@@ -3,8 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:online_exam/config/route_manager/routes.dart';
 import '../../core/shared_widgets/custom_bottom_nav.dart';
 import 'package:online_exam/features/auth/presention/pages/register/register_screen.dart';
-import '../../core/shared_widgets/custom_bottom_nav.dart';
-import '../../features/auth/presentation/pages/login/login_screen.dart';
+
+import '../../features/auth/presention/pages/login/login_screen.dart';
 
 
 class RouteGenerator {
@@ -15,10 +15,6 @@ class RouteGenerator {
         return CupertinoPageRoute(builder: (_) => LoginScreen(),);
         case Routes.homeRoute:
         return CupertinoPageRoute(builder: (_) => CustomBottomNavBar(),);
-
-      case Routes.homeRoute:
-        return CupertinoPageRoute(builder: (_) => CustomBottomNavBar(),);
-
 
       /// Register Screen
       case Routes.registerRoute:
