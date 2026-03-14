@@ -7,14 +7,13 @@ abstract class AppSnackbar {
   static void error(BuildContext context, String message) {
     ScaffoldMessenger.of(context).showSnackBar(
       SnackBar(
-          content: Text(
-            message,
-            style: AppTextStyles.medium16.copyWith(color: AppColors.baseWhite),
-          ),
-          backgroundColor: AppColors.error,
-          duration: const Duration(seconds: 5),
+        content: Text(
+          message,
+          style: AppTextStyles.regular16.copyWith(color: AppColors.baseWhite),
+        ),
+        backgroundColor: AppColors.error,
+        duration: const Duration(seconds: 5),
       ),
-
     );
   }
 
@@ -22,8 +21,8 @@ abstract class AppSnackbar {
     ScaffoldMessenger.of(context).showSnackBar(
       SnackBar(
         content: Text(
-            message,
-          style: AppTextStyles.medium20.copyWith(fontWeight: FontWeight.bold, color: AppColors.baseWhite),
+          message,
+          style: AppTextStyles.regular16.copyWith(color: AppColors.baseWhite),
         ),
         backgroundColor: AppColors.success,
         duration: const Duration(seconds: 3),

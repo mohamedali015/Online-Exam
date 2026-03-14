@@ -12,7 +12,10 @@ import '../../domain/use_cases/verify_otp_forget_password_use_case.dart';
 import '../pages/forget_password_new_password_view.dart';
 
 class ForgetPasswordFlow extends StatelessWidget {
-  const ForgetPasswordFlow({super.key});
+  ForgetPasswordFlow({super.key});
+
+  final GlobalKey<NavigatorState> flowNavigatorKey =
+      GlobalKey<NavigatorState>();
 
   @override
   Widget build(BuildContext context) {
@@ -23,44 +26,26 @@ class ForgetPasswordFlow extends StatelessWidget {
         getIt<GetNewPasswordForgetPasswordUseCase>(),
       ),
       child: Navigator(
+        key: flowNavigatorKey,
         initialRoute: Routes.forgetPasswordEnterEmailViewRoute,
         onGenerateRoute: (settings) {
           switch (settings.name) {
             case Routes.forgetPasswordEnterEmailViewRoute:
               return MaterialPageRoute(
                 builder: (_) => const ForgetPasswordEnterEmailView(),
-                settings: settings,
               );
 
             case Routes.forgetPasswordOtpViewRoute:
               return MaterialPageRoute(
                 builder: (_) => const ForgetPasswordVerifyOtpView(),
-                settings: settings,
               );
 
             case Routes.forgetPasswordNewPassViewRoute:
               return MaterialPageRoute(
                 builder: (_) => const ForgetPasswordNewPasswordView(),
-                settings: settings,
               );
-
-            default:
-              return _errorRoute();
           }
         },
-      ),
-    );
-  }
-
-  static Route<dynamic> _errorRoute() {
-    return MaterialPageRoute(
-      builder: (_) => const Scaffold(
-        body: Center(
-          child: Text(
-            'Page Not Found Flow Forget Password',
-            style: TextStyle(fontSize: 18),
-          ),
-        ),
       ),
     );
   }

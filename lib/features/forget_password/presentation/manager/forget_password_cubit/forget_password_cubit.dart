@@ -132,6 +132,7 @@ class ForgetPasswordCubit extends Cubit<ForgetPasswordState> {
         verifyOtpStateParam: state.verifyOtpState.copyWith(
           isLoadingParam: true,
           errorMessageParam: null,
+          isSuccessParam: false,
         ),
       ),
     );
