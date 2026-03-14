@@ -34,29 +34,32 @@ class RegisterForm extends StatelessWidget {
       child: Column(
         children: [
           CustomTextFormField(
-            title: AppStrings.userName,
+
             controller: userNameController,
-            hintText: AppStrings.enterYouUserName,
-            myValidator: Validator.name,
+            type: TextFieldType.userName,
           ),
           SizedBox(height: MyResponsive.height(value: 28)),
           Row(
             children: [
               Expanded(
                 child: CustomTextFormField(
-                  title: AppStrings.firstName,
+
+                  type: TextFieldType.name,
+
+
                   controller: firstNameController,
-                  hintText: AppStrings.enterFirstName,
-                  myValidator: Validator.name,
+
                 ),
               ),
               SizedBox(width: MyResponsive.width(value: 17)),
               Expanded(
                 child: CustomTextFormField(
-                  title: AppStrings.lastName,
+
+                  type: TextFieldType.name,
+
+
                   controller: lastNameController,
-                  hintText: AppStrings.enterLastName,
-                  myValidator: Validator.name,
+
                 ),
               ),
             ],
@@ -64,10 +67,12 @@ class RegisterForm extends StatelessWidget {
           SizedBox(height: MyResponsive.height(value: 28)),
 
           CustomTextFormField(
-            title: AppStrings.email,
+
+
+            type: TextFieldType.email,
+
             controller: emailController,
-            hintText: AppStrings.enterYouEmail,
-            myValidator: Validator.email,
+
           ),
 
           SizedBox(height: MyResponsive.height(value: 28)),
@@ -75,22 +80,23 @@ class RegisterForm extends StatelessWidget {
             children: [
               Expanded(
                 child: CustomTextFormField(
-                  title: AppStrings.password,
-                  isPassword: true,
+                  type: TextFieldType.password,
                   controller: passwordController,
-                  hintText: AppStrings.enterYouPassword,
-                  myValidator: Validator.password,
+
                 ),
               ),
               SizedBox(width: MyResponsive.width(value: 17)),
               Expanded(
                 child: CustomTextFormField(
-                  title: AppStrings.confirmPassword,
-                  isPassword: true,
+
+                  type: TextFieldType.password,
+
+
+
+
                   controller: confirmPasswordController,
-                  hintText: AppStrings.confirmPassword,
-                  myValidator: (value) =>
-                      Validator.confirmPassword(value, passwordController.text),
+
+
                 ),
               ),
             ],
@@ -98,10 +104,8 @@ class RegisterForm extends StatelessWidget {
           SizedBox(height: MyResponsive.height(value: 28)),
 
           CustomTextFormField(
-            title: AppStrings.phoneNumber,
             controller: phoneController,
-            hintText: AppStrings.enterPhoneNumber,
-            myValidator: Validator.phone,
+            type: TextFieldType.phone,
           ),
         ],
       ),
