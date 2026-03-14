@@ -12,11 +12,9 @@ import 'forget_password_events.dart';
 import 'forget_password_state.dart';
 
 class ForgetPasswordCubit extends Cubit<ForgetPasswordState> {
-  ForgetPasswordCubit(
-    this._enterEmailUseCase,
-    this._verifyOtpUseCase,
-    this._resetPasswordUseCase,
-  ) : super(ForgetPasswordState());
+  ForgetPasswordCubit(this._enterEmailUseCase,
+      this._verifyOtpUseCase,
+      this._resetPasswordUseCase,) : super(ForgetPasswordState());
 
   static ForgetPasswordCubit get(BuildContext context) =>
       BlocProvider.of(context);
@@ -132,6 +130,7 @@ class ForgetPasswordCubit extends Cubit<ForgetPasswordState> {
         verifyOtpStateParam: state.verifyOtpState.copyWith(
           isLoadingParam: true,
           errorMessageParam: null,
+          isSuccessParam: false,
         ),
       ),
     );

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:online_exam/config/route_manager/routes.dart';
+import '../../../../config/route_manager/routes.dart';
 import '../../../../core/values/app_strings.dart';
 import '../widgets/forget_password_new_password_widgets/forget_password_new_password_view_body.dart';
 
@@ -12,25 +12,22 @@ class ForgetPasswordNewPasswordView extends StatelessWidget {
       canPop: false,
       onPopInvokedWithResult: (didPop, result) {
         if (didPop) return;
-        Navigator.pushNamedAndRemoveUntil(
+
+        Navigator.of(
           context,
-          Routes.loginRoute,
-          (route) => false,
-        );
+          rootNavigator: true,
+        ).pushNamedAndRemoveUntil(Routes.loginRoute, (route) => false);
       },
       child: Scaffold(
         appBar: AppBar(
           automaticallyImplyLeading: false,
-          title: Text(
-            AppStrings.password,
-          ),
+          title: Text(AppStrings.password),
           leading: IconButton(
             onPressed: () {
-              Navigator.pushNamedAndRemoveUntil(
+              Navigator.of(
                 context,
-                Routes.loginRoute,
-                (route) => false,
-              );
+                rootNavigator: true,
+              ).pushNamedAndRemoveUntil(Routes.loginRoute, (route) => false);
             },
             icon: Icon(Icons.arrow_back_ios_new),
           ),

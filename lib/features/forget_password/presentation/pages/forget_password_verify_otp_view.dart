@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../../../../config/route_manager/routes.dart';
 import '../../../../core/values/app_strings.dart';
 import '../widgets/forget_password_verify_otp_widgets/forget_password_verify_otp_view_body.dart';
 
@@ -12,7 +13,10 @@ class ForgetPasswordVerifyOtpView extends StatelessWidget {
       onPopInvokedWithResult: (didPop, result) {
         if (didPop) return;
 
-        Navigator.pop(context);
+        Navigator.of(
+          context,
+          rootNavigator: true,
+        ).pushNamedAndRemoveUntil(Routes.loginRoute, (route) => false);
       },
       child: Scaffold(
         appBar: AppBar(

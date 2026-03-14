@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:online_exam/config/route_manager/routes.dart';
-import 'package:online_exam/features/forget_password/presentation/widgets/forget_password_flow.dart';
+import 'package:online_exam/config/route_manager/forget_password_flow.dart';
 
 class RouteGenerator {
   static Route<dynamic> getRoute(RouteSettings settings) {
