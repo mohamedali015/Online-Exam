@@ -20,7 +20,6 @@ class RouteGenerator {
       /// Register Screen
       case Routes.registerRoute:
         return CupertinoPageRoute(builder: (_) => RegisterScreen());
-        return CupertinoPageRoute(builder: (_) => Container());
 
       case Routes.forgetPasswordFlowRoute:
         return CupertinoPageRoute(

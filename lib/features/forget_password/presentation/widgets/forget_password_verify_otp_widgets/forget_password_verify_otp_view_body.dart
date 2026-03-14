@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:online_exam/features/forget_password/presentation/widgets/forget_password_verify_otp_widgets/auth_navigation_text.dart';
 import 'package:online_exam/features/forget_password/presentation/widgets/forget_password_verify_otp_widgets/custom_otp_field.dart';
-
 import '../../../../../config/route_manager/routes.dart';
 import '../../../../../core/helpers/app_snackbar.dart';
 import '../../../../../core/helpers/my_responsive.dart';
@@ -10,6 +8,7 @@ import '../../../../../core/utils/app_colors.dart';
 import '../../../../../core/utils/app_constants.dart';
 import '../../../../../core/utils/app_text_styles.dart';
 import '../../../../../core/values/app_strings.dart';
+import '../../../../auth/presention/widgets/login/auth_navigation_text.dart';
 import '../../manager/forget_password_cubit/forget_password_cubit.dart';
 import '../../manager/forget_password_cubit/forget_password_events.dart';
 import '../../manager/forget_password_cubit/forget_password_state.dart';
@@ -35,7 +34,8 @@ class ForgetPasswordVerifyOtpViewBody extends StatelessWidget {
           if (state.verifyOtpState.isSuccess) {
             AppSnackbar.success(context, 'Otp Verified Successfully');
             Navigator.pushNamed(context, Routes.forgetPasswordNewPassViewRoute);
-          } else if (state.verifyOtpState.errorMessage != null) {
+          } else if (state.verifyOtpState.errorMessage != null &&
+              state.verifyOtpState.isLoading == false) {
             AppSnackbar.error(context, state.verifyOtpState.errorMessage!);
           }
         },
