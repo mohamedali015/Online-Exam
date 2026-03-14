@@ -1,13 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:online_exam/config/route_manager/routes.dart';
 import 'package:online_exam/core/utils/app_colors.dart';
 import 'package:online_exam/core/values/app_strings.dart';
 import '../../../../../core/utils/app_text_styles.dart';
 
 class RememberMeAndForgetWidget extends StatefulWidget {
-  const RememberMeAndForgetWidget({
-    super.key,
-    required this.onChanged,
-  });
+  const RememberMeAndForgetWidget({super.key, required this.onChanged});
 
   final void Function(bool?)? onChanged;
 
@@ -16,15 +14,13 @@ class RememberMeAndForgetWidget extends StatefulWidget {
       _RememberMeAndForgetWidgetState();
 }
 
-class _RememberMeAndForgetWidgetState
-    extends State<RememberMeAndForgetWidget> {
+class _RememberMeAndForgetWidgetState extends State<RememberMeAndForgetWidget> {
   bool isSelected = false;
 
   @override
   Widget build(BuildContext context) {
     return Row(
       children: [
-
         /// Checkbox
         Checkbox(
           value: isSelected,
@@ -40,15 +36,15 @@ class _RememberMeAndForgetWidgetState
 
         Text(
           AppStrings.rememberMe,
-          style: AppTextStyles.regular13.copyWith(
-            color: AppColors.baseBlack,
-          ),
+          style: AppTextStyles.regular13.copyWith(color: AppColors.baseBlack),
         ),
 
         const Spacer(),
 
         TextButton(
-          onPressed: () {},
+          onPressed: () {
+            Navigator.pushNamed(context, Routes.forgetPasswordFlowRoute);
+          },
           child: Text(
             "${AppStrings.forgetPassword}?",
             style: AppTextStyles.regular12.copyWith(
@@ -56,7 +52,7 @@ class _RememberMeAndForgetWidgetState
               color: AppColors.baseBlack,
             ),
           ),
-        )
+        ),
       ],
     );
   }

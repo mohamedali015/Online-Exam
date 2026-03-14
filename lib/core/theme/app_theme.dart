@@ -66,7 +66,6 @@ class AppTheme {
         foregroundColor: AppColors.baseWhite,
         backgroundColor: AppColors.primaryColor,
         disabledBackgroundColor: AppColors.disabledGray,
-        disabledForegroundColor: AppColors.baseWhite,
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(MyResponsive.radius(value: 100)),
         ),

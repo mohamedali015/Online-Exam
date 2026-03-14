@@ -1,8 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:online_exam/config/route_manager/routes.dart';
-
-import '../../../../core/utils/app_colors.dart';
-import '../../../../core/utils/app_text_styles.dart';
+import '../../../../config/route_manager/routes.dart';
 import '../../../../core/values/app_strings.dart';
 import '../widgets/forget_password_new_password_widgets/forget_password_new_password_view_body.dart';
 
@@ -26,7 +23,6 @@ class ForgetPasswordNewPasswordView extends StatelessWidget {
           automaticallyImplyLeading: false,
           title: Text(
             AppStrings.password,
-            style: AppTextStyles.medium20.copyWith(color: AppColors.baseBlack),
           ),
           leading: IconButton(
             onPressed: () {

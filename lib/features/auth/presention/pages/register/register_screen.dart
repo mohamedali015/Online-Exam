@@ -80,10 +80,9 @@ class _RegisterScreenState extends State<RegisterScreen> {
       child: Scaffold(
         appBar: AppBar(
           title: Text(AppStrings.signUp),
-          leadingWidth: MyResponsive.width(value: 15),
           leading: IconButton(
             onPressed: () => Navigator.pop(context),
-            icon: const Icon(Icons.arrow_back_ios),
+            icon: const Icon(Icons.arrow_back_ios_new),
           ),
         ),
         body: SafeArea(
@@ -154,7 +153,10 @@ class _RegisterScreenState extends State<RegisterScreen> {
                         ),
                         recognizer: TapGestureRecognizer()
                           ..onTap = () {
-                            Navigator.pushReplacementNamed(context, Routes.loginRoute);
+                            Navigator.pushReplacementNamed(
+                              context,
+                              Routes.loginRoute,
+                            );
                           },
                       ),
                     ],

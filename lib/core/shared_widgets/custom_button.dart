@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:online_exam/core/helpers/my_responsive.dart';
 
 import '../utils/app_colors.dart';
 import '../utils/app_text_styles.dart';
@@ -38,7 +39,14 @@ class CustomButton extends StatelessWidget {
         ),
       ),
       child: isLoadings
-          ? CircularProgressIndicator(color: AppColors.baseWhite)
+          ? SizedBox(
+              height: MyResponsive.height(value: 22),
+              width: MyResponsive.width(value: 22),
+              child: CircularProgressIndicator(
+                color: AppColors.baseWhite,
+                strokeWidth: 2,
+              ),
+            )
           : Text(
               title,
               style: AppTextStyles.medium16.copyWith(color: foregroundColor),

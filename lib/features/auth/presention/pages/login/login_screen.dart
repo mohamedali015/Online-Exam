@@ -2,8 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:online_exam/config/di/di.dart';
 import 'package:online_exam/config/route_manager/routes.dart';
-import 'package:online_exam/core/utils/app_colors.dart';
-import 'package:online_exam/core/utils/app_text_styles.dart';
 import '../../../../../core/helpers/app_snackbar.dart';
 import '../../../../../core/helpers/my_responsive.dart';
 import '../../../../../core/shared_widgets/custom_button.dart';
@@ -23,12 +21,12 @@ class LoginScreen extends StatelessWidget {
       create: (context) => getIt.get<LoginCubit>(),
       child: Scaffold(
         appBar: AppBar(
-          automaticallyImplyLeading: false,
-          title: Text(
-            AppStrings.login,
-            style: AppTextStyles.medium20.copyWith(
-              color: AppColors.baseBlack,
-            ),
+          title: Text(AppStrings.login),
+          leading: IconButton(
+            onPressed: () {
+              // Navigator.pop(context);
+            },
+            icon: Icon(Icons.arrow_back_ios_new),
           ),
         ),
         body: BlocConsumer<LoginCubit, LoginState>(
@@ -37,10 +35,7 @@ class LoginScreen extends StatelessWidget {
               case LoginSuccessState():
                 {
                   AppSnackbar.success(context, state.authEntity.message!);
-                  Navigator.pushReplacementNamed(
-                    context,
-                    Routes.homeRoute,
-                  );
+                  Navigator.pushReplacementNamed(context, Routes.homeRoute);
                 }
 
               case LoginFailureState():
@@ -68,6 +63,7 @@ class LoginScreen extends StatelessWidget {
                       controller: cubit.emailController,
                       type: TextFieldType.email,
                       onChanged: (_) => cubit.validateForm(),
+                      isLoading: state is LoginLoadingState,
                     ),
 
                     SizedBox(height: MyResponsive.height(value: 24)),
@@ -77,6 +73,7 @@ class LoginScreen extends StatelessWidget {
                       controller: cubit.passwordController,
                       type: TextFieldType.password,
                       onChanged: (_) => cubit.validateForm(),
+                      isLoading: state is LoginLoadingState,
                     ),
 
                     SizedBox(height: MyResponsive.height(value: 14)),
@@ -93,14 +90,15 @@ class LoginScreen extends StatelessWidget {
                     /// Login Button
                     CustomButton(
                       title: AppStrings.login,
-                      backgroundColor: state.isFormValid
-                          ? AppColors.primaryColor
-                          : Colors.grey,
+                      // backgroundColor: state.isFormValid
+                      //     ? AppColors.primaryColor
+                      //     : Colors.grey,
                       onPressed: state.isFormValid
                           ? () {
-                        cubit.loginWithEmailAndPassword();
-                      }
+                              cubit.loginWithEmailAndPassword();
+                            }
                           : null,
+                      isLoadings: state is LoginLoadingState,
                     ),
 
                     SizedBox(height: MyResponsive.height(value: 16)),

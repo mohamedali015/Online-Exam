@@ -11,14 +11,12 @@ import 'config/di/di.dart';
 import 'config/route_manager/route_generator.dart';
 import 'config/route_manager/routes.dart';
 
-void main() async{
+void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   configureDependencies();
   Bloc.observer = CustomBlocObserver();
-  final String? token =
-      await SecureCacheHelper.getData(key: CacheKeys.token);
-  runApp( MyApp(token: token,));
-
+  final String? token = await SecureCacheHelper.getData(key: CacheKeys.token);
+  runApp(MyApp(token: token));
 }
 
 class MyApp extends StatelessWidget {
@@ -28,8 +26,9 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final String startRoute =
-    token == null ? Routes.loginRoute : Routes.homeRoute;
+    final String startRoute = token == null
+        ? Routes.loginRoute
+        : Routes.homeRoute;
     return ScreenUtilInit(
       designSize: const Size(375, 812),
       minTextAdapt: true,
@@ -39,7 +38,7 @@ class MyApp extends StatelessWidget {
           title: 'Online Exam',
           theme: AppTheme.appTheme,
           debugShowCheckedModeBanner: false,
-          initialRoute: Routes.loginRoute,
+          initialRoute: startRoute,
           onGenerateRoute: RouteGenerator.getRoute,
         );
       },
