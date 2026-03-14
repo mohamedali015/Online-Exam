@@ -30,6 +30,7 @@ class AppTheme {
       hintStyle: AppTextStyles.regular14.copyWith(
         color: AppColors.hintTextGray,
       ),
+
       contentPadding: EdgeInsets.symmetric(
         horizontal: MyResponsive.width(value: 8),
         vertical: MyResponsive.height(value: 12),
@@ -50,6 +51,10 @@ class AppTheme {
         borderRadius: BorderRadius.circular(MyResponsive.radius(value: 4)),
         borderSide: BorderSide(color: AppColors.error),
       ),
+      disabledBorder: OutlineInputBorder(
+        borderRadius: BorderRadius.circular(MyResponsive.radius(value: 4)),
+        borderSide: BorderSide(color: AppColors.baseGray),
+      ),
     ),
 
     elevatedButtonTheme: ElevatedButtonThemeData(
@@ -61,6 +66,7 @@ class AppTheme {
         foregroundColor: AppColors.baseWhite,
         backgroundColor: AppColors.primaryColor,
         disabledBackgroundColor: AppColors.disabledGray,
+        disabledForegroundColor: AppColors.baseWhite,
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(MyResponsive.radius(value: 100)),
         ),

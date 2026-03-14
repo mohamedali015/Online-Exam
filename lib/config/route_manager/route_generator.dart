@@ -6,6 +6,7 @@ import 'package:online_exam/features/auth/presention/pages/register/register_scr
 
 import '../../features/auth/presention/pages/login/login_screen.dart';
 
+import 'package:online_exam/features/forget_password/presentation/widgets/forget_password_flow.dart';
 
 class RouteGenerator {
   static Route<dynamic> getRoute(RouteSettings settings) {
@@ -19,6 +20,13 @@ class RouteGenerator {
       /// Register Screen
       case Routes.registerRoute:
         return CupertinoPageRoute(builder: (_) => RegisterScreen());
+        return CupertinoPageRoute(builder: (_) => Container());
+
+      case Routes.forgetPasswordFlowRoute:
+        return CupertinoPageRoute(
+          builder: (_) => ForgetPasswordFlow(),
+          settings: settings,
+        );
 
       /// Default (Unknown Route)
       default:

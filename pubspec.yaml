@@ -46,6 +46,7 @@ dependencies:
   equatable: ^2.0.8
   flutter_secure_storage:
   flutter_svg: ^2.2.4
+  pin_code_fields: ^8.0.1
 
 dev_dependencies:
   flutter_test:

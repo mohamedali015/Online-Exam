@@ -1,5 +1,6 @@
 abstract class AppResponseErrorMessages {
   AppResponseErrorMessages._();
+
   static const String connectionTimeoutMessage =
       'Connection timeout.\nPlease check your internet connection and try again.';
 

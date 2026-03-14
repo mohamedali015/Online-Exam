@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+import '../utils/app_colors.dart';
 import '../utils/app_text_styles.dart';
 
 class CustomButton extends StatelessWidget {
@@ -12,6 +13,7 @@ class CustomButton extends StatelessWidget {
     this.width,
     this.height,
     this.radiusValue = 100,
+    this.isLoadings = false,
   });
 
   final String title;
@@ -21,11 +23,12 @@ class CustomButton extends StatelessWidget {
   final double? width;
   final double? height;
   final double? radiusValue;
+  final bool isLoadings;
 
   @override
   Widget build(BuildContext context) {
     return ElevatedButton(
-      onPressed: onPressed,
+      onPressed: isLoadings ? null : onPressed,
       style: ElevatedButton.styleFrom(
         backgroundColor: backgroundColor,
         foregroundColor: foregroundColor,
@@ -34,10 +37,12 @@ class CustomButton extends StatelessWidget {
           borderRadius: BorderRadius.circular(radiusValue!),
         ),
       ),
-      child: Text(
-        title,
-        style: AppTextStyles.medium16.copyWith(color: foregroundColor),
-      ),
+      child: isLoadings
+          ? CircularProgressIndicator(color: AppColors.baseWhite)
+          : Text(
+              title,
+              style: AppTextStyles.medium16.copyWith(color: foregroundColor),
+            ),
     );
   }
 }
