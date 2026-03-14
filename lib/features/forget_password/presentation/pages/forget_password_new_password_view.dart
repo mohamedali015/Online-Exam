@@ -15,11 +15,11 @@ class ForgetPasswordNewPasswordView extends StatelessWidget {
       canPop: false,
       onPopInvokedWithResult: (didPop, result) {
         if (didPop) return;
-
-        Navigator.of(
+        Navigator.pushNamedAndRemoveUntil(
           context,
-          rootNavigator: true,
-        ).pushNamedAndRemoveUntil(Routes.loginRoute, (route) => false);
+          Routes.loginRoute,
+          (route) => false,
+        );
       },
       child: Scaffold(
         appBar: AppBar(
@@ -30,10 +30,11 @@ class ForgetPasswordNewPasswordView extends StatelessWidget {
           ),
           leading: IconButton(
             onPressed: () {
-              Navigator.of(
+              Navigator.pushNamedAndRemoveUntil(
                 context,
-                rootNavigator: true,
-              ).pushNamedAndRemoveUntil(Routes.loginRoute, (route) => false);
+                Routes.loginRoute,
+                (route) => false,
+              );
             },
             icon: Icon(Icons.arrow_back_ios_new),
           ),

@@ -23,12 +23,6 @@ class ForgetPasswordOtpCubit extends Cubit<ForgetPasswordOtpState> {
 
   VerifyOtpForgetPasswordUseCase verifyOtpUseCase;
 
-  // void onOtpChanged(String otp) {
-  //   otpCode = otp;
-  //   isOtpComplete = otp.length == 6; // Assuming OTP length is 6
-  //   emit(ForgetPasswordOtpChanged());
-  // }
-
   void verifyOtp(String otp) async {
     otpCode = otp;
 

@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:online_exam/features/forget_password/presentation/widgets/forget_password_verify_otp_widgets/auth_navigation_text.dart';
 import 'package:online_exam/features/forget_password/presentation/widgets/forget_password_verify_otp_widgets/custom_otp_field.dart';
-import 'package:pin_code_fields/pin_code_fields.dart';
 
 import '../../../../../config/route_manager/routes.dart';
 import '../../../../../core/helpers/app_snackbar.dart';
@@ -11,28 +10,33 @@ import '../../../../../core/utils/app_colors.dart';
 import '../../../../../core/utils/app_constants.dart';
 import '../../../../../core/utils/app_text_styles.dart';
 import '../../../../../core/values/app_strings.dart';
-import '../../manager/forget_password_otp_cubit/forget_password_otp_cubit.dart';
-import '../../manager/forget_password_otp_cubit/forget_password_otp_state.dart';
+import '../../manager/forget_password_cubit/forget_password_cubit.dart';
+import '../../manager/forget_password_cubit/forget_password_events.dart';
+import '../../manager/forget_password_cubit/forget_password_state.dart';
 
 class ForgetPasswordVerifyOtpViewBody extends StatelessWidget {
   const ForgetPasswordVerifyOtpViewBody({super.key});
 
   @override
   Widget build(BuildContext context) {
-    var cubit = ForgetPasswordOtpCubit.get(context);
+    var cubit = ForgetPasswordCubit.get(context);
     return Padding(
       padding: MyResponsive.paddingSymmetric(
         horizontal: AppConstants.paddingHorizontal,
       ),
-      child: BlocConsumer<ForgetPasswordOtpCubit, ForgetPasswordOtpState>(
+      child: BlocConsumer<ForgetPasswordCubit, ForgetPasswordState>(
+        listenWhen: (previous, current) {
+          return previous.verifyOtpState != current.verifyOtpState;
+        },
+        buildWhen: (previous, current) {
+          return previous.verifyOtpState != current.verifyOtpState;
+        },
         listener: (context, state) {
-          if (state is ForgetPasswordOtpVerified) {
+          if (state.verifyOtpState.isSuccess) {
             AppSnackbar.success(context, 'Otp Verified Successfully');
             Navigator.pushNamed(context, Routes.forgetPasswordNewPassViewRoute);
-          } else if (state is ForgetPasswordOtpResend) {
-            AppSnackbar.error(context, 'Otp Resend Successfully');
-          } else if (state is ForgetPasswordOtpFailure) {
-            AppSnackbar.error(context, state.errorMessage);
+          } else if (state.verifyOtpState.errorMessage != null) {
+            AppSnackbar.error(context, state.verifyOtpState.errorMessage!);
           }
         },
 
@@ -62,9 +66,9 @@ class ForgetPasswordVerifyOtpViewBody extends StatelessWidget {
 
               CustomOtpField(
                 onCompleted: (otpCode) {
-                  cubit.verifyOtp(otpCode);
+                  cubit.doEvent(VerifyOtpEvent());
                 },
-                isLoading: state is ForgetPasswordOtpLoading,
+                isLoading: state.verifyOtpState.isLoading,
                 errorController: cubit.errorController,
                 controller: cubit.otpController,
               ),
@@ -74,7 +78,7 @@ class ForgetPasswordVerifyOtpViewBody extends StatelessWidget {
               AuthNavigationText(
                 title: AppStrings.didNotReceiveCode,
                 actionText: AppStrings.resend,
-                onTap: () {},
+                onTap: () => cubit.doEvent(SendEmailEvent()),
               ),
             ],
           );
