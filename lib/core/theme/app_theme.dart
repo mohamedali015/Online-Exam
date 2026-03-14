@@ -76,5 +76,19 @@ class AppTheme {
       ),
       iconTheme: IconThemeData(color: AppColors.baseBlack),
     ),
+
+    bottomNavigationBarTheme: BottomNavigationBarThemeData(
+      backgroundColor: AppColors.quistionsLightBlue,
+      selectedItemColor: AppColors.primaryColor,
+      unselectedItemColor: AppColors.disabledGray,
+      unselectedLabelStyle: AppTextStyles.medium16.copyWith(
+        color: AppColors.disabledGray,
+      ),
+      selectedLabelStyle: AppTextStyles.medium16,
+      showSelectedLabels: true,
+      showUnselectedLabels: true,
+      elevation: 0,
+      type: BottomNavigationBarType.fixed,
+    ),
   );
 }

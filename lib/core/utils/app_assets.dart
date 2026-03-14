@@ -1,4 +1,6 @@
 abstract class AppAssets {
-  static const String baseImagesPath = "assets/images/";
-  static const String baseIconsPath = "assets/icons/";
+  static const String baseSavePath = "assets/svg";
+  static const String homePath = "$baseSavePath/home.svg";
+  static const String profilePath = "$baseSavePath/profile.svg";
+  static const String resultPath = "$baseSavePath/result.svg";
 }
