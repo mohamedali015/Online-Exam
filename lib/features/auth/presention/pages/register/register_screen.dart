@@ -14,69 +14,17 @@ import 'package:online_exam/features/auth/presention/manager/register/register_s
 import 'package:online_exam/features/auth/presention/widgets/register/sign_up_button.dart';
 import 'package:online_exam/features/auth/presention/widgets/register/register_form.dart';
 
-class RegisterScreen extends StatefulWidget {
-  const RegisterScreen({super.key});
+class RegisterScreen extends StatelessWidget {
+  RegisterScreen({super.key});
 
-  @override
-  State<RegisterScreen> createState() => _RegisterScreenState();
-}
-
-class _RegisterScreenState extends State<RegisterScreen> {
   final RegisterCubit registerCubit = getIt.get<RegisterCubit>();
 
   final _formKey = GlobalKey<FormState>();
 
-  final userNameController = TextEditingController();
-  final firstNameController = TextEditingController();
-  final lastNameController = TextEditingController();
-  final emailController = TextEditingController();
-  final passwordController = TextEditingController();
-  final confirmPasswordController = TextEditingController();
-  final phoneController = TextEditingController();
-
-  @override
-  void initState() {
-    super.initState();
-
-    userNameController.addListener(_onFormChanged);
-    firstNameController.addListener(_onFormChanged);
-    lastNameController.addListener(_onFormChanged);
-    emailController.addListener(_onFormChanged);
-    passwordController.addListener(_onFormChanged);
-    confirmPasswordController.addListener(_onFormChanged);
-    phoneController.addListener(_onFormChanged);
-  }
-
-  void _onFormChanged() {
-    registerCubit.doEvents(
-      RegisterFormChanged(
-        userName: userNameController.text,
-        firstName: firstNameController.text,
-        lastName: lastNameController.text,
-        email: emailController.text,
-        password: passwordController.text,
-        confirmPassword: confirmPasswordController.text,
-        phone: phoneController.text,
-      ),
-    );
-  }
-
-  @override
-  void dispose() {
-    userNameController.dispose();
-    firstNameController.dispose();
-    lastNameController.dispose();
-    emailController.dispose();
-    passwordController.dispose();
-    confirmPasswordController.dispose();
-    phoneController.dispose();
-    super.dispose();
-  }
-
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (_) => registerCubit,
+      create: (_) => registerCubit..doEvents(RegisterInitControllers()),
       child: Scaffold(
         appBar: AppBar(
           title: Text(AppStrings.signUp),
@@ -92,13 +40,14 @@ class _RegisterScreenState extends State<RegisterScreen> {
               children: [
                 RegisterForm(
                   formKey: _formKey,
-                  userNameController: userNameController,
-                  firstNameController: firstNameController,
-                  lastNameController: lastNameController,
-                  emailController: emailController,
-                  passwordController: passwordController,
-                  confirmPasswordController: confirmPasswordController,
-                  phoneController: phoneController,
+                  userNameController: registerCubit.userNameController,
+                  firstNameController: registerCubit.firstNameController,
+                  lastNameController: registerCubit.lastNameController,
+                  emailController: registerCubit.emailController,
+                  passwordController: registerCubit.passwordController,
+                  confirmPasswordController:
+                      registerCubit.confirmPasswordController,
+                  phoneController: registerCubit.phoneController,
                 ),
                 SizedBox(height: MyResponsive.height(value: 40)),
 
@@ -125,13 +74,14 @@ class _RegisterScreenState extends State<RegisterScreen> {
                       isLoading: state is RegisterLoading,
                       isButtonEnabled: isEnabled,
                       onInvalid: () {},
-                      userName: userNameController.text,
-                      firstName: firstNameController.text,
-                      lastName: lastNameController.text,
-                      email: emailController.text,
-                      password: passwordController.text,
-                      confirmPassword: confirmPasswordController.text,
-                      phone: phoneController.text,
+                      userName: registerCubit.userNameController.text,
+                      firstName: registerCubit.firstNameController.text,
+                      lastName: registerCubit.lastNameController.text,
+                      email: registerCubit.emailController.text,
+                      password: registerCubit.passwordController.text,
+                      confirmPassword:
+                          registerCubit.confirmPasswordController.text,
+                      phone: registerCubit.phoneController.text,
                     );
                   },
                 ),
