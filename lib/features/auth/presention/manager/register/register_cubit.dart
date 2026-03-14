@@ -1,3 +1,4 @@
+import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:injectable/injectable.dart';
 import 'package:online_exam/config/cache/secure_cache/cache_keys.dart';
@@ -13,27 +14,43 @@ class RegisterCubit extends Cubit<RegisterState> {
   RegisterCubit(this._registerUseCase) : super(RegisterInitial());
 
   final RegisterUseCase _registerUseCase;
+
+  final userNameController = TextEditingController();
+  final firstNameController = TextEditingController();
+  final lastNameController = TextEditingController();
+  final emailController = TextEditingController();
+  final passwordController = TextEditingController();
+  final confirmPasswordController = TextEditingController();
+  final phoneController = TextEditingController();
+
   void doEvents(RegisterEvents event) {
     switch (event) {
-      case RegisterFormChanged():
-        _checkForm(event);
-        break;
-
       case RegisterSubmitted():
         _register(event);
-        break;
+      case RegisterInitControllers():
+        initControllers();
     }
   }
 
-  void _checkForm(RegisterFormChanged event) {
+  void initControllers() {
+    userNameController.addListener(_onFormChanged);
+    firstNameController.addListener(_onFormChanged);
+    lastNameController.addListener(_onFormChanged);
+    emailController.addListener(_onFormChanged);
+    passwordController.addListener(_onFormChanged);
+    confirmPasswordController.addListener(_onFormChanged);
+    phoneController.addListener(_onFormChanged);
+  }
+
+  void _onFormChanged() {
     final isValid =
-        event.userName.isNotEmpty &&
-        event.firstName.isNotEmpty &&
-        event.lastName.isNotEmpty &&
-        event.email.isNotEmpty &&
-        event.password.isNotEmpty &&
-        event.confirmPassword.isNotEmpty &&
-        event.phone.isNotEmpty;
+        userNameController.text.isNotEmpty &&
+        firstNameController.text.isNotEmpty &&
+        lastNameController.text.isNotEmpty &&
+        emailController.text.isNotEmpty &&
+        passwordController.text.isNotEmpty &&
+        confirmPasswordController.text.isNotEmpty &&
+        phoneController.text.isNotEmpty;
 
     emit(RegisterFormState(isValid));
   }
@@ -42,13 +59,13 @@ class RegisterCubit extends Cubit<RegisterState> {
     emit(RegisterLoading());
 
     final result = await _registerUseCase.call(
-      userName: event.userName,
-      firstName: event.firstName,
-      lastName: event.lastName,
-      email: event.email,
-      password: event.password,
-      confirmPassword: event.confirmPassword,
-      phone: event.phone,
+      userName: userNameController.text,
+      firstName: firstNameController.text,
+      lastName: lastNameController.text,
+      email: emailController.text,
+      password: passwordController.text,
+      confirmPassword: confirmPasswordController.text,
+      phone: phoneController.text,
     );
 
     switch (result) {
