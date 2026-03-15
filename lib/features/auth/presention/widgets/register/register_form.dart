@@ -1,107 +1,87 @@
 import 'package:flutter/material.dart';
 import 'package:online_exam/core/helpers/my_responsive.dart';
-import 'package:online_exam/core/helpers/validator.dart';
 import 'package:online_exam/core/shared_widgets/custom_text_form_field.dart';
-import 'package:online_exam/core/values/app_strings.dart';
+import 'package:online_exam/features/auth/presention/manager/register/register_cubit.dart';
+import 'package:online_exam/features/auth/presention/manager/register/register_events.dart';
 
 class RegisterForm extends StatelessWidget {
   const RegisterForm({
     super.key,
-    required GlobalKey<FormState> formKey,
-    required this.userNameController,
-    required this.firstNameController,
-    required this.lastNameController,
-    required this.emailController,
-    required this.passwordController,
-    required this.confirmPasswordController,
-    required this.phoneController,
-  }) : _formKey = formKey;
+    required this.formKey,
+    required this.registerCubit,
+  });
 
-  final GlobalKey<FormState> _formKey;
-  final TextEditingController userNameController;
-  final TextEditingController firstNameController;
-  final TextEditingController lastNameController;
-  final TextEditingController emailController;
-  final TextEditingController passwordController;
-  final TextEditingController confirmPasswordController;
-  final TextEditingController phoneController;
+  final GlobalKey<FormState> formKey;
+  final RegisterCubit registerCubit;
 
   @override
   Widget build(BuildContext context) {
     return Form(
-      key: _formKey,
-
+      key: formKey,
       child: Column(
         children: [
           CustomTextFormField(
-            title: AppStrings.userName,
-            controller: userNameController,
-            hintText: AppStrings.enterYouUserName,
-            myValidator: Validator.name,
+            controller: registerCubit.userNameController,
+            type: TextFieldType.userName,
+            onChanged: (_) => registerCubit.doEvents(RegisterValidateForm()),
           ),
           SizedBox(height: MyResponsive.height(value: 28)),
           Row(
             children: [
               Expanded(
                 child: CustomTextFormField(
-                  title: AppStrings.firstName,
-                  controller: firstNameController,
-                  hintText: AppStrings.enterFirstName,
-                  myValidator: Validator.name,
+                  controller: registerCubit.firstNameController,
+                  type: TextFieldType.name,
+                  isFirstName: true,
+                  onChanged: (_) =>
+                      registerCubit.doEvents(RegisterValidateForm()),
                 ),
               ),
               SizedBox(width: MyResponsive.width(value: 17)),
               Expanded(
                 child: CustomTextFormField(
-                  title: AppStrings.lastName,
-                  controller: lastNameController,
-                  hintText: AppStrings.enterLastName,
-                  myValidator: Validator.name,
+                  controller: registerCubit.lastNameController,
+                  type: TextFieldType.name,
+                  onChanged: (_) =>
+                      registerCubit.doEvents(RegisterValidateForm()),
                 ),
               ),
             ],
           ),
           SizedBox(height: MyResponsive.height(value: 28)),
-
           CustomTextFormField(
-            title: AppStrings.email,
-            controller: emailController,
-            hintText: AppStrings.enterYouEmail,
-            myValidator: Validator.email,
+            controller: registerCubit.emailController,
+            type: TextFieldType.email,
+            onChanged: (_) => registerCubit.doEvents(RegisterValidateForm()),
           ),
-
           SizedBox(height: MyResponsive.height(value: 28)),
           Row(
             children: [
               Expanded(
                 child: CustomTextFormField(
-                  title: AppStrings.password,
-                  isPassword: true,
-                  controller: passwordController,
-                  hintText: AppStrings.enterYouPassword,
-                  myValidator: Validator.password,
+                  controller: registerCubit.passwordController,
+                  type: TextFieldType.password,
+                  onChanged: (_) =>
+                      registerCubit.doEvents(RegisterValidateForm()),
                 ),
               ),
               SizedBox(width: MyResponsive.width(value: 17)),
               Expanded(
                 child: CustomTextFormField(
-                  title: AppStrings.confirmPassword,
-                  isPassword: true,
-                  controller: confirmPasswordController,
-                  hintText: AppStrings.confirmPassword,
-                  myValidator: (value) =>
-                      Validator.confirmPassword(value, passwordController.text),
+                  controller: registerCubit.confirmPasswordController,
+                  type: TextFieldType.password,
+                  passController: registerCubit.passwordController,
+                  onChanged: (_) =>
+                      registerCubit.doEvents(RegisterValidateForm()),
                 ),
               ),
             ],
           ),
           SizedBox(height: MyResponsive.height(value: 28)),
-
           CustomTextFormField(
-            title: AppStrings.phoneNumber,
-            controller: phoneController,
-            hintText: AppStrings.enterPhoneNumber,
-            myValidator: Validator.phone,
+            controller: registerCubit.phoneController,
+            type: TextFieldType.phone,
+            onChanged: (_) => registerCubit.doEvents(RegisterValidateForm()),
           ),
         ],
       ),

@@ -1,79 +1,235 @@
 import 'package:flutter/material.dart';
-import 'package:online_exam/core/utils/app_colors.dart';
 
-class CustomTextFormField extends StatefulWidget {
-  final String title;
-  final String hintText;
-  final TextInputType keyboardType;
-  bool obscureText;
-  final bool isPassword;
-  final bool showPasswordToggle;
-  final TextEditingController controller;
-  final String? Function(String?)? myValidator;
-  final bool? enabled;
-  final bool isPhone;
-  final double horizontalPadding;
-  final double verticalPadding;
-  final TextStyle? textStyle;
-  final Widget? prefixIcon;
+import '../helpers/validator.dart';
+import '../values/app_strings.dart';
 
-  CustomTextFormField({
-    required this.title,
-    required this.controller,
-    required this.myValidator,
-    this.horizontalPadding = 10.0,
-    this.verticalPadding = 10.0,
-    this.textStyle,
-    required this.hintText,
-    this.keyboardType = TextInputType.text,
-    this.obscureText = false,
-    this.isPhone = false,
-    this.isPassword = false,
-    this.showPasswordToggle = false,
+class CustomTextFormField extends StatelessWidget {
+  const CustomTextFormField({
     super.key,
-    this.enabled,
-    this.prefixIcon,
+    required this.type,
+    this.controller,
+    this.passController,
+    this.obsecure = true,
+    this.onSuffixTapped,
+    this.onChanged,
+    this.isFirstName = false,
+    this.isLoading = false,
   });
 
-  @override
-  State<CustomTextFormField> createState() => _CustomTextFormFieldState();
-}
+  final TextFieldType type;
+  final TextEditingController? controller;
+  final TextEditingController? passController;
+  final bool isFirstName;
+  final bool obsecure;
+  final void Function()? onSuffixTapped;
+  final void Function(String)? onChanged;
+  final bool isLoading;
 
-class _CustomTextFormFieldState extends State<CustomTextFormField> {
+  // final void Function(String)? searchOnChange;
+
   @override
   Widget build(BuildContext context) {
+    switch (type) {
+      case TextFieldType.password:
+        return _passwordField(
+          context,
+          passController == null
+              ? Validator.password
+              : (value) =>
+                    Validator.confirmPassword(value, passController!.text),
+        );
+
+      case TextFieldType.email:
+        return _emailField(context, Validator.email);
+
+      case TextFieldType.name:
+        return _nameField(context, Validator.name);
+
+      case TextFieldType.phone:
+        return _phoneField(context, Validator.phone);
+
+      case TextFieldType.userName:
+        return _userNameField(context, Validator.name);
+    }
+  }
+
+  ///////////////////////--Decorations//////////////////////
+  InputDecoration _inputDecoration(
+    BuildContext context, {
+    String? label,
+    String? hint,
+    Widget? suffixIcon,
+    // Widget? prefixIcon,
+  }) {
+    return InputDecoration(
+      hintText: hint,
+      // hintStyle: AppTextStyles.regular14.copyWith(
+      //   color: AppColors.hintTextGray,
+      // ),
+      labelText: label,
+      // labelStyle: AppTextStyles.regular12.copyWith(color: AppColors.baseGray),
+      errorMaxLines: 2,
+      // contentPadding: MyResponsive.paddingSymmetric(
+      //   horizontal: 13,
+      //   vertical: 20,
+      // ),
+      // prefixIcon: prefixIcon,
+      suffixIcon: suffixIcon,
+      floatingLabelBehavior: FloatingLabelBehavior.always,
+    );
+  }
+
+  /////////////////////////--TextFields////////////////////////////////
+  Widget _nameField(
+    BuildContext context,
+    String? Function(String?)? validator,
+  ) {
     return TextFormField(
-      enabled: widget.enabled ?? true,
-      obscureText: widget.isPassword ? true : false,
-      controller: widget.controller,
+      controller: controller,
+      // style: _textStyle(context),
+      onChanged: onChanged,
+      validator: validator,
       autovalidateMode: AutovalidateMode.onUserInteraction,
-
-      keyboardType: widget.keyboardType,
-      validator: widget.myValidator,
-      decoration: InputDecoration(
-        labelText: widget.title,
-
-        contentPadding: EdgeInsets.symmetric(
-          horizontal: widget.horizontalPadding,
-          vertical: widget.verticalPadding,
-        ),
-        hintText: widget.hintText,
-        prefixIcon: widget.prefixIcon,
-        suffixIcon: (widget.isPassword && widget.showPasswordToggle)
-            ? IconButton(
-                icon: Icon(
-                  widget.obscureText ? Icons.visibility_off : Icons.visibility,
-                  color: AppColors.baseGray,
-                  size: 25,
-                ),
-                onPressed: () {
-                  setState(() {
-                    widget.obscureText = !widget.obscureText;
-                  });
-                },
-              )
-            : null,
+      keyboardType: TextInputType.name,
+      enabled: isLoading ? false : true,
+      decoration: _inputDecoration(
+        context,
+        label: isFirstName ? AppStrings.firstName : AppStrings.lastName,
+        hint: isFirstName
+            ? AppStrings.enterFirstName
+            : AppStrings.enterLastName,
       ),
     );
   }
+
+  Widget _userNameField(
+    BuildContext context,
+    String? Function(String?)? validator,
+  ) {
+    return TextFormField(
+      controller: controller,
+      // style: _textStyle(context),
+      onChanged: onChanged,
+      validator: validator,
+      autovalidateMode: AutovalidateMode.onUserInteraction,
+      keyboardType: TextInputType.name,
+      enabled: isLoading ? false : true,
+      decoration: _inputDecoration(
+        context,
+        label: AppStrings.userName,
+        hint: AppStrings.enterYouUserName,
+      ),
+    );
+  }
+
+  Widget _emailField(
+    BuildContext context,
+    String? Function(String?)? validator,
+  ) {
+    return TextFormField(
+      controller: controller,
+      validator: validator,
+      onChanged: onChanged,
+      // style: _textStyle(context),
+      autovalidateMode: AutovalidateMode.onUserInteraction,
+      keyboardType: TextInputType.emailAddress,
+      enabled: isLoading ? false : true,
+      decoration: _inputDecoration(
+        context,
+        label: AppStrings.email,
+        hint: AppStrings.enterYouEmail,
+      ),
+    );
+  }
+
+  Widget _passwordField(
+    BuildContext context,
+    String? Function(String?)? validator,
+  ) {
+    return TextFormField(
+      controller: controller,
+      validator: validator,
+      onChanged: onChanged,
+      // style: _textStyle(context),
+      obscureText: obsecure,
+      autovalidateMode: AutovalidateMode.onUserInteraction,
+      keyboardType: TextInputType.visiblePassword,
+      enabled: isLoading ? false : true,
+      decoration: _inputDecoration(
+        context,
+        label: passController == null
+            ? AppStrings.password
+            : AppStrings.confirmPassword,
+
+        hint: passController == null
+            ? AppStrings.enterYouPassword
+            : AppStrings.enterYouPassword,
+
+        // suffixIcon: IconButton(
+        //   onPressed: onSuffixTapped,
+        //   icon: obsecure
+        //       ? Icon(Icons.visibility, color: AppColors.baseGray)
+        //       : Icon(Icons.visibility_off, color: AppColors.baseGray),
+        // ),
+      ),
+    );
+  }
+
+  Widget _phoneField(
+    BuildContext context,
+    String? Function(String?)? validator,
+  ) {
+    return TextFormField(
+      controller: controller,
+      validator: validator,
+      onChanged: onChanged,
+      autovalidateMode: AutovalidateMode.onUserInteraction,
+      keyboardType: TextInputType.phone,
+      enabled: isLoading ? false : true,
+      decoration: _inputDecoration(
+        context,
+        label: AppStrings.phoneNumber,
+        hint: AppStrings.enterPhoneNumber,
+      ),
+    );
+  }
+
+  // Widget _searchField(
+  //   BuildContext context,
+  // ) {
+  //   return SearchBar(
+  //     hintText: AppStrings.search,
+  //     leading: Icon(Icons.search, color: AppColors.gray),
+  //     backgroundColor: WidgetStateProperty.all(AppColors.appFill),
+  //     shape: WidgetStateProperty.all(
+  //       RoundedRectangleBorder(
+  //         borderRadius: BorderRadius.circular(MyResponsive.radius(value: 10)),
+  //         side: BorderSide(
+  //           color: AppColors.white.withValues(alpha: .1),
+  //           width: 1.2,
+  //         ),
+  //       ),
+  //     ),
+  //     textStyle: WidgetStateProperty.all(
+  //       const TextStyle(
+  //         color: Colors.white,
+  //         fontSize: 16,
+  //       ),
+  //     ),
+  //     hintStyle: WidgetStateProperty.all(
+  //       AppTextStyles.semiBold17.copyWith(color: AppColors.gray),
+  //     ),
+  //     padding: WidgetStateProperty.all(
+  //       MyResponsive.paddingSymmetric(
+  //         horizontal: 19,
+  //         vertical: 10,
+  //       ),
+  //     ),
+  //     // elevation: WidgetStateProperty.all(0),
+  //
+  //     onChanged: searchOnChange,
+  //   );
+  // }
 }
+
+enum TextFieldType { password, email, name, phone, userName }

@@ -9,33 +9,14 @@ class SignUpButton extends StatelessWidget {
     super.key,
     required this.formKey,
     required this.registerCubit,
-    required this.userName,
-    required this.firstName,
-    required this.lastName,
-    required this.email,
-    required this.password,
-    required this.confirmPassword,
-    required this.phone,
     required this.isButtonEnabled,
     this.isLoading = false,
-    required this.onInvalid,
   });
 
   final GlobalKey<FormState> formKey;
   final RegisterCubit registerCubit;
-
-  final bool isLoading;
   final bool isButtonEnabled;
-
-  final String userName;
-  final String firstName;
-  final String lastName;
-  final String email;
-  final String password;
-  final String confirmPassword;
-  final String phone;
-
-  final VoidCallback onInvalid;
+  final bool isLoading;
 
   @override
   Widget build(BuildContext context) {
@@ -48,21 +29,24 @@ class SignUpButton extends StatelessWidget {
                 if (formKey.currentState!.validate()) {
                   registerCubit.doEvents(
                     RegisterSubmitted(
-                      userName: userName,
-                      firstName: firstName,
-                      lastName: lastName,
-                      email: email,
-                      password: password,
-                      confirmPassword: confirmPassword,
-                      phone: phone,
+                      userName: registerCubit.userNameController.text,
+                      firstName: registerCubit.firstNameController.text,
+                      lastName: registerCubit.lastNameController.text,
+                      email: registerCubit.emailController.text,
+                      password: registerCubit.passwordController.text,
+                      confirmPassword:
+                          registerCubit.confirmPasswordController.text,
+                      phone: registerCubit.phoneController.text,
                     ),
                   );
                 } else {
-                  onInvalid();
+                  registerCubit.doEvents(
+                    RegisterValidateForm(markSubmitted: true),
+                  );
                 }
               },
         child: isLoading
-            ? SizedBox(
+            ? const SizedBox(
                 height: 22,
                 width: 22,
                 child: CircularProgressIndicator(
@@ -70,7 +54,7 @@ class SignUpButton extends StatelessWidget {
                   color: AppColors.baseWhite,
                 ),
               )
-            : Text(AppStrings.signUp),
+            : const Text(AppStrings.signUp),
       ),
     );
   }

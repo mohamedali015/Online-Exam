@@ -9,22 +9,20 @@ import 'package:online_exam/core/utils/app_colors.dart';
 import 'package:online_exam/core/utils/app_text_styles.dart';
 import 'package:online_exam/core/values/app_strings.dart';
 import 'package:online_exam/features/auth/presention/manager/register/register_cubit.dart';
-import 'package:online_exam/features/auth/presention/manager/register/register_events.dart';
 import 'package:online_exam/features/auth/presention/manager/register/register_state.dart';
-import 'package:online_exam/features/auth/presention/widgets/register/sign_up_button.dart';
 import 'package:online_exam/features/auth/presention/widgets/register/register_form.dart';
+import 'package:online_exam/features/auth/presention/widgets/register/sign_up_button.dart';
 
 class RegisterScreen extends StatelessWidget {
   RegisterScreen({super.key});
 
   final RegisterCubit registerCubit = getIt.get<RegisterCubit>();
-
   final _formKey = GlobalKey<FormState>();
 
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (_) => registerCubit..doEvents(RegisterInitControllers()),
+      create: (_) => registerCubit,
       child: Scaffold(
         appBar: AppBar(
           title: Text(AppStrings.signUp),
@@ -38,56 +36,35 @@ class RegisterScreen extends StatelessWidget {
             padding: MyResponsive.paddingSymmetric(horizontal: 16, vertical: 4),
             child: Column(
               children: [
-                RegisterForm(
-                  formKey: _formKey,
-                  userNameController: registerCubit.userNameController,
-                  firstNameController: registerCubit.firstNameController,
-                  lastNameController: registerCubit.lastNameController,
-                  emailController: registerCubit.emailController,
-                  passwordController: registerCubit.passwordController,
-                  confirmPasswordController:
-                      registerCubit.confirmPasswordController,
-                  phoneController: registerCubit.phoneController,
-                ),
+                RegisterForm(formKey: _formKey, registerCubit: registerCubit),
                 SizedBox(height: MyResponsive.height(value: 40)),
-
                 BlocConsumer<RegisterCubit, RegisterState>(
                   listener: (context, state) {
                     if (state is RegisterSuccess) {
-                      Navigator.pushReplacementNamed(context, Routes.homeRoute);
+                      Navigator.pushReplacementNamed(
+                        context,
+                        Routes.loginRoute,
+                      );
                     }
-
                     if (state is RegisterFailure) {
                       AppSnackbar.error(context, state.errorMessage);
                     }
                   },
                   builder: (context, state) {
-                    bool isEnabled = false;
-
-                    if (state is RegisterFormState) {
-                      isEnabled = state.isButtonEnabled;
-                    }
+                    bool isLoading = state is RegisterLoading;
+                    bool isButtonEnabled = state is RegisterFormState
+                        ? state.isButtonEnabled
+                        : true;
 
                     return SignUpButton(
                       formKey: _formKey,
                       registerCubit: registerCubit,
-                      isLoading: state is RegisterLoading,
-                      isButtonEnabled: isEnabled,
-                      onInvalid: () {},
-                      userName: registerCubit.userNameController.text,
-                      firstName: registerCubit.firstNameController.text,
-                      lastName: registerCubit.lastNameController.text,
-                      email: registerCubit.emailController.text,
-                      password: registerCubit.passwordController.text,
-                      confirmPassword:
-                          registerCubit.confirmPasswordController.text,
-                      phone: registerCubit.phoneController.text,
+                      isButtonEnabled: isButtonEnabled,
+                      isLoading: isLoading,
                     );
                   },
                 ),
-
                 SizedBox(height: MyResponsive.height(value: 28)),
-
                 RichText(
                   text: TextSpan(
                     text: AppStrings.alreadyHaveAnAccount,

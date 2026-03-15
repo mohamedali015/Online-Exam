@@ -5,7 +5,7 @@ sealed class RegisterState extends Equatable {
   const RegisterState();
 
   @override
-  List<Object> get props => [];
+  List<Object?> get props => [];
 }
 
 final class RegisterInitial extends RegisterState {}
@@ -15,24 +15,35 @@ final class RegisterLoading extends RegisterState {}
 final class RegisterSuccess extends RegisterState {
   final AuthEntity authEntity;
   const RegisterSuccess(this.authEntity);
+
   @override
-  List<Object> get props => [authEntity];
+  List<Object?> get props => [authEntity];
 }
 
 final class RegisterFailure extends RegisterState {
   final String errorMessage;
-
   const RegisterFailure(this.errorMessage);
 
   @override
-  List<Object> get props => [errorMessage];
+  List<Object?> get props => [errorMessage];
 }
 
 class RegisterFormState extends RegisterState {
   final bool isButtonEnabled;
+  final bool hasSubmitted;
 
-  const RegisterFormState(this.isButtonEnabled);
+  const RegisterFormState({
+    this.isButtonEnabled = true,
+    this.hasSubmitted = false,
+  });
+
+  RegisterFormState copyWith({bool? isButtonEnabled, bool? hasSubmitted}) {
+    return RegisterFormState(
+      isButtonEnabled: isButtonEnabled ?? this.isButtonEnabled,
+      hasSubmitted: hasSubmitted ?? this.hasSubmitted,
+    );
+  }
 
   @override
-  List<Object> get props => [isButtonEnabled];
+  List<Object?> get props => [isButtonEnabled, hasSubmitted];
 }

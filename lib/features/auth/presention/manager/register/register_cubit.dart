@@ -1,17 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:injectable/injectable.dart';
-import 'package:online_exam/config/cache/secure_cache/cache_keys.dart';
-import 'package:online_exam/config/cache/secure_cache/secure_cache_helper.dart';
 import 'package:online_exam/config/error_handling/result.dart';
 import 'package:online_exam/features/auth/domain/entities/auth_entity.dart';
 import 'package:online_exam/features/auth/domain/use_case/register_use_case.dart';
-import 'package:online_exam/features/auth/presention/manager/register/register_events.dart';
-import 'package:online_exam/features/auth/presention/manager/register/register_state.dart';
+import 'register_events.dart';
+import 'register_state.dart';
 
 @injectable
 class RegisterCubit extends Cubit<RegisterState> {
-  RegisterCubit(this._registerUseCase) : super(RegisterInitial());
+  RegisterCubit(this._registerUseCase)
+    : super(RegisterFormState(isButtonEnabled: true, hasSubmitted: false));
 
   final RegisterUseCase _registerUseCase;
 
@@ -24,25 +23,14 @@ class RegisterCubit extends Cubit<RegisterState> {
   final phoneController = TextEditingController();
 
   void doEvents(RegisterEvents event) {
-    switch (event) {
-      case RegisterSubmitted():
-        _register(event);
-      case RegisterInitControllers():
-        initControllers();
+    if (event is RegisterSubmitted) {
+      _register(event);
+    } else if (event is RegisterValidateForm) {
+      _validateForm(markSubmitted: event.markSubmitted);
     }
   }
 
-  void initControllers() {
-    userNameController.addListener(_onFormChanged);
-    firstNameController.addListener(_onFormChanged);
-    lastNameController.addListener(_onFormChanged);
-    emailController.addListener(_onFormChanged);
-    passwordController.addListener(_onFormChanged);
-    confirmPasswordController.addListener(_onFormChanged);
-    phoneController.addListener(_onFormChanged);
-  }
-
-  void _onFormChanged() {
+  void _validateForm({bool markSubmitted = false}) {
     final isValid =
         userNameController.text.isNotEmpty &&
         firstNameController.text.isNotEmpty &&
@@ -52,36 +40,59 @@ class RegisterCubit extends Cubit<RegisterState> {
         confirmPasswordController.text.isNotEmpty &&
         phoneController.text.isNotEmpty;
 
-    emit(RegisterFormState(isValid));
+    final currentState = state;
+    bool shouldEnable;
+
+    if (markSubmitted) {
+      shouldEnable = isValid;
+    } else {
+      shouldEnable = true;
+    }
+
+    if (currentState is RegisterFormState && currentState.hasSubmitted) {
+      shouldEnable = isValid;
+    }
+
+    emit(
+      RegisterFormState(
+        isButtonEnabled: shouldEnable,
+        hasSubmitted:
+            markSubmitted ||
+            (currentState is RegisterFormState && currentState.hasSubmitted),
+      ),
+    );
   }
 
   Future<void> _register(RegisterSubmitted event) async {
     emit(RegisterLoading());
 
     final result = await _registerUseCase.call(
-      userName: userNameController.text,
-      firstName: firstNameController.text,
-      lastName: lastNameController.text,
-      email: emailController.text,
-      password: passwordController.text,
-      confirmPassword: confirmPasswordController.text,
-      phone: phoneController.text,
+      userName: event.userName,
+      firstName: event.firstName,
+      lastName: event.lastName,
+      email: event.email,
+      password: event.password,
+      confirmPassword: event.confirmPassword,
+      phone: event.phone,
     );
 
     switch (result) {
       case Success<AuthEntity>():
-        final token = result.data.token;
-
-        if (token != null) {
-          await SecureCacheHelper.saveData(key: CacheKeys.token, value: token);
-        }
-
         emit(RegisterSuccess(result.data));
-        break;
-
       case Failure<AuthEntity>():
         emit(RegisterFailure(result.errorMessage));
-        break;
     }
+  }
+
+  @override
+  Future<void> close() {
+    userNameController.dispose();
+    firstNameController.dispose();
+    lastNameController.dispose();
+    emailController.dispose();
+    passwordController.dispose();
+    confirmPasswordController.dispose();
+    phoneController.dispose();
+    return super.close();
   }
 }
