@@ -27,7 +27,6 @@ class ForgetPasswordEnterEmailViewBody extends StatelessWidget {
       child: BlocConsumer<ForgetPasswordCubit, ForgetPasswordState>(
         listener: (context, state) {
           if (state.sendEmailState.isSuccess) {
-            AppSnackbar.success(context, 'Otp Send Successfully');
             cubit.otpController = TextEditingController();
             Navigator.pushNamed(context, Routes.forgetPasswordOtpViewRoute);
             cubit.doEvent(ClearSendEmailSuccessEvent());

@@ -32,7 +32,6 @@ class ForgetPasswordVerifyOtpViewBody extends StatelessWidget {
         },
         listener: (context, state) {
           if (state.verifyOtpState.isSuccess) {
-            AppSnackbar.success(context, 'Otp Verified Successfully');
             Navigator.pushNamed(context, Routes.forgetPasswordNewPassViewRoute);
           } else if (state.verifyOtpState.errorMessage != null &&
               state.verifyOtpState.isLoading == false) {

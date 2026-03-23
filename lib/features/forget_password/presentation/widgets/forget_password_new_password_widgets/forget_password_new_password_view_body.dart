@@ -53,7 +53,6 @@ class ForgetPasswordNewPasswordViewBody extends StatelessWidget {
             },
             listener: (context, state) {
               if (state.resetPasswordState.isSuccess) {
-                AppSnackbar.success(context, 'Password Changed Successfully');
                 Navigator.of(
                   context,
                   rootNavigator: true,
