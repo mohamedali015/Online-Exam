@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/svg.dart';
-import 'package:online_exam/core/shared_widgets/svg_wrapper.dart';
+import 'package:online_exam/core/shared_widgets/wrapper_svg.dart';
 import '../../features/home/presentation/pages/home_screen.dart';
 import '../../features/profile/presentation/pages/profile_screen.dart';
 import '../../features/result/presentation/pages/result_screen.dart';
