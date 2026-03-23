@@ -25,15 +25,14 @@ class LoginCubit extends Cubit<LoginState> {
     emit(LoginInitialState(isFormValid: state.isFormValid));
   }
 
-  /// validate form and emit state
+
   void validateForm() {
     final isValid = formKey.currentState?.validate() ?? false;
     emit(LoginInitialState(isFormValid: isValid));
   }
 
-  /// login function
+
   Future<void> loginWithEmailAndPassword() async {
-    // لو الفورم غلط اضرب error
     if (!formKey.currentState!.validate()) {
       emit(LoginInitialState(isFormValid: false));
       return;
@@ -49,10 +48,16 @@ class LoginCubit extends Cubit<LoginState> {
     switch (result) {
       case Success():
         final token = result.data.token;
-        if (isRememberMe && token != null) {
+        if (token != null) {
+
           await SecureCacheHelper.saveData(
             key: CacheKeys.token,
             value: token,
+          );
+
+          await SecureCacheHelper.saveData(
+            key: CacheKeys.rememberMe,
+            value: isRememberMe.toString(),
           );
         }
         emit(LoginSuccessState(result.data));

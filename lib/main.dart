@@ -15,21 +15,18 @@ void main() async{
   WidgetsFlutterBinding.ensureInitialized();
   configureDependencies();
   Bloc.observer = CustomBlocObserver();
-  final String? token =
-      await SecureCacheHelper.getData(key: CacheKeys.token);
-  runApp( MyApp(token: token,));
+  runApp( MyApp());
 
 }
 
 class MyApp extends StatelessWidget {
-  final String? token;
 
-  const MyApp({super.key, required this.token});
+  const MyApp({super.key});
 
   @override
   Widget build(BuildContext context) {
-    final String startRoute =
-    token == null ? Routes.loginRoute : Routes.homeRoute;
+    // final String startRoute =
+    // token == null ? Routes.splashRoute : Routes.loginRoute;
     return ScreenUtilInit(
       designSize: const Size(375, 812),
       minTextAdapt: true,
@@ -39,7 +36,7 @@ class MyApp extends StatelessWidget {
           title: 'Online Exam',
           theme: AppTheme.appTheme,
           debugShowCheckedModeBanner: false,
-          initialRoute: startRoute,
+          initialRoute: Routes.splashRoute,
           onGenerateRoute: RouteGenerator.getRoute,
         );
       },
@@ -47,3 +44,5 @@ class MyApp extends StatelessWidget {
   }
 }
 
+//? mousa1152003@gmail.com
+//? Mohamed@123
