@@ -18,7 +18,7 @@ class _CustomBottomNavBarState extends State<CustomBottomNavBar> {
   int currentIndex = 0;
 
   final List<Widget> _screens = [
-    const HomeScreen(),
+     HomeScreen(),
     const ResultScreen(),
     const ProfileScreen(),
   ];
