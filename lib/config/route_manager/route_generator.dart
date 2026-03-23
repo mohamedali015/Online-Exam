@@ -1,14 +1,19 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:online_exam/config/route_manager/routes.dart';
-import '../../core/shared_widgets/custom_bottom_nav.dart';
+import '../../core/shared_widgets/custom_bottom_nav_bar.dart';
 import '../../features/auth/presentation/pages/login/login_screen.dart';
+import '../../features/splash/splash_screen.dart';
 
 
 class RouteGenerator {
 
   static Route<dynamic> getRoute(RouteSettings settings) {
     switch (settings.name) {
+
+      /// Splash Screen
+      case Routes.splashRoute:
+        return CupertinoPageRoute(builder: (_) => const SplashScreen(),);
 
      /// Login Screen
       case Routes.loginRoute:
