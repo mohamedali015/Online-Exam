@@ -3,11 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:online_exam/config/route_manager/routes.dart';
 import '../../core/shared_widgets/custom_bottom_nav_bar.dart';
 import 'package:online_exam/features/auth/presention/pages/register/register_screen.dart';
+import '../../features/exams/presentation/pages/exams_screen.dart';
 import '../../features/splash/splash_screen.dart';
-import '../../core/shared_widgets/custom_bottom_nav_bar.dart';
-import '../../features/auth/presentation/pages/login/login_screen.dart';
-import '../../features/splash/splash_screen.dart';
-
 import '../../features/auth/presention/pages/login/login_screen.dart';
 
 import 'package:online_exam/features/forget_password/presentation/widgets/forget_password_flow.dart';
@@ -35,6 +32,13 @@ class RouteGenerator {
         return CupertinoPageRoute(
           builder: (_) => ForgetPasswordFlow(),
           settings: settings,
+        );
+        case Routes.examsRoute:
+          final String subjectId = settings.arguments as String;
+        return CupertinoPageRoute(
+          builder: (_) => ExamsScreen(
+            subjectId: subjectId,
+          ),
         );
 
     /// Default (Unknown Route)
