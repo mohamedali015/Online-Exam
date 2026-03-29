@@ -1,43 +1,41 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:online_exam/config/user/manager/user_cubit.dart';
 import 'package:online_exam/core/theme/app_theme.dart';
-
-import 'config/cache/secure_cache/cache_keys.dart';
-import 'config/cache/secure_cache/secure_cache_helper.dart';
+import 'config/user/domain/use_cases/get_user_data_use_case.dart';
 import 'core/helpers/custom_bloc_observer.dart';
 
 import 'config/di/di.dart';
 import 'config/route_manager/route_generator.dart';
 import 'config/route_manager/routes.dart';
 
-void main() async{
+void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   configureDependencies();
   Bloc.observer = CustomBlocObserver();
-  runApp( MyApp());
-
+  runApp(MyApp());
 }
 
 class MyApp extends StatelessWidget {
-
   const MyApp({super.key});
 
   @override
   Widget build(BuildContext context) {
-    // final String startRoute =
-    // token == null ? Routes.splashRoute : Routes.loginRoute;
     return ScreenUtilInit(
       designSize: const Size(375, 812),
       minTextAdapt: true,
       splitScreenMode: true,
       builder: (context, child) {
-        return MaterialApp(
-          title: 'Online Exam',
-          theme: AppTheme.appTheme,
-          debugShowCheckedModeBanner: false,
-          initialRoute: Routes.splashRoute,
-          onGenerateRoute: RouteGenerator.getRoute,
+        return BlocProvider(
+          create: (context) => UserCubit(getIt<GetUserDataUseCase>()),
+          child: MaterialApp(
+            title: 'Online Exam',
+            theme: AppTheme.appTheme,
+            debugShowCheckedModeBanner: false,
+            initialRoute: Routes.splashRoute,
+            onGenerateRoute: RouteGenerator.getRoute,
+          ),
         );
       },
     );
