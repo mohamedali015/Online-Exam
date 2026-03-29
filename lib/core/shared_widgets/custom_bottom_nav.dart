@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:online_exam/core/shared_widgets/wrapper_svg.dart';
+import 'package:online_exam/core/shared_widgets/svg_wrapper.dart';
 import '../../features/home/presentation/pages/home_screen.dart';
 import '../../features/profile/presentation/pages/profile_screen.dart';
 import '../../features/result/presentation/pages/result_screen.dart';
@@ -53,11 +53,12 @@ class _CustomBottomNavBarState extends State<CustomBottomNavBar> {
           color: currentIndex == index
               ? AppColors.selectedBlue
               : Colors.transparent,
-          borderRadius: BorderRadius.circular(8),
+          borderRadius: BorderRadius.circular(MyResponsive.radius(value: 12)),
         ),
         child: SvgWrapper(
           path: image,
-          width: 20,
+          width: MyResponsive.width(value: 28),
+          height: MyResponsive.height(value: 28),
           fit: BoxFit.contain,
           color: currentIndex == index
               ? AppColors.primaryColor
@@ -66,4 +67,5 @@ class _CustomBottomNavBarState extends State<CustomBottomNavBar> {
       ),
       label: label,
     );
-  }}
+  }
+}
