@@ -1,12 +1,14 @@
-class QuestionsEntity {
-  QuestionType type;
-  String id;
-  String question;
-  List<AnswerEntity> answers;
-  String correct;
-  String? userAnswer;
+import 'package:equatable/equatable.dart';
 
-  QuestionsEntity({
+class QuestionsEntity extends Equatable {
+  final QuestionType type;
+  final String id;
+  final String question;
+  final List<AnswerEntity> answers;
+  final String correct;
+  final String? userAnswer;
+
+  const QuestionsEntity({
     required this.type,
     required this.id,
     required this.question,
@@ -14,13 +16,19 @@ class QuestionsEntity {
     required this.correct,
     this.userAnswer,
   });
+
+  @override
+  List<Object?> get props => [type, id, question, answers, correct, userAnswer];
 }
 
 enum QuestionType { singleChoice, multipleChoice }
 
-class AnswerEntity {
-  String answer;
-  String key;
+class AnswerEntity extends Equatable {
+  final String answer;
+  final String key;
 
-  AnswerEntity({required this.answer, required this.key});
+  const AnswerEntity({required this.answer, required this.key});
+
+  @override
+  List<Object?> get props => [answer, key];
 }

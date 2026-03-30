@@ -75,5 +75,19 @@ abstract class AppStrings {
   static const String home ="Explore";
   static const String result ="Result";
 
+  /// exam view
+  static const String exam = "Exam";
+  static const String question = 'Question';
 
+  static const String of = 'of';
+
+  static const String back = 'Back';
+
+  static const String next = 'Next';
+
+  static const String finish = 'Finish';
+
+  static const String timeOut = 'Time Out !!';
+
+  static const String viewScore = 'View Score';
 }

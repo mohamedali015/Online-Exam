@@ -83,7 +83,7 @@ class AppTheme {
     ),
 
     bottomNavigationBarTheme: BottomNavigationBarThemeData(
-      backgroundColor: AppColors.quistionsLightBlue,
+      backgroundColor: AppColors.questionsLightBlue,
       selectedItemColor: AppColors.primaryColor,
       unselectedItemColor: AppColors.disabledGray,
       unselectedLabelStyle: AppTextStyles.medium16.copyWith(
