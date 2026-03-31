@@ -64,16 +64,40 @@ abstract class AppStrings {
   static const String change = "Change";
   static const String currentPassword = "Current password";
 
+  static const String thisUserNameIsNotValid = "This user name is not valid";
+  static const String thisEmailIsNotValid = "This Email is not valid";
+  static const String thisPasswordIsNotValid = "This password is not valid";
+  static const String thisPhoneNumberIsNotValid =
+      "This phone number is not valid";
+  static const String invalidPassword = "Invalid password";
 
-  static const String thisUserNameIsNotValid ="This user name is not valid";
-  static const String thisEmailIsNotValid ="This Email is not valid";
-  static const String thisPasswordIsNotValid ="This password is not valid";
-  static const String thisPhoneNumberIsNotValid ="This phone number is not valid";
-  static const String invalidPassword ="Invalid password";
+  static const String home = "Explore";
+  static const String result = "Result";
 
+  /// Exams view
+  static const String exams = "Exams";
+  static const String start = "Start";
+  static const String instructions = "Instructions";
+  static const String examInstruction =
+      "Lorem ipsum dolor sit amet consectetur.";
+  static const String from = "From: ";
+  static const String startTime = "1:00";
+  static const String to = "To: ";
+  static const String endTime = "6:00";
 
-  static const String home ="Explore";
-  static const String result ="Result";
+  /// exam view
+  static const String exam = "Exam";
+  static const String question = 'Question';
 
+  static const String of = 'of';
 
+  static const String back = 'Back';
+
+  static const String next = 'Next';
+
+  static const String finish = 'Finish';
+
+  static const String timeOut = 'Time Out !!';
+
+  static const String viewScore = 'View Score';
 }
