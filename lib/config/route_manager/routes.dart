@@ -12,5 +12,8 @@ class Routes {
 
   static const String forgetPasswordNewPassViewRoute =
       '/forgetPasswordNewPassView';
+
   static const String examsRoute = "/examsRoute";
+  static const String examDetailsRoute = "/examDetailsRoute";
+  static const String examViewRoute = '/examView';
 }
