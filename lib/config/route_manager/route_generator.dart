@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:online_exam/config/route_manager/routes.dart';
+import 'package:online_exam/features/exam/presentation/pages/exam_score_view.dart';
 import '../../core/shared_widgets/custom_bottom_nav_bar.dart';
 import 'package:online_exam/features/auth/presention/pages/register/register_screen.dart';
 import '../../features/exam/presentation/pages/exam_view.dart';
@@ -35,6 +36,12 @@ class RouteGenerator {
       case Routes.examViewRoute:
         return CupertinoPageRoute(
           builder: (_) => ExamView(),
+          settings: settings,
+        );
+
+      case Routes.examScoreViewRoute:
+        return CupertinoPageRoute(
+          builder: (_) => ExamScoreView(),
           settings: settings,
         );
 

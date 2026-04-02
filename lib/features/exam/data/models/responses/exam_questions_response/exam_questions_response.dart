@@ -62,6 +62,7 @@ class Question {
       question: question ?? '',
       answers: answers?.map((e) => e.toAnswerEntity()).toList() ?? [],
       correct: correct ?? '',
+      userAnswer: '',
     );
   }
 }

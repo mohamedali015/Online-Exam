@@ -6,7 +6,7 @@ class QuestionsEntity extends Equatable {
   final String question;
   final List<AnswerEntity> answers;
   final String correct;
-  final String? userAnswer;
+  final String userAnswer;
 
   const QuestionsEntity({
     required this.type,
@@ -14,8 +14,26 @@ class QuestionsEntity extends Equatable {
     required this.question,
     required this.answers,
     required this.correct,
-    this.userAnswer,
+    required this.userAnswer,
   });
+
+  QuestionsEntity copyWith({
+    QuestionType? typeParam,
+    String? idParam,
+    String? questionParam,
+    List<AnswerEntity>? answersParam,
+    String? correctParam,
+    String? userAnswerParam
+  }) {
+    return QuestionsEntity(
+        type: typeParam ?? type,
+        id: idParam ?? id,
+        question: questionParam ?? question,
+        answers: answersParam ?? answers,
+        correct: correctParam ?? correct,
+        userAnswer: userAnswerParam ?? userAnswer
+    );
+  }
 
   @override
   List<Object?> get props => [type, id, question, answers, correct, userAnswer];

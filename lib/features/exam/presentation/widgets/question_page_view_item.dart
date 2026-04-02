@@ -19,41 +19,45 @@ class QuestionPageViewItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Text(question.question, style: AppTextStyles.medium18),
+    return SingleChildScrollView(
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text(question.question, style: AppTextStyles.medium18),
 
-        SizedBox(height: MyResponsive.height(value: 24)),
+          SizedBox(height: MyResponsive.height(value: 24)),
 
-        RadioGroup<String>(
-          groupValue: selectedAnswer,
-          onChanged: (value) {
-            onAnswerSelected(value!);
-          },
-          child: Column(
-            children: question.answers.map((answer) {
-              return Container(
-                margin: EdgeInsets.only(bottom: 16),
-                padding: MyResponsive.paddingSymmetric(
-                  horizontal: 12,
-                  vertical: 8,
-                ),
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(
-                    MyResponsive.radius(value: 10),
+          RadioGroup<String>(
+            groupValue: selectedAnswer,
+            onChanged: (value) {
+              onAnswerSelected(value!);
+            },
+            child: Column(
+              children: question.answers.map((answer) {
+                return Container(
+                  margin: EdgeInsets.only(bottom: 16),
+                  padding: MyResponsive.paddingSymmetric(
+                    horizontal: 4,
+                    vertical: 12,
                   ),
-                  color: AppColors.questionsLightBlue,
-                ),
-                child: RadioListTile<String>(
-                  value: answer.key,
-                  title: Text(answer.answer, style: AppTextStyles.regular14),
-                ),
-              );
-            }).toList(),
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(
+                      MyResponsive.radius(value: 10),
+                    ),
+                    color: answer.key == selectedAnswer
+                        ? AppColors.selectedBlue
+                        : AppColors.questionsLightBlue,
+                  ),
+                  child: RadioListTile<String>(
+                    value: answer.key,
+                    title: Text(answer.answer, style: AppTextStyles.regular14),
+                  ),
+                );
+              }).toList(),
+            ),
           ),
-        ),
-      ],
+        ],
+      ),
     );
   }
 }

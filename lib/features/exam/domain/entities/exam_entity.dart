@@ -1,30 +1,18 @@
 import 'package:equatable/equatable.dart';
-import 'package:online_exam/features/exam/domain/entities/questions_entity.dart';
 
 class ExamEntity extends Equatable {
-  String id;
-  String title;
-  int duration;
-  String subject;
-  int numberOfQuestions;
-  List<QuestionsEntity> questions;
+  final String id;
+  final String title;
+  final int duration;
+  final int numberOfQuestions;
 
-  ExamEntity({
+  const ExamEntity({
     required this.id,
     required this.title,
     required this.duration,
-    required this.subject,
     required this.numberOfQuestions,
-    required this.questions,
   });
 
   @override
-  List<Object?> get props => [
-    id,
-    title,
-    duration,
-    subject,
-    numberOfQuestions,
-    questions,
-  ];
+  List<Object?> get props => [id, title, duration, numberOfQuestions];
 }
