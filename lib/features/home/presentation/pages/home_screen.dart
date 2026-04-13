@@ -1,69 +1,102 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:online_exam/config/di/di.dart';
 import 'package:online_exam/core/utils/app_text_styles.dart';
-import '../../../../config/route_manager/routes.dart';
+import 'package:online_exam/features/home/presentation/manager/all_subjects_cubit.dart';
+import '../../../../core/helpers/my_responsive.dart';
+import '../../../../core/shared_widgets/custom_text_form_field.dart';
 import '../../../../core/utils/app_colors.dart';
+import '../../../../core/values/app_strings.dart';
+import '../manager/all_subjects_state.dart';
+import '../widgets/custom_subject_card.dart';
 
-class HomeScreen extends StatelessWidget {
+class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
 
   @override
-  Widget build(BuildContext context) {
-    String id = "67003a9a728c92b7fdf4350a";
-    String id1 = "67ca2e5d5554b32891261bf4";
-    return Scaffold(
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            SubjectCard(
-              id: id,
-              name: "Math",
-            ),
-            SubjectCard(
-              id: id1,
-              name: "Flutter",
-            ),
-          ],
-        ),
-      ),
-    );
-  }
+  State<HomeScreen> createState() => _HomeScreenState();
 }
 
-class SubjectCard extends StatelessWidget {
-  final String id;
-  final String name;
+class _HomeScreenState extends State<HomeScreen> {
+  final TextEditingController searchController = TextEditingController();
 
-  const SubjectCard({super.key, required this.id, required this.name});
+  @override
+  void dispose() {
+    searchController.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(
-      onTap: () {
-        Navigator.pushNamed(context, Routes.examsRoute, arguments: id);
-      },
-      child: Card(
-        elevation: 3,
-        color: AppColors.baseWhite,
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(16),
-        ),
-        child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 24.0, vertical: 10),
-          child: Row(
-            children: [
-              const Icon(Icons.percent),
-              const SizedBox(width: 30),
-              Text(
-                name,
-                textAlign: TextAlign.center,
+    return BlocProvider(
+      create: (context) => getIt<SubjectsCubit>()..getSubjects(),
+
+      child: Builder(
+        builder: (context) {
+          return Scaffold(
+
+            appBar: AppBar(
+              title: Text(
+                AppStrings.survey,
                 style: AppTextStyles.medium20.copyWith(
-                  color: AppColors.baseBlack,
+                  color: AppColors.primaryColor,
                 ),
               ),
-            ],
-          ),
-        ),
+              automaticallyImplyLeading: false,
+            ),
+
+            body: Padding(
+              padding: MyResponsive.paddingSymmetric(horizontal: 16),
+              child: Column(
+                children: [
+
+                  SizedBox(height: MyResponsive.height(value: 16)),
+
+                  CustomTextFormField(
+                    controller: searchController,
+                    type: TextFieldType.search,
+                    searchOnChange: (value) {
+                      context.read<SubjectsCubit>().searchSubjects(value);
+                    },
+                  ),
+
+                  SizedBox(height: MyResponsive.height(value: 20)),
+
+                  Expanded(
+                    child: BlocBuilder<SubjectsCubit, SubjectsState>(
+                      builder: (context, state) {
+                        if (state.isLoading == true) {
+                          return const Center(
+                            child: CircularProgressIndicator(),
+                          );
+                        }
+
+                        if (state.errorMessage != null) {
+                          return Center(child: Text(state.errorMessage!));
+                        }
+
+                        if (state.subjects.isEmpty) {
+                          return const Center(
+                            child: Text(AppStrings.noSubjectsFound),
+                          );
+                        }
+
+                        return ListView.builder(
+                          itemCount: state.subjects.length,
+                          itemBuilder: (context, index) {
+                            final subject = state.subjects[index];
+                            return SubjectCard(item: subject);
+                          },
+                        );
+                      },
+                    ),
+                  ),
+
+                ],
+              ),
+            ),
+          );
+        },
       ),
     );
   }

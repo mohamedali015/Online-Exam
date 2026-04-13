@@ -3,7 +3,9 @@ import 'package:online_exam/features/auth/data/model/request/register_request.da
 import 'package:online_exam/features/auth/data/model/response/auth_response.dart';
 import 'package:retrofit/error_logger.dart';
 import 'package:retrofit/http.dart';
+import '../../../config/cache/secure_cache/cache_keys.dart';
 import '../../../core/values/api_end_points.dart';
+import '../../home/data/model/response/get_all_subjects_response.dart';
 import '../data/model/request/login_request.dart';
 import '../data/model/response/auth_response.dart';
 
@@ -18,4 +20,5 @@ abstract interface class ApiClient {
   ////////////////// Login //////////////////
   @POST(ApiEndPoints.login)
   Future<AuthResponse> login(@Body() LoginRequest login);
+
 }

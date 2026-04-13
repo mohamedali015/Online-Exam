@@ -43,7 +43,13 @@ class LoginScreen extends StatelessWidget {
                   AppSnackbar.error(context, state.errorMessage);
                 }
 
-              default:
+
+              case LoginInitialState():
+                // TODO: Handle this case.
+                throw UnimplementedError();
+              case LoginLoadingState():
+                // TODO: Handle this case.
+                throw UnimplementedError();
             }
           },
           builder: (context, state) {

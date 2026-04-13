@@ -57,11 +57,11 @@ class _ForgetPasswordApiClient implements ForgetPasswordApiClient {
     final _options = _setStreamType<VerifyOtpResponse>(
       Options(method: 'POST', headers: _headers, extra: _extra)
           .compose(
-        _dio.options,
-        'https://exam.elevateegy.com/api/v1/auth/verifyResetCode',
-        queryParameters: queryParameters,
-        data: _data,
-      )
+            _dio.options,
+            'https://exam.elevateegy.com/api/v1/auth/verifyResetCode',
+            queryParameters: queryParameters,
+            data: _data,
+          )
           .copyWith(baseUrl: _combineBaseUrls(_dio.options.baseUrl, baseUrl)),
     );
     final _result = await _dio.fetch<Map<String, dynamic>>(_options);
@@ -85,11 +85,11 @@ class _ForgetPasswordApiClient implements ForgetPasswordApiClient {
     final _options = _setStreamType<NewPasswordResponse>(
       Options(method: 'PUT', headers: _headers, extra: _extra)
           .compose(
-        _dio.options,
-        'https://exam.elevateegy.com/api/v1/auth/resetPassword',
-        queryParameters: queryParameters,
-        data: _data,
-      )
+            _dio.options,
+            'https://exam.elevateegy.com/api/v1/auth/resetPassword',
+            queryParameters: queryParameters,
+            data: _data,
+          )
           .copyWith(baseUrl: _combineBaseUrls(_dio.options.baseUrl, baseUrl)),
     );
     final _result = await _dio.fetch<Map<String, dynamic>>(_options);

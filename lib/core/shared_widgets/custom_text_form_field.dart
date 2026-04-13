@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 
+import '../helpers/my_responsive.dart';
 import '../helpers/validator.dart';
+import '../utils/app_colors.dart';
 import '../values/app_strings.dart';
 
 class CustomTextFormField extends StatelessWidget {
@@ -12,7 +14,7 @@ class CustomTextFormField extends StatelessWidget {
     this.obsecure = true,
     this.onSuffixTapped,
     this.onChanged,
-    this.isLoading = false,
+    this.isLoading = false, this.searchOnChange,
   });
 
   final TextFieldType type;
@@ -24,7 +26,7 @@ class CustomTextFormField extends StatelessWidget {
   final void Function(String)? onChanged;
   final bool isLoading;
 
-  // final void Function(String)? searchOnChange;
+  final void Function(String)? searchOnChange;
 
   @override
   Widget build(BuildContext context) {
@@ -49,6 +51,8 @@ class CustomTextFormField extends StatelessWidget {
 
       case TextFieldType.userName:
         return _userNameField(context, Validator.name);
+      case TextFieldType.search:
+       return _searchField(context);
     }
   }
 
@@ -193,42 +197,41 @@ class CustomTextFormField extends StatelessWidget {
     );
   }
 
-// Widget _searchField(
-//   BuildContext context,
-// ) {
-//   return SearchBar(
-//     hintText: AppStrings.search,
-//     leading: Icon(Icons.search, color: AppColors.gray),
-//     backgroundColor: WidgetStateProperty.all(AppColors.appFill),
-//     shape: WidgetStateProperty.all(
-//       RoundedRectangleBorder(
-//         borderRadius: BorderRadius.circular(MyResponsive.radius(value: 10)),
-//         side: BorderSide(
-//           color: AppColors.white.withValues(alpha: .1),
-//           width: 1.2,
-//         ),
-//       ),
-//     ),
-//     textStyle: WidgetStateProperty.all(
-//       const TextStyle(
-//         color: Colors.white,
-//         fontSize: 16,
-//       ),
-//     ),
-//     hintStyle: WidgetStateProperty.all(
-//       AppTextStyles.semiBold17.copyWith(color: AppColors.gray),
-//     ),
-//     padding: WidgetStateProperty.all(
-//       MyResponsive.paddingSymmetric(
-//         horizontal: 19,
-//         vertical: 10,
-//       ),
-//     ),
-//     // elevation: WidgetStateProperty.all(0),
-//
-//     onChanged: searchOnChange,
-//   );
-// }
+Widget _searchField(
+  BuildContext context,
+) {
+  return SearchBar(
+    hintText: AppStrings.search,
+    leading: Icon(Icons.search, color: AppColors.baseGray),
+    backgroundColor: WidgetStateProperty.all(AppColors.baseWhite),
+    elevation: WidgetStateProperty.all(0),
+    shape: WidgetStateProperty.all(
+      RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(MyResponsive.radius(value: 20)),
+        side: BorderSide(
+          color: AppColors.baseGray,
+          width: 1.2,
+        ),
+      ),
+    ),
+    // textStyle: WidgetStateProperty.all(
+    //   const TextStyle(
+    //     color: Colors.white,
+    //     fontSize: 16,
+    //   ),
+    // ),
+    // hintStyle: WidgetStateProperty.all(
+    //   AppTextStyles.semiBold12.copyWith(color: AppColors.baseGray),
+    // ),
+
+    padding: WidgetStateProperty.all(
+      MyResponsive.paddingSymmetric(horizontal: 18, vertical: 4),
+    ),
+    // elevation: WidgetStateProperty.all(8),
+    onChanged: searchOnChange,
+
+  );
+}
 }
 
-enum TextFieldType { password, email, name, phone, userName }
+enum TextFieldType { password, email, name, phone, userName,search }
