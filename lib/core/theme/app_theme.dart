@@ -69,5 +69,9 @@ class AppTheme {
       ),
       iconTheme: IconThemeData(color: AppColors.baseBlack),
     ),
+
+    progressIndicatorTheme: ProgressIndicatorThemeData(
+      color: AppColors.baseWhite,
+    ),
   );
 }

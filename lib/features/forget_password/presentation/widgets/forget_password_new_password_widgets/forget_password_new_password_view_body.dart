@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:online_exam/core/shared_widgets/custom_button.dart';
-import 'package:online_exam/core/shared_widgets/custom_text_form_field.dart';
 import 'package:online_exam/features/forget_password/presentation/manager/forget_password_cubit/forget_password_state.dart';
 
 import '../../../../../config/route_manager/routes.dart';
 import '../../../../../core/helpers/app_snackbar.dart';
 import '../../../../../core/helpers/my_responsive.dart';
+import '../../../../../core/helpers/validator.dart';
 import '../../../../../core/utils/app_colors.dart';
 import '../../../../../core/utils/app_constants.dart';
 import '../../../../../core/utils/app_text_styles.dart';
@@ -19,7 +19,8 @@ class ForgetPasswordNewPasswordViewBody extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var cubit = ForgetPasswordCubit.get(context);
+    final cubit = context.read<ForgetPasswordCubit>();
+
     return Padding(
       padding: MyResponsive.paddingSymmetric(
         horizontal: AppConstants.paddingHorizontal,
@@ -43,20 +44,18 @@ class ForgetPasswordNewPasswordViewBody extends StatelessWidget {
           SizedBox(height: MyResponsive.height(value: 32)),
 
           BlocConsumer<ForgetPasswordCubit, ForgetPasswordState>(
-            listenWhen: (previous, current) {
-              return previous.resetPasswordState != current.resetPasswordState;
-            },
-            buildWhen: (previous, current) {
-              return previous.resetPasswordState !=
-                      current.resetPasswordState ||
-                  previous.isPasswordFormValid != current.isPasswordFormValid;
-            },
+            listenWhen: (previous, current) =>
+                previous.resetPasswordState != current.resetPasswordState,
+            buildWhen: (previous, current) =>
+                previous.resetPasswordState != current.resetPasswordState ||
+                previous.isPasswordFormValid != current.isPasswordFormValid,
             listener: (context, state) {
               if (state.resetPasswordState.isSuccess) {
-                Navigator.of(
+                Navigator.pushNamedAndRemoveUntil(
                   context,
-                  rootNavigator: true,
-                ).pushNamedAndRemoveUntil(Routes.loginRoute, (route) => false);
+                  Routes.loginRoute,
+                  (route) => false,
+                );
               } else if (state.resetPasswordState.errorMessage != null) {
                 AppSnackbar.error(
                   context,
@@ -64,28 +63,40 @@ class ForgetPasswordNewPasswordViewBody extends StatelessWidget {
                 );
               }
             },
-
             builder: (context, state) {
               return Form(
                 key: cubit.passwordFormKey,
                 child: Column(
                   children: [
-                    CustomTextFormField(
-                      type: TextFieldType.password,
+                    TextFormField(
                       controller: cubit.passwordController,
-                      obsecure: state.passwordObsecure,
+                      obscureText: state.passwordObsecure,
                       onChanged: (_) => cubit.validatePasswordForm(),
-                      isLoading: state.resetPasswordState.isLoading,
+                      enabled: !state.resetPasswordState.isLoading,
+                      validator: Validator.password,
+                      decoration: InputDecoration(
+                        labelText: AppStrings.password,
+                        hintText: AppStrings.enterYouPassword,
+                      ),
                     ),
+
                     SizedBox(height: MyResponsive.height(value: 24)),
-                    CustomTextFormField(
-                      type: TextFieldType.password,
+
+                    TextFormField(
                       controller: cubit.confirmPasswordController,
-                      passController: cubit.passwordController,
-                      obsecure: state.confirmPasswordObsecure,
+                      obscureText: state.confirmPasswordObsecure,
                       onChanged: (_) => cubit.validatePasswordForm(),
-                      isLoading: state.resetPasswordState.isLoading,
+                      enabled: !state.resetPasswordState.isLoading,
+                      validator: (value) => Validator.confirmPassword(
+                        value,
+                        cubit.passwordController.text,
+                      ),
+                      decoration: InputDecoration(
+                        labelText: AppStrings.confirmPassword,
+                        hintText: AppStrings.enterYouPassword,
+                      ),
                     ),
+
                     SizedBox(height: MyResponsive.height(value: 48)),
 
                     CustomButton(

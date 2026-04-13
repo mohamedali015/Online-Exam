@@ -8,9 +8,9 @@ import 'package:online_exam/features/forget_password/data/models/responses/verif
 
 import '../../../../../config/error_handling/execute_api.dart';
 import '../../../data/data_sources/remote/forget_password_remote_data_source.dart';
-import '../../../data/models/requests/enter_email_request/enter_email_request.dart';
-import '../../../data/models/requests/new_password_request/new_password_request.dart';
-import '../../../data/models/requests/verify_otp_request/verify_otp_request.dart';
+import '../../../data/models/requests/enter_email_request.dart';
+import '../../../data/models/requests/new_password_request.dart';
+import '../../../data/models/requests/verify_otp_request.dart';
 
 @Injectable(as: ForgetPasswordRemoteDataSource)
 class ForgetPasswordRemoteDataSourceImpl
@@ -22,7 +22,7 @@ class ForgetPasswordRemoteDataSourceImpl
   @override
   Future<Result<EnterEmailResponse>> enterEmail({required String email}) async {
     return executeApi(() async {
-      var request = EnterEmailRequest(email: email);
+      final request = EnterEmailRequest(email: email);
       return await apiClient.enterEmail(request);
     });
   }
