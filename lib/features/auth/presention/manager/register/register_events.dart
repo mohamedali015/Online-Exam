@@ -1,10 +1,5 @@
 sealed class RegisterEvents {}
 
-class RegisterValidateForm extends RegisterEvents {
-  final bool markSubmitted;
-  RegisterValidateForm({this.markSubmitted = false});
-}
-
 class RegisterSubmitted extends RegisterEvents {
   final String userName;
   final String firstName;

@@ -27,23 +27,3 @@ final class RegisterFailure extends RegisterState {
   @override
   List<Object?> get props => [errorMessage];
 }
-
-class RegisterFormState extends RegisterState {
-  final bool isButtonEnabled;
-  final bool hasSubmitted;
-
-  const RegisterFormState({
-    this.isButtonEnabled = true,
-    this.hasSubmitted = false,
-  });
-
-  RegisterFormState copyWith({bool? isButtonEnabled, bool? hasSubmitted}) {
-    return RegisterFormState(
-      isButtonEnabled: isButtonEnabled ?? this.isButtonEnabled,
-      hasSubmitted: hasSubmitted ?? this.hasSubmitted,
-    );
-  }
-
-  @override
-  List<Object?> get props => [isButtonEnabled, hasSubmitted];
-}
