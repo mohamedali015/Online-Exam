@@ -30,7 +30,7 @@ class ForgetPasswordRemoteDataSourceImpl
   @override
   Future<Result<VerifyOtpResponse>> verifyOtp({required String otp}) {
     return executeApi(() async {
-      var request = VerifyOtpRequest(resetCode: otp);
+      final request = VerifyOtpRequest(resetCode: otp);
       return await apiClient.verifyOtp(request);
     });
   }
@@ -41,7 +41,8 @@ class ForgetPasswordRemoteDataSourceImpl
     required String newPassword,
   }) {
     return executeApi(() async {
-      var request = NewPasswordRequest(email: email, newPassword: newPassword);
+      final request = NewPasswordRequest(
+          email: email, newPassword: newPassword);
       return await apiClient.getNewPassword(request);
     });
   }

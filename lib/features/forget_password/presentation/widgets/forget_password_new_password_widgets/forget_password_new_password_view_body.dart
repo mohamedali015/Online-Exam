@@ -104,7 +104,7 @@ class ForgetPasswordNewPasswordViewBody extends StatelessWidget {
                       onPressed: state.isPasswordFormValid
                           ? () => cubit.doEvent(ResetPasswordEvent())
                           : null,
-                      isLoadings: state.resetPasswordState.isLoading,
+                      isLoading: state.resetPasswordState.isLoading,
                     ),
                   ],
                 ),

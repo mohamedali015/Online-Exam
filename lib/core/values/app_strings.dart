@@ -57,8 +57,7 @@ abstract class AppStrings {
   static const String resetPassword = "Reset password";
   static const String newPassword = "New password";
   static const String passwordMustNotBeEmpty =
-      "Password must not be empty and must contain 6\ncharacters with upper case letter and one\nnumber at least ";
-
+      "Password must not be empty and must be at least 6\ncharacters long, containing uppercase, lowercase,\nnumber, and special character";
   static const String editProfile = "Edit profile";
   static const String profile = "profile";
   static const String update = "Update";

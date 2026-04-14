@@ -12,7 +12,7 @@ class CustomButton extends StatelessWidget {
     this.width,
     this.height,
     this.radiusValue = 100,
-    this.isLoadings = false,
+    this.isLoading = false,
   });
 
   final String title;
@@ -22,12 +22,12 @@ class CustomButton extends StatelessWidget {
   final double? width;
   final double? height;
   final double? radiusValue;
-  final bool isLoadings;
+  final bool isLoading;
 
   @override
   Widget build(BuildContext context) {
     return ElevatedButton(
-      onPressed: isLoadings ? null : onPressed,
+      onPressed: isLoading ? null : onPressed,
       style: ElevatedButton.styleFrom(
         backgroundColor: backgroundColor,
         foregroundColor: foregroundColor,
@@ -36,7 +36,7 @@ class CustomButton extends StatelessWidget {
           borderRadius: BorderRadius.circular(radiusValue!),
         ),
       ),
-      child: isLoadings
+      child: isLoading
           ? SizedBox(
               width: MyResponsive.width(value: 22),
               height: MyResponsive.height(value: 22),

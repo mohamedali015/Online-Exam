@@ -89,7 +89,7 @@ class ForgetPasswordEnterEmailViewBody extends StatelessWidget {
                     onPressed: state.isEmailValid
                         ? () => cubit.doEvent(SendEmailEvent())
                         : null,
-                    isLoadings: state.sendEmailState.isLoading,
+                    isLoading: state.sendEmailState.isLoading,
                   ),
                 ],
               );
