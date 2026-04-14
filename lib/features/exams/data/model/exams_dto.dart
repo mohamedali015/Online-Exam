@@ -5,7 +5,7 @@ part 'exams_dto.g.dart';
 @JsonSerializable()
 class Exams {
   @JsonKey(name: "_id")
-  final String? Id;
+  final String? id;
   @JsonKey(name: "title")
   final String? title;
   @JsonKey(name: "duration")
@@ -20,7 +20,7 @@ class Exams {
   final String? createdAt;
 
   Exams({
-    this.Id,
+    this.id,
     this.title,
     this.duration,
     this.subject,
@@ -31,6 +31,7 @@ class Exams {
 
   ExamsModel toEntity() {
     return ExamsModel(
+      id: id ?? '',
       title: title ?? '',
       duration: duration ?? 0,
       numberOfQuestions: numberOfQuestions ?? 0,

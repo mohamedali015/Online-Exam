@@ -23,8 +23,7 @@ class ExamsScreen extends StatelessWidget {
         ),
       ),
       body: BlocProvider<ExamsCubit>(
-        create: (context) =>
-            examsCubit..doEvent(GetSubjectExams('67003aad728c92b7fdf4350e')),
+        create: (context) => examsCubit..doEvent(GetSubjectExams(subjectId)),
         child: SingleChildScrollView(
           scrollDirection: Axis.vertical,
           child: Column(
