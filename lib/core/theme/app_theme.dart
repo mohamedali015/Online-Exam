@@ -71,7 +71,7 @@ class AppTheme {
     ),
 
     progressIndicatorTheme: ProgressIndicatorThemeData(
-      color: AppColors.baseWhite,
+      color: AppColors.primaryColor,
     ),
   );
 }
