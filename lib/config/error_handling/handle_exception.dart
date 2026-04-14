@@ -50,31 +50,32 @@ class NetworkException {
       }
 
       switch (statusCode) {
+
         case 400:
-          return 'errors.error400';
+          return AppResponseErrorMessages.error400;
         case 401:
-          return 'errors.error401';
+          return AppResponseErrorMessages.error401;
         case 403:
-          return 'errors.error403';
+          return AppResponseErrorMessages.error403;
         case 404:
-          return 'errors.error404';
+          return AppResponseErrorMessages.error404;
         case 408:
-          return 'errors.error408';
+          return AppResponseErrorMessages.error408;
         case 429:
-          return 'errors.error429';
+          return AppResponseErrorMessages.error429;
         case 500:
-          return 'errors.error500';
+          return AppResponseErrorMessages.error500;
         case 502:
-          return 'errors.error502';
+          return AppResponseErrorMessages.error502;
         case 503:
-          return 'errors.error503';
+          return AppResponseErrorMessages.error503;
         case 504:
-          return 'errors.error504';
+          return AppResponseErrorMessages.error504;
         default:
           return 'Server error (${statusCode ?? 'unknown'}). Please try again.';
       }
     }
 
-    return 'errors.defaultError';
+    return AppResponseErrorMessages.defaultError;
   }
 }
