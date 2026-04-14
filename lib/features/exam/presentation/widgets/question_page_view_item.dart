@@ -38,7 +38,7 @@ class QuestionPageViewItem extends StatelessWidget {
                   margin: EdgeInsets.only(bottom: 16),
                   padding: MyResponsive.paddingSymmetric(
                     horizontal: 4,
-                    vertical: 12,
+                    vertical: 10,
                   ),
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(

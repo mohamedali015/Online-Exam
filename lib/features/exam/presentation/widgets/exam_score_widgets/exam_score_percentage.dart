@@ -17,7 +17,7 @@ class ExamScorePercentage extends StatelessWidget {
           width: MyResponsive.width(value: 120),
           height: MyResponsive.width(value: 120),
           child: CircularProgressIndicator(
-            value: percentage,
+            value: percentage / 100,
             strokeWidth: MyResponsive.width(value: 6),
             valueColor: AlwaysStoppedAnimation(AppColors.primaryColor),
             backgroundColor: AppColors.error,
@@ -25,7 +25,7 @@ class ExamScorePercentage extends StatelessWidget {
           ),
         ),
         Text(
-          "80%",
+          "${percentage.toInt()} %",
           style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
         ),
       ],

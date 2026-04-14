@@ -9,7 +9,7 @@ import 'package:online_exam/features/exam/presentation/manager/exam_cubit.dart';
 import 'package:online_exam/features/exam/presentation/manager/exam_state.dart';
 
 import '../../../../core/values/app_strings.dart';
-import '../../domain/entities/exam_entity.dart';
+import '../../../exams/domain/entities/exam_model.dart';
 import '../../domain/use_cases/get_exam_questions_use_case.dart';
 import '../manager/exam_events.dart';
 import '../widgets/exam_view_body.dart';
@@ -22,12 +22,7 @@ class ExamView extends StatelessWidget {
     return BlocProvider(
       create: (context) => ExamCubit(
         getExamQuestionsUseCase: getIt<GetExamQuestionsUseCase>(),
-        exam: ExamEntity(
-          id: "670070a830a3c3c1944a9c63",
-          title: "Flutter Exam",
-          duration: 1,
-          numberOfQuestions: 10,
-        ),
+        exam: ModalRoute.of(context)!.settings.arguments as ExamsModel,
       )..doEvent(GetExamQuestions()),
       child: Scaffold(
         appBar: AppBar(

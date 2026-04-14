@@ -30,7 +30,8 @@ class ExamViewBody extends StatelessWidget {
       child: BlocConsumer<ExamCubit, ExamState>(
         listener: (context, state) {
           if (cubit.remainingSeconds == 0 &&
-              state.examState.errorMessage == null) {
+              state.examState.data != null &&
+              state.examState.data!.isNotEmpty) {
             showDialog(
               context: context,
               barrierDismissible: false,
@@ -98,7 +99,7 @@ class ExamViewBody extends StatelessWidget {
                   ),
                 ),
 
-                SizedBox(height: MyResponsive.height(value: 24)),
+                SizedBox(height: MyResponsive.height(value: 20)),
 
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -165,7 +166,7 @@ class ExamViewBody extends StatelessWidget {
                     ),
                   ],
                 ),
-                SizedBox(height: MyResponsive.height(value: 190)),
+                SizedBox(height: MyResponsive.height(value: 180)),
               ],
             );
           } else if (state.examState.data != null &&

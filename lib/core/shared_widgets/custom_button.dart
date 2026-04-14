@@ -32,6 +32,12 @@ class CustomButton extends StatelessWidget {
 
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(radiusValue!),
+          side: BorderSide(
+            color: onPressed == null || isLoading
+                ? AppColors.disabledGray
+                : AppColors.primaryColor,
+            width: MyResponsive.width(value: 1),
+          ),
         ),
       ),
       child: isLoading

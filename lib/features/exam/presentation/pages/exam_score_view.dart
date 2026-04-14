@@ -42,7 +42,7 @@ class ExamScoreView extends StatelessWidget {
             SizedBox(height: MyResponsive.height(value: 24)),
             Row(
               children: [
-                ExamScorePercentage(percentage: examResult.percentage / 100),
+                ExamScorePercentage(percentage: examResult.percentage),
                 SizedBox(width: MyResponsive.width(value: 22)),
                 Expanded(
                   child: Column(

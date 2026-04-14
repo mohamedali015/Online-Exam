@@ -33,7 +33,7 @@ class ExamScoreRowCount extends StatelessWidget {
           decoration: BoxDecoration(
             border: Border.all(
               color: isCorrect ? AppColors.primaryColor : AppColors.error,
-              width: MyResponsive.width(value: 1),
+              width: MyResponsive.width(value: 2),
             ),
             shape: BoxShape.circle,
           ),

@@ -1,12 +1,12 @@
 import 'package:equatable/equatable.dart';
 
-class ExamEntity extends Equatable {
+class ExamsModel extends Equatable {
   final String id;
   final String title;
   final int duration;
   final int numberOfQuestions;
 
-  const ExamEntity({
+  const ExamsModel({
     required this.id,
     required this.title,
     required this.duration,
@@ -14,5 +14,5 @@ class ExamEntity extends Equatable {
   });
 
   @override
-  List<Object?> get props => [id, title, duration, numberOfQuestions];
+  List<Object?> get props => [title, duration, numberOfQuestions];
 }
