@@ -1,14 +1,14 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:online_exam/config/route_manager/routes.dart';
+import 'package:online_exam/core/values/app_strings.dart';
 import 'package:online_exam/features/exam/presentation/pages/exam_score_view.dart';
-import '../../core/shared_widgets/custom_bottom_nav_bar.dart';
 import 'package:online_exam/features/auth/presention/pages/register/register_screen.dart';
+import '../../core/shared_widgets/custom_bottom_nav.dart';
 import '../../features/exam/presentation/pages/exam_view.dart';
 import '../../features/splash/splash_screen.dart';
 import '../../features/auth/presention/pages/login/login_screen.dart';
-
-import 'package:online_exam/features/forget_password/presentation/widgets/forget_password_flow.dart';
+import 'forget_password_flow.dart';
 
 class RouteGenerator {
   static Route<dynamic> getRoute(RouteSettings settings) {
@@ -53,9 +53,9 @@ class RouteGenerator {
 
   static Route<dynamic> _errorRoute() {
     return CupertinoPageRoute(
-      builder: (_) => const Scaffold(
+      builder: (_) => Scaffold(
         body: Center(
-          child: Text('Page Not Found', style: TextStyle(fontSize: 18)),
+          child: Text(AppStrings.pageNotFound, style: TextStyle(fontSize: 18)),
         ),
       ),
     );

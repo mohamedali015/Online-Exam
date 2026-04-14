@@ -22,6 +22,8 @@ abstract class AppStrings {
   static const String phoneRequired = "Phone number is required";
   static const String phoneInvalid = "Please enter a valid phone number";
 
+  static const String pageNotFound = "Page not found";
+
   static const String login = "Login";
   static const String email = "Email";
   static const String enterYouEmail = "Enter you email";

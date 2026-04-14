@@ -25,6 +25,8 @@ abstract class ApiModule {
   @lazySingleton
   BaseOptions providerOption() {
     return BaseOptions(
+      baseUrl: ApiEndPoints.baseUrl,
+      connectTimeout: Duration(seconds: 10),
       sendTimeout: Duration(seconds: 10),
       receiveTimeout: Duration(seconds: 10),
     );

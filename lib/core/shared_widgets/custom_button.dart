@@ -11,44 +11,36 @@ class CustomButton extends StatelessWidget {
     this.onPressed,
     this.backgroundColor,
     this.foregroundColor,
-    this.width,
-    this.height,
     this.radiusValue = 100,
-    this.isLoadings = false,
+    this.isLoading = false,
   });
 
   final String title;
   final VoidCallback? onPressed;
   final Color? backgroundColor;
   final Color? foregroundColor;
-  final double? width;
-  final double? height;
   final double? radiusValue;
-  final bool isLoadings;
+  final bool isLoading;
 
   @override
   Widget build(BuildContext context) {
     return ElevatedButton(
-      onPressed: isLoadings ? null : onPressed,
+      onPressed: isLoading ? null : onPressed,
       style: ElevatedButton.styleFrom(
         backgroundColor: backgroundColor,
         foregroundColor: foregroundColor,
 
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(radiusValue!),
-          side: BorderSide(
-            color: AppColors.primaryColor,
-            width: MyResponsive.width(value: 1),
-          ),
         ),
       ),
-      child: isLoadings
+      child: isLoading
           ? SizedBox(
               height: MyResponsive.height(value: 22),
               width: MyResponsive.width(value: 22),
               child: CircularProgressIndicator(
                 color: AppColors.baseWhite,
-                strokeWidth: 2,
+                strokeWidth: MyResponsive.width(value: 2),
               ),
             )
           : Text(

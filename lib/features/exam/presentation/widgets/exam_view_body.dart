@@ -171,7 +171,13 @@ class ExamViewBody extends StatelessWidget {
           } else if (state.examState.data != null &&
               state.examState.data!.isEmpty &&
               state.examState.isLoading == false) {
-            return CustomErrorWidget(errorMessage: AppStrings.noQuestions);
+            return CustomErrorWidget(
+              errorMessage: AppStrings.noQuestions,
+              haveTryAgain: true,
+              onPressed: () {
+                cubit.doEvent(GetExamQuestions());
+              },
+            );
           } else {
             return SizedBox();
           }

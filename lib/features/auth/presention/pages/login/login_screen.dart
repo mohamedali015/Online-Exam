@@ -98,7 +98,7 @@ class LoginScreen extends StatelessWidget {
                               cubit.loginWithEmailAndPassword();
                             }
                           : null,
-                      isLoadings: state is LoginLoadingState,
+                      isLoading: state is LoginLoadingState,
                     ),
 
                     SizedBox(height: MyResponsive.height(value: 16)),

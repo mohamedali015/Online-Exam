@@ -84,8 +84,10 @@ class ExamCubit extends Cubit<ExamState> {
               ),
             ),
           );
-          _startTimer();
-          break;
+          if (state.examState.data != null &&
+              state.examState.data!.isNotEmpty) {
+            _startTimer();
+          }
         }
 
       case Failure():
@@ -98,7 +100,6 @@ class ExamCubit extends Cubit<ExamState> {
               ),
             ),
           );
-          break;
         }
     }
   }

@@ -48,17 +48,17 @@ class _CustomBottomNavBarState extends State<CustomBottomNavBar> {
   BottomNavigationBarItem _buildItem(String image, String label, int index) {
     return BottomNavigationBarItem(
       icon: Container(
-        padding: MyResponsive.paddingSymmetric(vertical: 8,horizontal: 20),
+        padding: MyResponsive.paddingSymmetric(vertical: 8, horizontal: 20),
         decoration: BoxDecoration(
           color: currentIndex == index
               ? AppColors.selectedBlue
               : Colors.transparent,
-          borderRadius: BorderRadius.circular(MyResponsive.radius(value: 12)),
+          borderRadius: BorderRadius.circular(MyResponsive.radius(value: 16)),
         ),
         child: SvgWrapper(
           path: image,
-          width: MyResponsive.width(value: 28),
-          height: MyResponsive.height(value: 28),
+          width: MyResponsive.width(value: 16),
+          height: MyResponsive.height(value: 16),
           fit: BoxFit.contain,
           color: currentIndex == index
               ? AppColors.primaryColor
