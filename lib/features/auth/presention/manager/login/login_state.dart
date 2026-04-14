@@ -3,17 +3,36 @@ import '../../../domain/entities/auth_entity.dart';
 
 sealed class LoginState extends Equatable {
   final bool isFormValid;
-  const LoginState({this.isFormValid = false});
+  final bool rememberMe;
+
+  const LoginState({
+    this.isFormValid = false,
+    this.rememberMe = false,
+  });
+
   @override
-  List<Object?> get props => [isFormValid];
+  List<Object?> get props => [isFormValid, rememberMe];
 }
 
 class LoginInitialState extends LoginState {
-  const LoginInitialState({super.isFormValid});
+  const LoginInitialState({
+    super.isFormValid,
+    super.rememberMe,
+  });
+
+  LoginInitialState copyWith({
+    bool? isFormValid,
+    bool? rememberMe,
+  }) {
+    return LoginInitialState(
+      isFormValid: isFormValid ?? this.isFormValid,
+      rememberMe: rememberMe ?? this.rememberMe,
+    );
+  }
 }
 
 class LoginLoadingState extends LoginState {
-  const LoginLoadingState({super.isFormValid});
+  const LoginLoadingState();
 }
 
 class LoginSuccessState extends LoginState {

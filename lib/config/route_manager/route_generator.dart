@@ -12,6 +12,10 @@ import '../../features/forget_password/presentation/pages/forget_password_enter_
 import '../../features/forget_password/presentation/pages/forget_password_new_password_view.dart';
 import '../../features/forget_password/presentation/pages/forget_password_verify_otp_view.dart';
 import '../di/di.dart';
+import '../../features/auth/presentation/manager/login/login_cubit.dart';
+import '../../features/auth/presentation/pages/login/login_screen.dart';
+import '../di/di.dart';
+
 
 class RouteGenerator {
   static Route<dynamic> getRoute(RouteSettings settings) {
@@ -22,6 +26,13 @@ class RouteGenerator {
 
       /// Login Screen
       case Routes.loginRoute:
+        return CupertinoPageRoute(builder: (_) =>BlocProvider(
+            create: (context) => getIt.get<LoginCubit>(),
+            child: LoginScreen()),
+        );
+        // case Routes.homeRoute:
+        // return CupertinoPageRoute(builder: (_) => HomeScreen(),);
+
         return CupertinoPageRoute(builder: (_) => LoginScreen());
 
       /// Register Screen
