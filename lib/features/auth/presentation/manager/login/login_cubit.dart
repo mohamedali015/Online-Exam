@@ -1,63 +1,46 @@
 import 'package:bloc/bloc.dart';
-import 'package:flutter/material.dart';
 import 'package:injectable/injectable.dart';
 import 'package:online_exam/config/error_handling/result.dart';
-import 'package:online_exam/features/auth/presentation/manager/login/login_state.dart';
-import '../../../../../config/cache/secure_cache/cache_keys.dart';
-import '../../../../../config/cache/secure_cache/secure_cache_helper.dart';
+import 'login_state.dart';
 import '../../../domain/use_case/login_use_case.dart';
 
 @injectable
 class LoginCubit extends Cubit<LoginState> {
   final LoginUseCase _loginUseCase;
 
-  LoginCubit(this._loginUseCase) : super(const LoginInitialState(isFormValid: true));
-
-  final TextEditingController emailController = TextEditingController();
-  final TextEditingController passwordController = TextEditingController();
-
-  final GlobalKey<FormState> formKey = GlobalKey<FormState>();
-
-  bool isRememberMe = false;
+  LoginCubit(this._loginUseCase)
+      : super(const LoginInitialState());
 
   void changeRememberMe(bool value) {
-    isRememberMe = value;
-    emit(LoginInitialState(isFormValid: state.isFormValid));
+    final currentState = state as LoginInitialState;
+    emit(currentState.copyWith(rememberMe: value));
   }
 
-  /// validate form and emit state
-  void validateForm() {
-    final isValid = formKey.currentState?.validate() ?? false;
-    emit(LoginInitialState(isFormValid: isValid));
+  void validateForm(bool isValid) {
+    final currentState = state as LoginInitialState;
+    emit(currentState.copyWith(isFormValid: isValid));
   }
 
-  /// login function
-  Future<void> loginWithEmailAndPassword() async {
-    // لو الفورم غلط اضرب error
-    if (!formKey.currentState!.validate()) {
-      emit(LoginInitialState(isFormValid: false));
-      return;
-    }
+  Future<void> loginWithEmailAndPassword({
+    required String email,
+    required String password,
+  }) async {
+    final currentState = state as LoginInitialState;
 
     emit(const LoginLoadingState());
 
-    final result = await _loginUseCase.call(
-      email: emailController.text.trim(),
-      password: passwordController.text.trim(),
+    final resultLogin = await _loginUseCase.call(
+      email: email.trim(),
+      password: password.trim(),
+      rememberMe: currentState.rememberMe,
     );
 
-    switch (result) {
+    switch (resultLogin) {
       case Success():
-        final token = result.data.token;
-        if (isRememberMe && token != null) {
-          await SecureCacheHelper.saveData(
-            key: CacheKeys.token,
-            value: token,
-          );
-        }
-        emit(LoginSuccessState(result.data));
+        emit(LoginSuccessState(resultLogin.data));
+
       case Failure():
-        emit(LoginFailureState(result.errorMessage));
+        emit(LoginFailureState(resultLogin.errorMessage));
     }
   }
 }

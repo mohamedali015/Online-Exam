@@ -1,9 +1,10 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:online_exam/config/route_manager/routes.dart';
-import 'package:online_exam/features/home/presentation/pages/home_screen.dart';
-
+import '../../features/auth/presentation/manager/login/login_cubit.dart';
 import '../../features/auth/presentation/pages/login/login_screen.dart';
+import '../di/di.dart';
 
 
 class RouteGenerator {
@@ -13,9 +14,12 @@ class RouteGenerator {
 
      /// Login Screen
       case Routes.loginRoute:
-        return CupertinoPageRoute(builder: (_) => LoginScreen(),);
-        case Routes.homeRoute:
-        return CupertinoPageRoute(builder: (_) => HomeScreen(),);
+        return CupertinoPageRoute(builder: (_) =>BlocProvider(
+            create: (context) => getIt.get<LoginCubit>(),
+            child: LoginScreen()),
+        );
+        // case Routes.homeRoute:
+        // return CupertinoPageRoute(builder: (_) => HomeScreen(),);
 
 
     /// Default (Unknown Route)
