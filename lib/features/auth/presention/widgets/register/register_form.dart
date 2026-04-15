@@ -39,12 +39,17 @@ class RegisterForm extends StatelessWidget {
           : AutovalidateMode.disabled,
       child: Column(
         children: [
-          _field(
+          TextFormField(
+            onChanged: (_) => onChanged(),
+            decoration: InputDecoration(
+              label: Text(AppStrings.userName),
+              hintText: AppStrings.enterYouUserName,
+            ),
+
             controller: userNameController,
             validator: Validator.name,
-            label: AppStrings.userName,
-            hint: AppStrings.enterYouUserName,
-            type: TextInputType.name,
+
+            keyboardType: TextInputType.name,
           ),
 
           SizedBox(height: MyResponsive.height(value: 28)),
@@ -52,22 +57,32 @@ class RegisterForm extends StatelessWidget {
           Row(
             children: [
               Expanded(
-                child: _field(
+                child: TextFormField(
+                  onChanged: (_) => onChanged(),
+                  decoration: InputDecoration(
+                    label: Text(AppStrings.firstName),
+                    hintText: AppStrings.enterFirstName,
+                  ),
+
                   controller: firstNameController,
                   validator: Validator.name,
-                  label: AppStrings.firstName,
-                  hint: AppStrings.enterFirstName,
-                  type: TextInputType.name,
+
+                  keyboardType: TextInputType.name,
                 ),
               ),
               SizedBox(width: MyResponsive.width(value: 17)),
               Expanded(
-                child: _field(
+                child: TextFormField(
+                  onChanged: (_) => onChanged(),
+                  decoration: InputDecoration(
+                    label: Text(AppStrings.lastName),
+                    hintText: AppStrings.enterLastName,
+                  ),
+
                   controller: lastNameController,
                   validator: Validator.name,
-                  label: AppStrings.lastName,
-                  hint: AppStrings.enterLastName,
-                  type: TextInputType.name,
+
+                  keyboardType: TextInputType.name,
                 ),
               ),
             ],
@@ -75,12 +90,17 @@ class RegisterForm extends StatelessWidget {
 
           SizedBox(height: MyResponsive.height(value: 28)),
 
-          _field(
+          TextFormField(
+            onChanged: (_) => onChanged(),
+            decoration: InputDecoration(
+              label: Text(AppStrings.email),
+              hintText: AppStrings.enterYouEmail,
+            ),
+
             controller: emailController,
             validator: Validator.email,
-            label: AppStrings.email,
-            hint: AppStrings.enterYouEmail,
-            type: TextInputType.emailAddress,
+
+            keyboardType: TextInputType.emailAddress,
           ),
 
           SizedBox(height: MyResponsive.height(value: 28)),
@@ -88,25 +108,35 @@ class RegisterForm extends StatelessWidget {
           Row(
             children: [
               Expanded(
-                child: _field(
+                child: TextFormField(
+                  onChanged: (_) => onChanged(),
+                  decoration: InputDecoration(
+                    label: Text(AppStrings.password),
+                    hintText: AppStrings.enterYouPassword,
+                  ),
+
                   controller: passwordController,
                   validator: Validator.password,
-                  label: AppStrings.password,
-                  hint: AppStrings.enterYouPassword,
-                  type: TextInputType.visiblePassword,
-                  isPassword: true,
+
+                  keyboardType: TextInputType.visiblePassword,
+                  obscureText: true,
                 ),
               ),
               SizedBox(width: MyResponsive.width(value: 17)),
               Expanded(
-                child: _field(
+                child: TextFormField(
+                  onChanged: (_) => onChanged(),
+                  decoration: InputDecoration(
+                    label: Text(AppStrings.confirmPassword),
+                    hintText: AppStrings.confirmPassword,
+                  ),
+
                   controller: confirmPasswordController,
                   validator: (value) =>
                       Validator.confirmPassword(value, passwordController.text),
-                  label: AppStrings.confirmPassword,
-                  hint: AppStrings.confirmPassword,
-                  type: TextInputType.visiblePassword,
-                  isPassword: true,
+
+                  keyboardType: TextInputType.visiblePassword,
+                  obscureText: true,
                 ),
               ),
             ],
@@ -114,33 +144,20 @@ class RegisterForm extends StatelessWidget {
 
           SizedBox(height: MyResponsive.height(value: 28)),
 
-          _field(
+          TextFormField(
+            onChanged: (_) => onChanged(),
+            decoration: InputDecoration(
+              label: Text(AppStrings.phoneNumber),
+              hintText: AppStrings.enterPhoneNumber,
+            ),
+
             controller: phoneController,
             validator: Validator.phone,
-            label: AppStrings.phoneNumber,
-            hint: AppStrings.enterPhoneNumber,
-            type: TextInputType.phone,
+
+            keyboardType: TextInputType.phone,
           ),
         ],
       ),
-    );
-  }
-
-  Widget _field({
-    required TextEditingController controller,
-    required String? Function(String?) validator,
-    required String label,
-    required String hint,
-    required TextInputType type,
-    bool isPassword = false,
-  }) {
-    return TextFormField(
-      controller: controller,
-      validator: validator,
-      keyboardType: type,
-      obscureText: isPassword,
-      onChanged: (_) => onChanged(), // 🔥 مهم جدًا
-      decoration: InputDecoration(label: Text(label), hintText: hint),
     );
   }
 }
