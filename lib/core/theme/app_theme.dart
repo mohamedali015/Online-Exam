@@ -9,7 +9,7 @@ class AppTheme {
 
     inputDecorationTheme: InputDecorationTheme(
       floatingLabelBehavior: FloatingLabelBehavior.always,
-
+      errorMaxLines: 2,
       labelStyle: WidgetStateTextStyle.resolveWith((states) {
         if (states.contains(WidgetState.error)) {
           return AppTextStyles.regular12.copyWith(color: AppColors.error);
