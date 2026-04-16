@@ -2,7 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:online_exam/config/route_manager/routes.dart';
-import '../../core/shared_widgets/custom_bottom_nav_bar.dart';
+import '../../core/shared_widgets/custom_bottom_nav.dart';
 import 'package:online_exam/features/auth/presention/pages/register/register_screen.dart';
 import '../../features/splash/splash_screen.dart';
 import '../../features/auth/presention/pages/login/login_screen.dart';
@@ -23,8 +23,6 @@ class RouteGenerator {
       /// Login Screen
       case Routes.loginRoute:
         return CupertinoPageRoute(builder: (_) => LoginScreen());
-      case Routes.homeRoute:
-        return CupertinoPageRoute(builder: (_) => CustomBottomNavBar());
 
       /// Register Screen
       case Routes.registerRoute:
@@ -57,6 +55,9 @@ class RouteGenerator {
             child: const ForgetPasswordNewPasswordView(),
           ),
         );
+
+      case Routes.homeRoute:
+        return CupertinoPageRoute(builder: (_) => CustomBottomNavBar());
 
       /// Default (Unknown Route)
       default:

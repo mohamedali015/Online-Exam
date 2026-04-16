@@ -31,9 +31,9 @@ class AuthRepoImpl implements AuthRepo {
 
     switch (response) {
       case Success<AuthResponse>():
-        return Success(response.data.toEntity());
+        return Success(data: response.data.toEntity());
       case Failure<AuthResponse>():
-        return Failure(response.errorMessage);
+        return Failure(errorMessage: response.errorMessage);
     }
   }
 
@@ -49,11 +49,11 @@ class AuthRepoImpl implements AuthRepo {
     switch (response) {
       case Success<AuthResponse>():
         {
-          return Success(response.data.toEntity());
+          return Success(data: response.data.toEntity());
         }
       case Failure<AuthResponse>():
         {
-          return Failure(response.errorMessage);
+          return Failure(errorMessage: response.errorMessage);
         }
     }
   }
