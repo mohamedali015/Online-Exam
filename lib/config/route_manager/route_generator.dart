@@ -2,17 +2,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:online_exam/config/route_manager/routes.dart';
-import '../../core/shared_widgets/custom_bottom_nav.dart';
-import 'package:online_exam/features/auth/presention/pages/register/register_screen.dart';
-import '../../features/splash/splash_screen.dart';
-import '../../features/auth/presention/pages/login/login_screen.dart';
-import '../../core/values/app_strings.dart';
-import '../../features/forget_password/presentation/manager/forget_password_cubit/forget_password_cubit.dart';
-import '../../features/forget_password/presentation/pages/forget_password_enter_email_view.dart';
-import '../../features/forget_password/presentation/pages/forget_password_new_password_view.dart';
-import '../../features/forget_password/presentation/pages/forget_password_verify_otp_view.dart';
-import '../di/di.dart';
-import '../../features/auth/presentation/manager/login/login_cubit.dart';
+import 'package:online_exam/features/home/presentation/pages/home_screen.dart';
+
 import '../../features/auth/presentation/pages/login/login_screen.dart';
 import '../di/di.dart';
 
