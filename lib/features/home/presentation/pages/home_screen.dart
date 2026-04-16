@@ -6,6 +6,7 @@ import 'package:online_exam/features/home/presentation/manager/all_subjects_cubi
 import 'package:online_exam/features/home/presentation/manager/all_subjects_event.dart';
 import '../../../../core/helpers/my_responsive.dart';
 import '../../../../core/shared_widgets/custom_text_form_field.dart';
+import '../../../../core/utils/app_assets.dart';
 import '../../../../core/utils/app_colors.dart';
 import '../../../../core/values/app_strings.dart';
 import '../manager/all_subjects_state.dart';
@@ -78,8 +79,12 @@ class _HomeScreenState extends State<HomeScreen> {
                         }
 
                         if (state.subjects.isEmpty) {
-                          return const Center(
-                            child: Text(AppStrings.noSubjectsFound),
+                          return Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Image.asset(AppAssets.noFoundResearch,fit: BoxFit.contain,),
+                              Text(AppStrings.noSubjectsFound,style: AppTextStyles.medium18,),
+                            ],
                           );
                         }
 
