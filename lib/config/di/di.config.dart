@@ -83,11 +83,11 @@ extension GetItInjectableX on _i174.GetIt {
     gh.lazySingleton<_i645.ApiClient>(
       () => apiModule.provideApiClient(gh<_i361.Dio>()),
     );
+    gh.singleton<_i194.AllSubjectsApiClient>(
+      () => _i194.AllSubjectsApiClient(gh<_i361.Dio>()),
+    );
     gh.factory<_i301.ForgetPasswordApiClient>(
       () => _i301.ForgetPasswordApiClient(gh<_i361.Dio>()),
-    );
-    gh.factory<_i194.AllSubjectsApiClient>(
-      () => _i194.AllSubjectsApiClient(gh<_i361.Dio>()),
     );
     gh.factory<_i548.AuthRemoteDataSource>(
       () => _i321.AuthRemoteDataSourceImpl(gh<_i645.ApiClient>()),
@@ -100,7 +100,7 @@ extension GetItInjectableX on _i174.GetIt {
         gh<_i301.ForgetPasswordApiClient>(),
       ),
     );
-    gh.factory<_i990.GetAllSubjectsDataSource>(
+    gh.lazySingleton<_i990.GetAllSubjectsDataSource>(
       () => _i888.GetAllSubjectsRemoteDataSourceImpl(
         gh<_i194.AllSubjectsApiClient>(),
       ),

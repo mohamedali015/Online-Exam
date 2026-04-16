@@ -5,7 +5,7 @@ import '../../../../../config/error_handling/execute_api.dart';
 import '../../../data/data_source/get_all_subjects_remote_data_source.dart';
 import '../../all_subjects_api_client/all_subjects_api_client.dart';
 
-@Injectable(as: GetAllSubjectsDataSource)
+@LazySingleton(as: GetAllSubjectsDataSource)
 class GetAllSubjectsRemoteDataSourceImpl implements GetAllSubjectsDataSource {
 
   final AllSubjectsApiClient _allSubjectsApiClient;

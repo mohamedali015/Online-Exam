@@ -9,28 +9,21 @@ import '../../domain/repositories/get_all_subjects_repo.dart';
 import '../data_source/get_all_subjects_remote_data_source.dart';
 
 @Injectable(as: SubjectsRepository)
-class SubjectsRepositoryImpl implements SubjectsRepository{
-
+class SubjectsRepositoryImpl implements SubjectsRepository {
   @factoryMethod
   final GetAllSubjectsDataSource _dataSource;
   SubjectsRepositoryImpl(this._dataSource);
 
-
   @override
-  Future<Result<List<SubjectEntity>>> getAllSubjects() async{
-
+  Future<Result<List<SubjectEntity>>> getAllSubjects() async {
     final token = await SecureCacheHelper.getData(key: CacheKeys.token);
     final response = await _dataSource.getSubjects(token: token!);
 
     switch (response) {
       case Success<GetAllSubjectsResponse>():
-
-
         final subjects = response.data.subjects ?? [];
 
-        return Success(
-          subjects.map((e) => e.toEntity()).toList(),
-        );
+        return Success(subjects.map((e) => e.toEntity()).toList());
 
       case Failure<GetAllSubjectsResponse>():
         return Failure(response.errorMessage);

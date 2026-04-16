@@ -30,7 +30,7 @@ class _ForgetPasswordApiClient implements ForgetPasswordApiClient {
       Options(method: 'POST', headers: _headers, extra: _extra)
           .compose(
             _dio.options,
-            'https://exam.elevateegy.com/api/v1/auth/forgotPassword',
+            '/auth/forgotPassword',
             queryParameters: queryParameters,
             data: _data,
           )
@@ -58,7 +58,7 @@ class _ForgetPasswordApiClient implements ForgetPasswordApiClient {
       Options(method: 'POST', headers: _headers, extra: _extra)
           .compose(
             _dio.options,
-            'https://exam.elevateegy.com/api/v1/auth/verifyResetCode',
+            '/auth/verifyResetCode',
             queryParameters: queryParameters,
             data: _data,
           )
@@ -86,7 +86,7 @@ class _ForgetPasswordApiClient implements ForgetPasswordApiClient {
       Options(method: 'PUT', headers: _headers, extra: _extra)
           .compose(
             _dio.options,
-            'https://exam.elevateegy.com/api/v1/auth/resetPassword',
+            '/auth/resetPassword',
             queryParameters: queryParameters,
             data: _data,
           )

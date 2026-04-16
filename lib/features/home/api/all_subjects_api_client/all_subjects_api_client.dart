@@ -7,7 +7,7 @@ import '../../../../core/values/api_end_points.dart';
 import '../../data/model/response/get_all_subjects_response.dart';
 part 'all_subjects_api_client.g.dart';
 
-@injectable
+@singleton
 @RestApi()
 abstract class AllSubjectsApiClient {
   @factoryMethod

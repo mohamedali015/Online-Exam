@@ -20,5 +20,8 @@ abstract interface class ApiClient {
   ////////////////// Login //////////////////
   @POST(ApiEndPoints.login)
   Future<AuthResponse> login(@Body() LoginRequest login);
-
+  @GET(ApiEndPoints.getAllSubjects)
+  Future<GetAllSubjectsResponse> getAllSubjects(
+      @Header(CacheKeys.token) String token,
+      );
 }

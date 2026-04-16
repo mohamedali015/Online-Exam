@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:online_exam/config/di/di.dart';
 import 'package:online_exam/core/utils/app_text_styles.dart';
 import 'package:online_exam/features/home/presentation/manager/all_subjects_cubit.dart';
+import 'package:online_exam/features/home/presentation/manager/all_subjects_event.dart';
 import '../../../../core/helpers/my_responsive.dart';
 import '../../../../core/shared_widgets/custom_text_form_field.dart';
 import '../../../../core/utils/app_colors.dart';
@@ -29,12 +30,12 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) => getIt<SubjectsCubit>()..getSubjects(),
+      create: (context) =>
+          getIt<SubjectsCubit>()..doEvent(GetAllSubjectsEvent()),
 
       child: Builder(
         builder: (context) {
           return Scaffold(
-
             appBar: AppBar(
               title: Text(
                 AppStrings.survey,
@@ -49,15 +50,12 @@ class _HomeScreenState extends State<HomeScreen> {
               padding: MyResponsive.paddingSymmetric(horizontal: 16),
               child: Column(
                 children: [
-
                   SizedBox(height: MyResponsive.height(value: 16)),
 
                   CustomTextFormField(
                     controller: searchController,
                     type: TextFieldType.search,
-                    searchOnChange: (value) {
-                      context.read<SubjectsCubit>().searchSubjects(value);
-                    },
+                    searchOnChange: _onSearchChanged,
                   ),
 
                   SizedBox(height: MyResponsive.height(value: 20)),
@@ -89,15 +87,24 @@ class _HomeScreenState extends State<HomeScreen> {
                           },
                         );
                       },
+
+                      buildWhen: (prev, curr) =>
+                          prev.subjects != curr.subjects ||
+                          prev.isLoading != curr.isLoading ||
+                          prev.errorMessage != curr.errorMessage,
                     ),
                   ),
-
                 ],
               ),
             ),
           );
         },
       ),
+    );
+  }
+  void _onSearchChanged(String value) {
+    context.read<SubjectsCubit>().doEvent(
+      GetSearchSubjectsEvent(query: value),
     );
   }
 }

@@ -5,15 +5,28 @@ import '../../../../config/error_handling/result.dart';
 import '../../../../core/values/app_strings.dart';
 import '../../domain/entities/get_all_subjects_entity.dart';
 import '../../domain/use_case/get_all_subjects_use_case.dart';
+import 'all_subjects_event.dart';
 import 'all_subjects_state.dart';
 
 @injectable
 class SubjectsCubit extends Cubit<SubjectsState> {
-  final GetAllSubjectsUseCase _getAllSubjectsUseCase;
 
+  final GetAllSubjectsUseCase _getAllSubjectsUseCase;
   SubjectsCubit(this._getAllSubjectsUseCase) : super(const SubjectsState());
 
-  Future<void> getSubjects() async {
+  void doEvent(AllSubjectsEvent event) {
+    switch (event) {
+      case GetAllSubjectsEvent():
+        _getSubjects();
+        break;
+
+      case GetSearchSubjectsEvent():
+        _searchSubjects(event.query);
+        break;
+    }
+  }
+
+  Future<void> _getSubjects() async {
     emit(state.copyWith(isLoading: true));
 
     final result = await _getAllSubjectsUseCase.getSubjects();
@@ -36,18 +49,19 @@ class SubjectsCubit extends Cubit<SubjectsState> {
     }
   }
 
-  void  searchSubjects(String query) async {
-      final all = state.allSubjects;
+  void _searchSubjects(String query) async {
+    final all = state.allSubjects;
 
-      final filtered = query.isEmpty
-          ? all
-          : all.where((e) =>
-          (e.name ?? AppStrings.noNameFound).toLowerCase().contains(query.toLowerCase())
-      ).toList();
+    final filtered = query.isEmpty
+        ? all
+        : all
+              .where(
+                (e) => (e.name ?? AppStrings.noNameFound)
+                    .toLowerCase()
+                    .contains(query.toLowerCase()),
+              )
+              .toList();
 
-    emit(state.copyWith(
-      subjects: List<SubjectEntity>.from(filtered),
-    ));
-
-    }
+    emit(state.copyWith(subjects: List<SubjectEntity>.from(filtered)));
+  }
 }
