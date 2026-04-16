@@ -8,16 +8,29 @@ class AppTheme {
     scaffoldBackgroundColor: AppColors.baseWhite,
 
     inputDecorationTheme: InputDecorationTheme(
-      labelStyle: AppTextStyles.regular12.copyWith(color: AppColors.baseGray),
-      floatingLabelStyle: AppTextStyles.regular12.copyWith(
-        color: AppColors.baseGray,
-      ),
+      floatingLabelBehavior: FloatingLabelBehavior.always,
+      errorMaxLines: 2,
+      labelStyle: WidgetStateTextStyle.resolveWith((states) {
+        if (states.contains(WidgetState.error)) {
+          return AppTextStyles.regular12.copyWith(color: AppColors.error);
+        }
+        return AppTextStyles.regular12.copyWith(color: AppColors.baseGray);
+      }),
+
+      floatingLabelStyle: WidgetStateTextStyle.resolveWith((states) {
+        if (states.contains(WidgetState.error)) {
+          return AppTextStyles.regular12.copyWith(color: AppColors.error);
+        }
+        return AppTextStyles.regular12.copyWith(color: AppColors.baseGray);
+      }),
       filled: true,
+
       fillColor: AppColors.baseWhite,
-      errorStyle: AppTextStyles.regular12,
+      errorStyle: AppTextStyles.regular12.copyWith(color: AppColors.error),
       hintStyle: AppTextStyles.regular14.copyWith(
         color: AppColors.hintTextGray,
       ),
+
       contentPadding: EdgeInsets.symmetric(
         horizontal: MyResponsive.width(value: 8),
         vertical: MyResponsive.height(value: 12),
@@ -38,11 +51,16 @@ class AppTheme {
         borderRadius: BorderRadius.circular(MyResponsive.radius(value: 4)),
         borderSide: BorderSide(color: AppColors.error),
       ),
+      disabledBorder: OutlineInputBorder(
+        borderRadius: BorderRadius.circular(MyResponsive.radius(value: 4)),
+        borderSide: BorderSide(color: AppColors.baseGray),
+      ),
     ),
 
     elevatedButtonTheme: ElevatedButtonThemeData(
       style: ElevatedButton.styleFrom(
         elevation: 0,
+        disabledForegroundColor: AppColors.baseWhite,
         minimumSize: Size(double.infinity, MyResponsive.height(value: 48)),
         textStyle: AppTextStyles.medium16,
         foregroundColor: AppColors.baseWhite,
@@ -62,6 +80,24 @@ class AppTheme {
         color: AppColors.baseBlack,
       ),
       iconTheme: IconThemeData(color: AppColors.baseBlack),
+    ),
+
+    progressIndicatorTheme: ProgressIndicatorThemeData(
+      color: AppColors.primaryColor,
+    ),
+
+    bottomNavigationBarTheme: BottomNavigationBarThemeData(
+      backgroundColor: AppColors.quistionsLightBlue,
+      selectedItemColor: AppColors.primaryColor,
+      unselectedItemColor: AppColors.disabledGray,
+      unselectedLabelStyle: AppTextStyles.medium16.copyWith(
+        color: AppColors.disabledGray,
+      ),
+      selectedLabelStyle: AppTextStyles.medium16,
+      showSelectedLabels: true,
+      showUnselectedLabels: true,
+      elevation: 0,
+      type: BottomNavigationBarType.fixed,
     ),
   );
 }

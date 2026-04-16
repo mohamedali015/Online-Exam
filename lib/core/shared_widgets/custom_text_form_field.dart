@@ -1,7 +1,7 @@
+
 import 'package:flutter/material.dart';
 
 import '../helpers/validator.dart';
-import '../utils/app_colors.dart';
 import '../values/app_strings.dart';
 
 class CustomTextFormField extends StatelessWidget {
@@ -12,6 +12,8 @@ class CustomTextFormField extends StatelessWidget {
     this.passController,
     this.obsecure = true,
     this.onSuffixTapped,
+    this.onChanged,
+    this.isLoading = false,
   });
 
   final TextFieldType type;
@@ -20,6 +22,8 @@ class CustomTextFormField extends StatelessWidget {
   final bool isFirstName = false;
   final bool obsecure;
   final void Function()? onSuffixTapped;
+  final void Function(String)? onChanged;
+  final bool isLoading;
 
   // final void Function(String)? searchOnChange;
 
@@ -32,7 +36,7 @@ class CustomTextFormField extends StatelessWidget {
           passController == null
               ? Validator.password
               : (value) =>
-                    Validator.confirmPassword(value, passController!.text),
+              Validator.confirmPassword(value, passController!.text),
         );
 
       case TextFieldType.email:
@@ -51,12 +55,12 @@ class CustomTextFormField extends StatelessWidget {
 
   ///////////////////////--Decorations//////////////////////
   InputDecoration _inputDecoration(
-    BuildContext context, {
-    String? label,
-    String? hint,
-    Widget? suffixIcon,
-    // Widget? prefixIcon,
-  }) {
+      BuildContext context, {
+        String? label,
+        String? hint,
+        Widget? suffixIcon,
+        // Widget? prefixIcon,
+      }) {
     return InputDecoration(
       hintText: hint,
       // hintStyle: AppTextStyles.regular14.copyWith(
@@ -71,20 +75,23 @@ class CustomTextFormField extends StatelessWidget {
       // ),
       // prefixIcon: prefixIcon,
       suffixIcon: suffixIcon,
+      floatingLabelBehavior: FloatingLabelBehavior.always,
     );
   }
 
   /////////////////////////--TextFields////////////////////////////////
   Widget _nameField(
-    BuildContext context,
-    String? Function(String?)? validator,
-  ) {
+      BuildContext context,
+      String? Function(String?)? validator,
+      ) {
     return TextFormField(
       controller: controller,
       // style: _textStyle(context),
+      onChanged: onChanged,
       validator: validator,
       autovalidateMode: AutovalidateMode.onUserInteraction,
       keyboardType: TextInputType.name,
+      enabled: isLoading ? false : true,
       decoration: _inputDecoration(
         context,
         label: isFirstName ? AppStrings.firstName : AppStrings.lastName,
@@ -96,15 +103,17 @@ class CustomTextFormField extends StatelessWidget {
   }
 
   Widget _userNameField(
-    BuildContext context,
-    String? Function(String?)? validator,
-  ) {
+      BuildContext context,
+      String? Function(String?)? validator,
+      ) {
     return TextFormField(
       controller: controller,
       // style: _textStyle(context),
+      onChanged: onChanged,
       validator: validator,
       autovalidateMode: AutovalidateMode.onUserInteraction,
       keyboardType: TextInputType.name,
+      enabled: isLoading ? false : true,
       decoration: _inputDecoration(
         context,
         label: AppStrings.userName,
@@ -114,15 +123,17 @@ class CustomTextFormField extends StatelessWidget {
   }
 
   Widget _emailField(
-    BuildContext context,
-    String? Function(String?)? validator,
-  ) {
+      BuildContext context,
+      String? Function(String?)? validator,
+      ) {
     return TextFormField(
       controller: controller,
       validator: validator,
+      onChanged: onChanged,
       // style: _textStyle(context),
       autovalidateMode: AutovalidateMode.onUserInteraction,
       keyboardType: TextInputType.emailAddress,
+      enabled: isLoading ? false : true,
       decoration: _inputDecoration(
         context,
         label: AppStrings.email,
@@ -132,16 +143,18 @@ class CustomTextFormField extends StatelessWidget {
   }
 
   Widget _passwordField(
-    BuildContext context,
-    String? Function(String?)? validator,
-  ) {
+      BuildContext context,
+      String? Function(String?)? validator,
+      ) {
     return TextFormField(
       controller: controller,
       validator: validator,
+      onChanged: onChanged,
       // style: _textStyle(context),
       obscureText: obsecure,
       autovalidateMode: AutovalidateMode.onUserInteraction,
       keyboardType: TextInputType.visiblePassword,
+      enabled: isLoading ? false : true,
       decoration: _inputDecoration(
         context,
         label: passController == null
@@ -152,25 +165,27 @@ class CustomTextFormField extends StatelessWidget {
             ? AppStrings.enterYouPassword
             : AppStrings.enterYouPassword,
 
-        suffixIcon: IconButton(
-          onPressed: onSuffixTapped,
-          icon: obsecure
-              ? Icon(Icons.visibility, color: AppColors.baseGray)
-              : Icon(Icons.visibility_off, color: AppColors.baseGray),
-        ),
+        // suffixIcon: IconButton(
+        //   onPressed: onSuffixTapped,
+        //   icon: obsecure
+        //       ? Icon(Icons.visibility, color: AppColors.baseGray)
+        //       : Icon(Icons.visibility_off, color: AppColors.baseGray),
+        // ),
       ),
     );
   }
 
   Widget _phoneField(
-    BuildContext context,
-    String? Function(String?)? validator,
-  ) {
+      BuildContext context,
+      String? Function(String?)? validator,
+      ) {
     return TextFormField(
       controller: controller,
       validator: validator,
+      onChanged: onChanged,
       autovalidateMode: AutovalidateMode.onUserInteraction,
       keyboardType: TextInputType.phone,
+      enabled: isLoading ? false : true,
       decoration: _inputDecoration(
         context,
         label: AppStrings.phoneNumber,
@@ -179,42 +194,42 @@ class CustomTextFormField extends StatelessWidget {
     );
   }
 
-  // Widget _searchField(
-  //   BuildContext context,
-  // ) {
-  //   return SearchBar(
-  //     hintText: AppStrings.search,
-  //     leading: Icon(Icons.search, color: AppColors.gray),
-  //     backgroundColor: WidgetStateProperty.all(AppColors.appFill),
-  //     shape: WidgetStateProperty.all(
-  //       RoundedRectangleBorder(
-  //         borderRadius: BorderRadius.circular(MyResponsive.radius(value: 10)),
-  //         side: BorderSide(
-  //           color: AppColors.white.withValues(alpha: .1),
-  //           width: 1.2,
-  //         ),
-  //       ),
-  //     ),
-  //     textStyle: WidgetStateProperty.all(
-  //       const TextStyle(
-  //         color: Colors.white,
-  //         fontSize: 16,
-  //       ),
-  //     ),
-  //     hintStyle: WidgetStateProperty.all(
-  //       AppTextStyles.semiBold17.copyWith(color: AppColors.gray),
-  //     ),
-  //     padding: WidgetStateProperty.all(
-  //       MyResponsive.paddingSymmetric(
-  //         horizontal: 19,
-  //         vertical: 10,
-  //       ),
-  //     ),
-  //     // elevation: WidgetStateProperty.all(0),
-  //
-  //     onChanged: searchOnChange,
-  //   );
-  // }
+// Widget _searchField(
+//   BuildContext context,
+// ) {
+//   return SearchBar(
+//     hintText: AppStrings.search,
+//     leading: Icon(Icons.search, color: AppColors.gray),
+//     backgroundColor: WidgetStateProperty.all(AppColors.appFill),
+//     shape: WidgetStateProperty.all(
+//       RoundedRectangleBorder(
+//         borderRadius: BorderRadius.circular(MyResponsive.radius(value: 10)),
+//         side: BorderSide(
+//           color: AppColors.white.withValues(alpha: .1),
+//           width: 1.2,
+//         ),
+//       ),
+//     ),
+//     textStyle: WidgetStateProperty.all(
+//       const TextStyle(
+//         color: Colors.white,
+//         fontSize: 16,
+//       ),
+//     ),
+//     hintStyle: WidgetStateProperty.all(
+//       AppTextStyles.semiBold17.copyWith(color: AppColors.gray),
+//     ),
+//     padding: WidgetStateProperty.all(
+//       MyResponsive.paddingSymmetric(
+//         horizontal: 19,
+//         vertical: 10,
+//       ),
+//     ),
+//     // elevation: WidgetStateProperty.all(0),
+//
+//     onChanged: searchOnChange,
+//   );
+// }
 }
 
 enum TextFieldType { password, email, name, phone, userName }
