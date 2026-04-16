@@ -51,10 +51,8 @@ class SubjectsCubit extends Cubit<SubjectsState> {
 
   void _searchSubjects(String query) async {
     final all = state.allSubjects;
-
     final filtered = query.isEmpty
-        ? all
-        : all
+        ? all : all
               .where(
                 (e) => (e.name ?? AppStrings.noNameFound)
                     .toLowerCase()

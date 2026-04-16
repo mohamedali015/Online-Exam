@@ -23,10 +23,10 @@ class SubjectsRepositoryImpl implements SubjectsRepository {
       case Success<GetAllSubjectsResponse>():
         final subjects = response.data.subjects ?? [];
 
-        return Success(subjects.map((e) => e.toEntity()).toList());
+        return Success(data: subjects.map((e) => e.toEntity()).toList(), );
 
       case Failure<GetAllSubjectsResponse>():
-        return Failure(response.errorMessage);
+        return Failure(errorMessage: response.errorMessage);
     }
   }
 }

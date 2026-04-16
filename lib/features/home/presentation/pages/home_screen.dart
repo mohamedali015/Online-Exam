@@ -55,7 +55,11 @@ class _HomeScreenState extends State<HomeScreen> {
                   CustomTextFormField(
                     controller: searchController,
                     type: TextFieldType.search,
-                    searchOnChange: _onSearchChanged,
+                    searchOnChange: (value) {
+                      context.read<SubjectsCubit>().doEvent(
+                          GetSearchSubjectsEvent(query: value)
+                      );
+                    },
                   ),
 
                   SizedBox(height: MyResponsive.height(value: 20)),
@@ -102,9 +106,5 @@ class _HomeScreenState extends State<HomeScreen> {
       ),
     );
   }
-  void _onSearchChanged(String value) {
-    context.read<SubjectsCubit>().doEvent(
-      GetSearchSubjectsEvent(query: value),
-    );
-  }
+
 }
