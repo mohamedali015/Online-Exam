@@ -194,14 +194,4 @@ class ForgetPasswordCubit extends Cubit<ForgetPasswordState> {
 
     emit(state.copyWith(isPasswordFormValidParam: valid));
   }
-
-  @override
-  Future<void> close() {
-    errorController.close();
-    emailController.dispose();
-    otpController.dispose();
-    passwordController.dispose();
-    confirmPasswordController.dispose();
-    return super.close();
-  }
 }
