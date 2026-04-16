@@ -2,14 +2,14 @@ import '../values/app_strings.dart';
 
 abstract class Validator {
   static String? name(String? value) {
-    if (value == null || value.isEmpty) {
+    if (value == null || value.trim().isEmpty) {
       return AppStrings.emptyField;
     }
     return null;
   }
 
   static String? email(String? value) {
-    if (value == null || value.isEmpty) {
+    if (value == null || value.trim().isEmpty) {
       return AppStrings.emailRequired;
     }
     final emailRegex = RegExp(
@@ -22,7 +22,7 @@ abstract class Validator {
   }
 
   static String? password(String? value) {
-    if (value == null || value.isEmpty) {
+    if (value == null || value.trim().isEmpty) {
       return AppStrings.passwordRequired;
     }
     if (value.length < 6) {
@@ -39,7 +39,7 @@ abstract class Validator {
   }
 
   static String? confirmPassword(String? value, String? password) {
-    if (value == null || value.isEmpty) {
+    if (value == null || value.trim().isEmpty) {
       return AppStrings.confirmPasswordRequired;
     }
     if (value != password) {
@@ -55,7 +55,7 @@ abstract class Validator {
   }
 
   static String? phone(String? value) {
-    if (value == null || value.isEmpty) {
+    if (value == null || value.trim().isEmpty) {
       return AppStrings.phoneRequired;
     }
 
