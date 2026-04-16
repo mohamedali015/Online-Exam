@@ -16,6 +16,4 @@ class EnterEmailResponse {
 
   Map<String, dynamic> toJson() => _$EnterEmailResponseToJson(this);
 
-  EnterEmailResponse toDomain() =>
-      EnterEmailResponse(message: message ?? '', info: info ?? '');
 }

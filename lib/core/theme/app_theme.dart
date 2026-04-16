@@ -82,6 +82,10 @@ class AppTheme {
       iconTheme: IconThemeData(color: AppColors.baseBlack),
     ),
 
+    progressIndicatorTheme: ProgressIndicatorThemeData(
+      color: AppColors.primaryColor,
+    ),
+
     bottomNavigationBarTheme: BottomNavigationBarThemeData(
       backgroundColor: AppColors.quistionsLightBlue,
       selectedItemColor: AppColors.primaryColor,
