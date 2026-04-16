@@ -40,10 +40,6 @@ class AuthRepoImpl implements AuthRepo {
   }
 
 
-  AuthRepoImpl(
-      this._authRemoteDataSource,
-      );
-
   @override
   Future<Result<AuthEntity>> login({
     required String email,
@@ -60,21 +56,25 @@ class AuthRepoImpl implements AuthRepo {
         {
           final entity = response.data.toEntity();
 
-          if (rememberMe && entity.token != null) {
+          if (entity.token != null && rememberMe) {
             await SecureCacheHelper.saveData(
               key: CacheKeys.token,
               value: entity.token!,
             );
+
+            await SecureCacheHelper.saveData(
+              key: CacheKeys.rememberMe,
+              value: rememberMe.toString(),
+            );
           }
 
-          return Success(data: response.data.toEntity());
+          return Success(data: entity);
         }
 
       case Failure<AuthResponse>():
         {
-          return Failure(errorMessage: response.errorMessage);
+          return Failure( errorMessage: response.errorMessage);
         }
     }
   }
 }
-

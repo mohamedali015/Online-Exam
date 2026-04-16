@@ -1,15 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:online_exam/config/route_manager/routes.dart';
+import 'package:online_exam/core/utils/app_colors.dart';
+import 'package:online_exam/core/utils/app_text_styles.dart';
 import '../../../../../core/helpers/app_snackbar.dart';
 import '../../../../../core/helpers/my_responsive.dart';
 import '../../../../../core/shared_widgets/custom_button.dart';
 import '../../../../../core/shared_widgets/custom_text_form_field.dart';
 import '../../../../../core/values/app_strings.dart';
-import '../../../presention/widgets/login/auth_navigation_text.dart';
-import '../../../presention/widgets/login/remember_me_and_forget_widget.dart';
 import '../../manager/login/login_cubit.dart';
 import '../../manager/login/login_state.dart';
+import '../../widgets/login/auth_navigation_text.dart';
+import '../../widgets/login/remember_me_and_forget_widget.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
@@ -79,8 +81,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   controller: passwordController,
                   type: TextFieldType.password,
                   onChanged: (_) => _validate(cubit),
-                isLoading: state is LoginLoadingState,
-                    ),
+                ),
 
                 SizedBox(height: MyResponsive.height(value: 14)),
 
@@ -103,16 +104,15 @@ class _LoginScreenState extends State<LoginScreen> {
                   builder: (context, state) {
                     return CustomButton(
                       title: AppStrings.login,
-                      // backgroundColor: state.isFormValid
-                      //     ? AppColors.primaryColor
-                      //     : Colors.grey,
+                      backgroundColor: state.isFormValid
+                          ? AppColors.primaryColor
+                          : Colors.grey,
                       onPressed: state.isFormValid
                           ? () => cubit.loginWithEmailAndPassword(
                         email: emailController.text,
                         password: passwordController.text,
                       )
                           : null,
-                      isLoading: state is LoginLoadingState,
                     );
                   },
                 ),
@@ -123,9 +123,8 @@ class _LoginScreenState extends State<LoginScreen> {
                 AuthNavigationText(
                   title: "${AppStrings.doNotHaveAnAccount}?",
                   actionText: AppStrings.signUp,
-                  onTap: () {
-                Navigator.pushNamed(context, Routes.registerRoute);
-                      },),
+                  onTap: () {},
+                ),
               ],
             ),
           ),
