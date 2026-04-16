@@ -22,7 +22,8 @@ class ExamRepoImpl implements ExamRepo {
       case Success():
         {
           return Success(
-            response.data.questions
+            data:
+                response.data.questions
                     ?.map((dto) => dto.toQuestionsEntity())
                     .toList() ??
                 [],
@@ -30,7 +31,7 @@ class ExamRepoImpl implements ExamRepo {
         }
       case Failure():
         {
-          return Failure(response.errorMessage);
+          return Failure(errorMessage: response.errorMessage);
         }
     }
   }

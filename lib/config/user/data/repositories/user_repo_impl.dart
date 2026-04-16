@@ -19,11 +19,11 @@ class UserRepoImpl implements UserRepo {
     switch (response) {
       case Success<GetUserDataResponse>():
         {
-          return Success(response.data.user!.toUserEntity());
+          return Success(data: response.data.user!.toUserEntity());
         }
       case Failure<GetUserDataResponse>():
         {
-          return Failure(response.errorMessage);
+          return Failure(errorMessage: response.errorMessage);
         }
     }
   }

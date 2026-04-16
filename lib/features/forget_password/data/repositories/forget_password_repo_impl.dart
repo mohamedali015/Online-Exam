@@ -20,11 +20,11 @@ class ForgetPasswordRepoImpl implements ForgetPasswordRepo {
     switch (response) {
       case Success<EnterEmailResponse>():
         {
-          return Success(true);
+          return Success(data: true);
         }
       case Failure<EnterEmailResponse>():
         {
-          return Failure(response.errorMessage);
+          return Failure(errorMessage: response.errorMessage);
         }
     }
   }
@@ -36,11 +36,11 @@ class ForgetPasswordRepoImpl implements ForgetPasswordRepo {
     switch (response) {
       case Success<VerifyOtpResponse>():
         {
-          return Success(true);
+          return Success(data: true);
         }
       case Failure<VerifyOtpResponse>():
         {
-          return Failure(response.errorMessage);
+          return Failure(errorMessage: response.errorMessage);
         }
     }
   }
@@ -58,11 +58,11 @@ class ForgetPasswordRepoImpl implements ForgetPasswordRepo {
     switch (response) {
       case Success<NewPasswordResponse>():
         {
-          return Success(true);
+          return Success(data: true);
         }
       case Failure<NewPasswordResponse>():
         {
-          return Failure(response.errorMessage);
+          return Failure(errorMessage: response.errorMessage);
         }
     }
   }
