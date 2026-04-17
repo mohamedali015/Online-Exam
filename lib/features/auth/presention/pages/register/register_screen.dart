@@ -2,7 +2,6 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:online_exam/config/di/di.dart';
-import 'package:online_exam/config/route_manager/routes.dart';
 import 'package:online_exam/core/helpers/app_snackbar.dart';
 import 'package:online_exam/core/helpers/my_responsive.dart';
 import 'package:online_exam/core/utils/app_colors.dart';
@@ -123,10 +122,7 @@ class _RegisterViewState extends State<_RegisterView> {
                 listener: (context, state) {
                   switch (state) {
                     case RegisterSuccess():
-                      Navigator.pushReplacementNamed(
-                        context,
-                        Routes.loginRoute,
-                      );
+                      Navigator.pop(context);
                       break;
 
                     case RegisterFailure():
@@ -174,10 +170,7 @@ class _RegisterViewState extends State<_RegisterView> {
                       ),
                       recognizer: TapGestureRecognizer()
                         ..onTap = () {
-                          Navigator.pushReplacementNamed(
-                            context,
-                            Routes.loginRoute,
-                          );
+                          Navigator.pop(context);
                         },
                     ),
                   ],

@@ -99,9 +99,5 @@ class AppTheme {
       elevation: 0,
       type: BottomNavigationBarType.fixed,
     ),
-
-    progressIndicatorTheme: ProgressIndicatorThemeData(
-      color: AppColors.primaryColor,
-    ),
   );
 }
