@@ -34,7 +34,7 @@ class MyApp extends StatelessWidget {
             title: 'Online Exam',
             theme: AppTheme.appTheme,
             debugShowCheckedModeBanner: false,
-            initialRoute: Routes.examViewRoute,
+            initialRoute: Routes.splashRoute,
             onGenerateRoute: RouteGenerator.getRoute,
           ),
         );

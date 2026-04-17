@@ -57,6 +57,20 @@ class AppTheme {
       ),
     ),
 
+    searchBarTheme: SearchBarThemeData(
+      backgroundColor: WidgetStateProperty.all(AppColors.baseWhite),
+      elevation: WidgetStateProperty.all(0),
+      padding: WidgetStateProperty.all(
+        MyResponsive.paddingSymmetric(horizontal: 18, vertical: 4),
+      ),
+      shape: WidgetStateProperty.all(
+        RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(MyResponsive.radius(value: 20)),
+          side: BorderSide(color: AppColors.baseGray, width: 1.2),
+        ),
+      ),
+    ),
+
     elevatedButtonTheme: ElevatedButtonThemeData(
       style: ElevatedButton.styleFrom(
         elevation: 0,

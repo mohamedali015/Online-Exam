@@ -5,7 +5,6 @@ import 'package:online_exam/core/utils/app_text_styles.dart';
 import 'package:online_exam/features/home/presentation/manager/all_subjects_cubit.dart';
 import 'package:online_exam/features/home/presentation/manager/all_subjects_event.dart';
 import '../../../../core/helpers/my_responsive.dart';
-import '../../../../core/shared_widgets/custom_text_form_field.dart';
 import '../../../../core/utils/app_assets.dart';
 import '../../../../core/utils/app_colors.dart';
 import '../../../../core/values/app_strings.dart';
@@ -53,12 +52,13 @@ class _HomeScreenState extends State<HomeScreen> {
                 children: [
                   SizedBox(height: MyResponsive.height(value: 16)),
 
-                  CustomTextFormField(
+                  SearchBar(
+                    hintText: AppStrings.search,
+                    leading: Icon(Icons.search, color: AppColors.baseGray),
                     controller: searchController,
-                    type: TextFieldType.search,
-                    searchOnChange: (value) {
+                    onChanged: (value) {
                       context.read<SubjectsCubit>().doEvent(
-                          GetSearchSubjectsEvent(query: value)
+                        GetSearchSubjectsEvent(query: value),
                       );
                     },
                   ),
@@ -82,8 +82,14 @@ class _HomeScreenState extends State<HomeScreen> {
                           return Column(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
-                              Image.asset(AppAssets.noFoundResearch,fit: BoxFit.contain,),
-                              Text(AppStrings.noSubjectsFound,style: AppTextStyles.medium18,),
+                              Image.asset(
+                                AppAssets.noFoundResearch,
+                                fit: BoxFit.contain,
+                              ),
+                              Text(
+                                AppStrings.noSubjectsFound,
+                                style: AppTextStyles.medium18,
+                              ),
                             ],
                           );
                         }
@@ -111,5 +117,4 @@ class _HomeScreenState extends State<HomeScreen> {
       ),
     );
   }
-
 }

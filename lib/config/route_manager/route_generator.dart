@@ -77,9 +77,10 @@ class RouteGenerator {
         return CupertinoPageRoute(builder: (_) => CustomBottomNavBar());
 
       case Routes.examsRoute:
-        final String subjectId = settings.arguments as String;
+        SubjectEntity item = settings.arguments as SubjectEntity;
+
         return CupertinoPageRoute(
-          builder: (_) => ExamsScreen(subjectId: subjectId),
+          builder: (_) => ExamsScreen(item: item),
         );
 
       case Routes.examDetailsRoute:

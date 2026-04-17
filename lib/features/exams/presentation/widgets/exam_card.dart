@@ -33,7 +33,7 @@ class ExamCard extends StatelessWidget {
           borderRadius: BorderRadius.circular(MyResponsive.radius(value: 10)),
           boxShadow: [
             BoxShadow(
-              color: AppColors.quistionsBarGray,
+              color: AppColors.questionsBarGray,
               blurRadius: MyResponsive.radius(value: 8),
             ),
           ],

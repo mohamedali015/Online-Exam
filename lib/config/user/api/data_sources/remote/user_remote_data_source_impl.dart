@@ -16,8 +16,8 @@ class UserRemoteDataSourceImpl implements UserRemoteDataSource {
   @override
   Future<Result<GetUserDataResponse>> getUserData() async {
     return executeApi(() async {
-      var token = await SecureCacheHelper.getData(key: CacheKeys.token);
-      var response = await _apiClient.getUserData(token!);
+      final token = await SecureCacheHelper.getData(key: CacheKeys.token);
+      final response = await _apiClient.getUserData(token!);
       return response;
     });
   }
