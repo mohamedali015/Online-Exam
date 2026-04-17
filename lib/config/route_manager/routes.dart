@@ -8,6 +8,8 @@ class Routes {
   static const String forgetPasswordOtpViewRoute = '/forgetPasswordOtpView';
   static const String forgetPasswordNewPassViewRoute =
       '/forgetPasswordNewPassView';
+  static const String examsRoute = "/examsRoute";
+
 
   static const String homeRoute = "/home";
 }

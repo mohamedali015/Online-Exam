@@ -75,6 +75,17 @@ abstract class AppStrings {
 
   static const String home ="Explore";
   static const String result ="Result";
+  static const String survey ="Survey";
+  static const String  browseBySubject ="Browse by subject";
+  static const String  noSubjectsFound ="No subjects found";
+  static const String  unknown ="Unknown";
+  static const String  search ="Search";
+
+  static const String  noNameFound ="No name found";
+  static const String  noIdFound ="No id found";
+  static const String  noIconFound ="No icon found";
+
+
 
 
 }
