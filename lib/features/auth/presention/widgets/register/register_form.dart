@@ -16,12 +16,13 @@ class RegisterForm extends StatelessWidget {
     required this.passwordController,
     required this.confirmPasswordController,
     required this.phoneController,
+    required this.isLoading,
   });
 
   final GlobalKey<FormState> formKey;
   final bool autoValidate;
   final VoidCallback onChanged;
-
+  final bool isLoading;
   final TextEditingController userNameController;
   final TextEditingController firstNameController;
   final TextEditingController lastNameController;
@@ -40,6 +41,7 @@ class RegisterForm extends StatelessWidget {
       child: Column(
         children: [
           TextFormField(
+            enabled: !isLoading,
             onChanged: (_) => onChanged(),
             decoration: InputDecoration(
               label: Text(AppStrings.userName),
@@ -58,6 +60,8 @@ class RegisterForm extends StatelessWidget {
             children: [
               Expanded(
                 child: TextFormField(
+                  enabled: !isLoading,
+
                   onChanged: (_) => onChanged(),
                   decoration: InputDecoration(
                     label: Text(AppStrings.firstName),
@@ -73,6 +77,8 @@ class RegisterForm extends StatelessWidget {
               SizedBox(width: MyResponsive.width(value: 17)),
               Expanded(
                 child: TextFormField(
+                  enabled: !isLoading,
+
                   onChanged: (_) => onChanged(),
                   decoration: InputDecoration(
                     label: Text(AppStrings.lastName),
@@ -91,6 +97,8 @@ class RegisterForm extends StatelessWidget {
           SizedBox(height: MyResponsive.height(value: 28)),
 
           TextFormField(
+            enabled: !isLoading,
+
             onChanged: (_) => onChanged(),
             decoration: InputDecoration(
               label: Text(AppStrings.email),
@@ -109,6 +117,8 @@ class RegisterForm extends StatelessWidget {
             children: [
               Expanded(
                 child: TextFormField(
+                  enabled: !isLoading,
+
                   onChanged: (_) => onChanged(),
                   decoration: InputDecoration(
                     label: Text(AppStrings.password),
@@ -125,6 +135,8 @@ class RegisterForm extends StatelessWidget {
               SizedBox(width: MyResponsive.width(value: 17)),
               Expanded(
                 child: TextFormField(
+                  enabled: !isLoading,
+
                   onChanged: (_) => onChanged(),
                   decoration: InputDecoration(
                     label: Text(AppStrings.confirmPassword),
@@ -145,6 +157,8 @@ class RegisterForm extends StatelessWidget {
           SizedBox(height: MyResponsive.height(value: 28)),
 
           TextFormField(
+            enabled: !isLoading,
+
             onChanged: (_) => onChanged(),
             decoration: InputDecoration(
               label: Text(AppStrings.phoneNumber),
