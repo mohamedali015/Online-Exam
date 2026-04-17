@@ -8,21 +8,15 @@ class HomeScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    String id = "67003a9a728c92b7fdf4350a";
+    String id = "69d980107c82914570305dbd";
     String id1 = "67ca2e5d5554b32891261bf4";
     return Scaffold(
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            SubjectCard(
-              id: id,
-              name: "Math",
-            ),
-            SubjectCard(
-              id: id1,
-              name: "Flutter",
-            ),
+            SubjectCard(id: id, name: "Math"),
+            SubjectCard(id: id1, name: "Flutter"),
           ],
         ),
       ),
@@ -45,9 +39,7 @@ class SubjectCard extends StatelessWidget {
       child: Card(
         elevation: 3,
         color: AppColors.baseWhite,
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(16),
-        ),
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 24.0, vertical: 10),
           child: Row(

@@ -17,11 +17,11 @@ class ExamsRepoImpl implements ExamsRepo {
     switch (response) {
       case Success<List<Exams>>():
         return Success<List<ExamsModel>>(
-          response.data.map((dto) => dto.toEntity()).toList(),
+          data: response.data.map((dto) => dto.toEntity()).toList(),
         );
 
       case Failure<List<Exams>>():
-        return Failure<List<ExamsModel>>(response.errorMessage);
+        return Failure<List<ExamsModel>>(errorMessage: response.errorMessage);
     }
   }
 }
