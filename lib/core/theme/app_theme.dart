@@ -87,13 +87,13 @@ class AppTheme {
     ),
 
     bottomNavigationBarTheme: BottomNavigationBarThemeData(
-      backgroundColor: AppColors.quistionsLightBlue,
+      backgroundColor: AppColors.questionsLightBlue,
       selectedItemColor: AppColors.primaryColor,
       unselectedItemColor: AppColors.disabledGray,
-      unselectedLabelStyle: AppTextStyles.medium16.copyWith(
+      unselectedLabelStyle: AppTextStyles.medium12.copyWith(
         color: AppColors.disabledGray,
       ),
-      selectedLabelStyle: AppTextStyles.medium16,
+      selectedLabelStyle: AppTextStyles.medium12,
       showSelectedLabels: true,
       showUnselectedLabels: true,
       elevation: 0,

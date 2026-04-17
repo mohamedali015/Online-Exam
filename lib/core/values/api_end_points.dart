@@ -10,4 +10,6 @@ abstract class ApiEndPoints {
   static const String getAllSubjects = '/subjects';
   static const String getSubjectExams = '/exams';
 
+  static const String getUserData = 'auth/profileData';
+  static const String getExamQuestions = 'questions';
 }

@@ -111,4 +111,24 @@ abstract class AppStrings {
   static const String timeOut = 'Time Out !!';
 
   static const String viewScore = 'View Score';
+  static const String noQuestions = 'No Questions Found';
+
+  static const String tryAgain = 'Try Again';
+
+  static const String warning = 'Warning';
+
+  static const String warningSubtitle =
+      'Are you sure you want to finish the exam?';
+
+  static const String examScore = 'Exam Score';
+
+  static const String yourScore = 'Your Score';
+
+  static const String correct = 'Correct';
+
+  static const String incorrect = 'Incorrect';
+
+  static const String showResult = 'Show Result';
+
+  static const String startAgain = 'Start Again';
 }

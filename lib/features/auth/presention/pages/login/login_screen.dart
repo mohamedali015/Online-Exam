@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:online_exam/config/route_manager/routes.dart';
 import 'package:online_exam/core/utils/app_colors.dart';
+import '../../../../../config/user/manager/user_cubit.dart';
 import '../../../../../core/helpers/app_snackbar.dart';
 import '../../../../../core/helpers/my_responsive.dart';
 import '../../../../../core/helpers/validator.dart';
@@ -45,10 +46,11 @@ class _LoginScreenState extends State<LoginScreen> {
       ),
       body: BlocListener<LoginCubit, LoginState>(
         listenWhen: (prev, curr) =>
-        curr is LoginSuccessState || curr is LoginFailureState,
+            curr is LoginSuccessState || curr is LoginFailureState,
         listener: (context, state) {
           if (state is LoginSuccessState) {
             AppSnackbar.success(context, state.authEntity.message!);
+            context.read<UserCubit>().user = state.authEntity.user!;
             Navigator.pushNamedAndRemoveUntil(
               context,
               Routes.homeRoute,
@@ -138,9 +140,9 @@ class _LoginScreenState extends State<LoginScreen> {
                           : Colors.grey,
                       onPressed: state.isFormValid
                           ? () => cubit.loginWithEmailAndPassword(
-                        email: emailController.text,
-                        password: passwordController.text,
-                      )
+                              email: emailController.text,
+                              password: passwordController.text,
+                            )
                           : null,
                       isLoading: isLoading,
                     );

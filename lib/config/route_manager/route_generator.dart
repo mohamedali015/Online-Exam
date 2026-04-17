@@ -8,13 +8,11 @@ import '../../features/home/domain/entities/get_all_subjects_entity.dart';
 import '../../features/splash/splash_screen.dart';
 import 'package:online_exam/features/auth/presention/manager/register/register_cubit.dart';
 import 'package:online_exam/features/exams/presentation/pages/exam_details_screen.dart';
-import 'package:online_exam/features/auth/presention/pages/register/register_screen.dart';
-import '../../features/exams/presentation/pages/exams_screen.dart';
 import '../../features/exam/presentation/pages/exam_view.dart';
-import '../../features/splash/splash_screen.dart';
 import '../../core/shared_widgets/custom_bottom_nav.dart';
 import '../../core/values/app_strings.dart';
 import '../../features/auth/presention/manager/login/login_cubit.dart';
+import 'package:online_exam/features/exam/presentation/pages/exam_score_view.dart';
 import '../../features/auth/presention/pages/login/login_screen.dart';
 import '../../features/forget_password/presentation/manager/forget_password_cubit/forget_password_cubit.dart';
 import '../../features/forget_password/presentation/pages/forget_password_enter_email_view.dart';
@@ -37,8 +35,6 @@ class RouteGenerator {
             child: LoginScreen(),
           ),
         );
-      // case Routes.homeRoute:
-      // return CupertinoPageRoute(builder: (_) => HomeScreen(),);
 
       /// Register Screen
       case Routes.registerRoute:
@@ -55,34 +51,6 @@ class RouteGenerator {
             create: (_) => getIt<ForgetPasswordCubit>(),
             child: const ForgetPasswordEnterEmailView(),
           ),
-        );
-
-      case Routes.examsRoute:
-        final String subjectId = settings.arguments as String;
-        return CupertinoPageRoute(
-          builder: (_) => ExamsScreen(subjectId: subjectId),
-        );
-
-      case Routes.examDetailsRoute:
-        final args = settings.arguments as Map<String, dynamic>;
-        return CupertinoPageRoute(
-          builder: (_) => ExamDetailsScreen(
-            examTitle: args['title'],
-            examDuration: args['duration'],
-            examNumberOfQuestions: args['numberOfQuestions'],
-          ),
-        );
-
-      case Routes.examViewRoute:
-        final args = settings.arguments as Map<String, dynamic>;
-
-        return CupertinoPageRoute(
-          builder: (_) => ExamView(
-            examTitle: args['title'],
-            examDuration: args['duration'],
-            examNumberOfQuestions: args['numberOfQuestions'],
-          ),
-          settings: settings,
         );
 
       case Routes.forgetPasswordOtpViewRoute:
@@ -107,11 +75,33 @@ class RouteGenerator {
 
       case Routes.homeRoute:
         return CupertinoPageRoute(builder: (_) => CustomBottomNavBar());
-      case Routes.examsRoute:
-        SubjectEntity item = settings.arguments as SubjectEntity;
 
+      case Routes.examsRoute:
+        final String subjectId = settings.arguments as String;
         return CupertinoPageRoute(
-          builder: (_) => ExamsScreen(item: item),
+          builder: (_) => ExamsScreen(subjectId: subjectId),
+        );
+
+      case Routes.examDetailsRoute:
+        final args = settings.arguments as Map<String, dynamic>;
+        return CupertinoPageRoute(
+          builder: (_) => ExamDetailsScreen(
+            examTitle: args['title'],
+            examDuration: args['duration'],
+            examNumberOfQuestions: args['numberOfQuestions'],
+          ),
+        );
+
+      case Routes.examViewRoute:
+        return CupertinoPageRoute(
+          builder: (_) => ExamView(),
+          settings: settings,
+        );
+
+      case Routes.examScoreViewRoute:
+        return CupertinoPageRoute(
+          builder: (_) => ExamScoreView(),
+          settings: settings,
         );
 
       /// Default (Unknown Route)

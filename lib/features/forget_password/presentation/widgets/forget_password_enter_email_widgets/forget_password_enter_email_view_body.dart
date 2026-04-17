@@ -75,6 +75,7 @@ class ForgetPasswordEnterEmailViewBody extends StatelessWidget {
                       validator: Validator.email,
                       onChanged: (_) => cubit.validateEmailForm(),
                       enabled: !state.sendEmailState.isLoading,
+                      keyboardType: TextInputType.emailAddress,
                       decoration: InputDecoration(
                         labelText: AppStrings.email,
                         hintText: AppStrings.enterYouEmail,

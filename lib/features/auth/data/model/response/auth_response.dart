@@ -2,7 +2,6 @@ import 'package:json_annotation/json_annotation.dart';
 import 'package:online_exam/features/auth/data/model/response/user_response.dart';
 
 import '../../../domain/entities/auth_entity.dart';
-import '../../../domain/entities/user_entity.dart';
 
 part 'auth_response.g.dart';
 
