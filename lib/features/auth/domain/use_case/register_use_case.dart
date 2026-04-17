@@ -5,7 +5,7 @@ import 'package:online_exam/features/auth/domain/repositories/auth_repo.dart';
 
 @injectable
 class RegisterUseCase {
-  AuthRepo authRepo;
+  final AuthRepo authRepo;
   RegisterUseCase(this.authRepo);
 
   Future<Result<AuthEntity>> call({

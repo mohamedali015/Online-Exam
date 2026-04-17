@@ -19,5 +19,3 @@ class RegisterSubmitted extends RegisterEvents {
     required this.phone,
   });
 }
-
-class RegisterInitControllers extends RegisterEvents {}

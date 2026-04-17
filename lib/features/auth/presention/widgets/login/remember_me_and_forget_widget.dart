@@ -43,7 +43,8 @@ class _RememberMeAndForgetWidgetState extends State<RememberMeAndForgetWidget> {
 
         TextButton(
           onPressed: () {
-            Navigator.pushNamed(context, Routes.forgetPasswordFlowRoute);
+            Navigator.pushNamed(
+                context, Routes.forgetPasswordEnterEmailViewRoute);
           },
           child: Text(
             "${AppStrings.forgetPassword}?",

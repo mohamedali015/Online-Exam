@@ -14,5 +14,4 @@ class VerifyOtpResponse {
 
   Map<String, dynamic> toJson() => _$VerifyOtpResponseToJson(this);
 
-  VerifyOtpResponse toDomain() => VerifyOtpResponse(status: status ?? '');
 }
