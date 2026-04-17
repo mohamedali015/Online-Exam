@@ -51,7 +51,7 @@ class _LoginScreenState extends State<LoginScreen> {
       ),
       body: BlocListener<LoginCubit, LoginState>(
         listenWhen: (prev, curr) =>
-        curr is LoginSuccessState || curr is LoginFailureState,
+            curr is LoginSuccessState || curr is LoginFailureState,
         listener: (context, state) {
           if (state is LoginSuccessState) {
             AppSnackbar.success(context, state.authEntity.message!);
@@ -61,8 +61,7 @@ class _LoginScreenState extends State<LoginScreen> {
           }
         },
         child: Padding(
-          padding:
-          MyResponsive.paddingSymmetric(horizontal: 16, vertical: 24),
+          padding: MyResponsive.paddingSymmetric(horizontal: 16, vertical: 24),
           child: Form(
             key: formKey,
             child: Column(
@@ -100,7 +99,7 @@ class _LoginScreenState extends State<LoginScreen> {
                 /// Button
                 BlocBuilder<LoginCubit, LoginState>(
                   buildWhen: (prev, curr) =>
-                  prev.isFormValid != curr.isFormValid,
+                      prev.isFormValid != curr.isFormValid,
                   builder: (context, state) {
                     return CustomButton(
                       title: AppStrings.login,
@@ -109,9 +108,9 @@ class _LoginScreenState extends State<LoginScreen> {
                           : Colors.grey,
                       onPressed: state.isFormValid
                           ? () => cubit.loginWithEmailAndPassword(
-                        email: emailController.text,
-                        password: passwordController.text,
-                      )
+                              email: emailController.text,
+                              password: passwordController.text,
+                            )
                           : null,
                     );
                   },
@@ -123,7 +122,12 @@ class _LoginScreenState extends State<LoginScreen> {
                 AuthNavigationText(
                   title: "${AppStrings.doNotHaveAnAccount}?",
                   actionText: AppStrings.signUp,
-                  onTap: () {},
+                  onTap: () {
+                    Navigator.pushReplacementNamed(
+                      context,
+                      Routes.registerRoute,
+                    );
+                  },
                 ),
               ],
             ),
