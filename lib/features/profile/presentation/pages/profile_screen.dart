@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:online_exam/core/utils/app_text_styles.dart';
-import 'package:online_exam/core/values/app_strings.dart';
 
 import '../../../../config/cache/secure_cache/cache_keys.dart';
 import '../../../../config/cache/secure_cache/secure_cache_helper.dart';

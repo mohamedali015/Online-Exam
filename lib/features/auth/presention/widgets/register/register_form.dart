@@ -1,13 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:online_exam/core/helpers/my_responsive.dart';
 import 'package:online_exam/core/helpers/validator.dart';
-import 'package:online_exam/core/shared_widgets/custom_text_form_field.dart';
 import 'package:online_exam/core/values/app_strings.dart';
 
 class RegisterForm extends StatelessWidget {
   const RegisterForm({
     super.key,
-    required GlobalKey<FormState> formKey,
+    required this.formKey,
+    required this.autoValidate,
+    required this.onChanged,
     required this.userNameController,
     required this.firstNameController,
     required this.lastNameController,
@@ -15,9 +16,12 @@ class RegisterForm extends StatelessWidget {
     required this.passwordController,
     required this.confirmPasswordController,
     required this.phoneController,
-  }) : _formKey = formKey;
+  });
 
-  final GlobalKey<FormState> _formKey;
+  final GlobalKey<FormState> formKey;
+  final bool autoValidate;
+  final VoidCallback onChanged;
+
   final TextEditingController userNameController;
   final TextEditingController firstNameController;
   final TextEditingController lastNameController;
@@ -29,83 +33,128 @@ class RegisterForm extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Form(
-      key: _formKey,
-
+      key: formKey,
+      autovalidateMode: autoValidate
+          ? AutovalidateMode.onUserInteraction
+          : AutovalidateMode.disabled,
       child: Column(
         children: [
-          CustomTextFormField(
+          TextFormField(
+            onChanged: (_) => onChanged(),
+            decoration: InputDecoration(
+              label: Text(AppStrings.userName),
+              hintText: AppStrings.enterYouUserName,
+            ),
 
             controller: userNameController,
-            type: TextFieldType.userName,
+            validator: Validator.name,
+
+            keyboardType: TextInputType.name,
           ),
+
           SizedBox(height: MyResponsive.height(value: 28)),
+
           Row(
             children: [
               Expanded(
-                child: CustomTextFormField(
-
-                  type: TextFieldType.name,
-
+                child: TextFormField(
+                  onChanged: (_) => onChanged(),
+                  decoration: InputDecoration(
+                    label: Text(AppStrings.firstName),
+                    hintText: AppStrings.enterFirstName,
+                  ),
 
                   controller: firstNameController,
+                  validator: Validator.name,
 
+                  keyboardType: TextInputType.name,
                 ),
               ),
               SizedBox(width: MyResponsive.width(value: 17)),
               Expanded(
-                child: CustomTextFormField(
-
-                  type: TextFieldType.name,
-
+                child: TextFormField(
+                  onChanged: (_) => onChanged(),
+                  decoration: InputDecoration(
+                    label: Text(AppStrings.lastName),
+                    hintText: AppStrings.enterLastName,
+                  ),
 
                   controller: lastNameController,
+                  validator: Validator.name,
 
+                  keyboardType: TextInputType.name,
                 ),
               ),
             ],
           ),
+
           SizedBox(height: MyResponsive.height(value: 28)),
 
-          CustomTextFormField(
-
-
-            type: TextFieldType.email,
+          TextFormField(
+            onChanged: (_) => onChanged(),
+            decoration: InputDecoration(
+              label: Text(AppStrings.email),
+              hintText: AppStrings.enterYouEmail,
+            ),
 
             controller: emailController,
+            validator: Validator.email,
 
+            keyboardType: TextInputType.emailAddress,
           ),
 
           SizedBox(height: MyResponsive.height(value: 28)),
+
           Row(
             children: [
               Expanded(
-                child: CustomTextFormField(
-                  type: TextFieldType.password,
-                  controller: passwordController,
+                child: TextFormField(
+                  onChanged: (_) => onChanged(),
+                  decoration: InputDecoration(
+                    label: Text(AppStrings.password),
+                    hintText: AppStrings.enterYouPassword,
+                  ),
 
+                  controller: passwordController,
+                  validator: Validator.password,
+
+                  keyboardType: TextInputType.visiblePassword,
+                  obscureText: true,
                 ),
               ),
               SizedBox(width: MyResponsive.width(value: 17)),
               Expanded(
-                child: CustomTextFormField(
-
-                  type: TextFieldType.password,
-
-
-
+                child: TextFormField(
+                  onChanged: (_) => onChanged(),
+                  decoration: InputDecoration(
+                    label: Text(AppStrings.confirmPassword),
+                    hintText: AppStrings.confirmPassword,
+                  ),
 
                   controller: confirmPasswordController,
+                  validator: (value) =>
+                      Validator.confirmPassword(value, passwordController.text),
 
-
+                  keyboardType: TextInputType.visiblePassword,
+                  obscureText: true,
                 ),
               ),
             ],
           ),
+
           SizedBox(height: MyResponsive.height(value: 28)),
 
-          CustomTextFormField(
+          TextFormField(
+            onChanged: (_) => onChanged(),
+            decoration: InputDecoration(
+              label: Text(AppStrings.phoneNumber),
+              hintText: AppStrings.enterPhoneNumber,
+            ),
+
             controller: phoneController,
-            type: TextFieldType.phone,
+            validator: Validator.phone,
+
+            keyboardType: TextInputType.phone,
           ),
         ],
       ),

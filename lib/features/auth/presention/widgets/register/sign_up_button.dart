@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:online_exam/core/utils/app_colors.dart';
 import 'package:online_exam/core/values/app_strings.dart';
 import 'package:online_exam/features/auth/presention/manager/register/register_cubit.dart';
@@ -8,61 +9,64 @@ class SignUpButton extends StatelessWidget {
   const SignUpButton({
     super.key,
     required this.formKey,
-    required this.registerCubit,
-    required this.userName,
-    required this.firstName,
-    required this.lastName,
-    required this.email,
-    required this.password,
-    required this.confirmPassword,
-    required this.phone,
-    required this.isButtonEnabled,
+    required this.isFormValid,
+    required this.hasSubmitted,
+    required this.onFirstSubmitFailed,
+    required this.userNameController,
+    required this.firstNameController,
+    required this.lastNameController,
+    required this.emailController,
+    required this.passwordController,
+    required this.confirmPasswordController,
+    required this.phoneController,
     this.isLoading = false,
-    required this.onInvalid,
   });
 
   final GlobalKey<FormState> formKey;
-  final RegisterCubit registerCubit;
-
+  final bool isFormValid;
+  final bool hasSubmitted;
+  final VoidCallback onFirstSubmitFailed;
   final bool isLoading;
-  final bool isButtonEnabled;
 
-  final String userName;
-  final String firstName;
-  final String lastName;
-  final String email;
-  final String password;
-  final String confirmPassword;
-  final String phone;
-
-  final VoidCallback onInvalid;
+  final TextEditingController userNameController;
+  final TextEditingController firstNameController;
+  final TextEditingController lastNameController;
+  final TextEditingController emailController;
+  final TextEditingController passwordController;
+  final TextEditingController confirmPasswordController;
+  final TextEditingController phoneController;
 
   @override
   Widget build(BuildContext context) {
+    final cubit = context.read<RegisterCubit>();
+
     return SizedBox(
       width: double.infinity,
       child: ElevatedButton(
-        onPressed: (!isButtonEnabled || isLoading)
+        onPressed: isLoading
             ? null
-            : () {
-                if (formKey.currentState!.validate()) {
-                  registerCubit.doEvents(
-                    RegisterSubmitted(
-                      userName: userName,
-                      firstName: firstName,
-                      lastName: lastName,
-                      email: email,
-                      password: password,
-                      confirmPassword: confirmPassword,
-                      phone: phone,
-                    ),
-                  );
-                } else {
-                  onInvalid();
+            : (!hasSubmitted || isFormValid)
+            ? () {
+                if (!formKey.currentState!.validate()) {
+                  onFirstSubmitFailed();
+                  return;
                 }
-              },
+
+                cubit.doEvents(
+                  RegisterSubmitted(
+                    userName: userNameController.text.trim(),
+                    firstName: firstNameController.text.trim(),
+                    lastName: lastNameController.text.trim(),
+                    email: emailController.text.trim(),
+                    password: passwordController.text.trim(),
+                    confirmPassword: confirmPasswordController.text.trim(),
+                    phone: phoneController.text.trim(),
+                  ),
+                );
+              }
+            : null,
         child: isLoading
-            ? SizedBox(
+            ? const SizedBox(
                 height: 22,
                 width: 22,
                 child: CircularProgressIndicator(
@@ -70,7 +74,7 @@ class SignUpButton extends StatelessWidget {
                   color: AppColors.baseWhite,
                 ),
               )
-            : Text(AppStrings.signUp),
+            : const Text(AppStrings.signUp),
       ),
     );
   }

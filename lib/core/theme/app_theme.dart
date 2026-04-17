@@ -9,7 +9,7 @@ class AppTheme {
 
     inputDecorationTheme: InputDecorationTheme(
       floatingLabelBehavior: FloatingLabelBehavior.always,
-
+      errorMaxLines: 2,
       labelStyle: WidgetStateTextStyle.resolveWith((states) {
         if (states.contains(WidgetState.error)) {
           return AppTextStyles.regular12.copyWith(color: AppColors.error);
@@ -80,6 +80,10 @@ class AppTheme {
         color: AppColors.baseBlack,
       ),
       iconTheme: IconThemeData(color: AppColors.baseBlack),
+    ),
+
+    progressIndicatorTheme: ProgressIndicatorThemeData(
+      color: AppColors.primaryColor,
     ),
 
     bottomNavigationBarTheme: BottomNavigationBarThemeData(

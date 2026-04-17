@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:injectable/injectable.dart';
 import 'package:pin_code_fields/pin_code_fields.dart';
 
 import '../../../../../config/error_handling/result.dart';
@@ -11,15 +12,13 @@ import '../../../domain/use_cases/verify_otp_forget_password_use_case.dart';
 import 'forget_password_events.dart';
 import 'forget_password_state.dart';
 
+@injectable
 class ForgetPasswordCubit extends Cubit<ForgetPasswordState> {
   ForgetPasswordCubit(
     this._enterEmailUseCase,
     this._verifyOtpUseCase,
     this._resetPasswordUseCase,
   ) : super(ForgetPasswordState());
-
-  static ForgetPasswordCubit get(BuildContext context) =>
-      BlocProvider.of(context);
 
   /// useCases
   final EnterEmailUseCase _enterEmailUseCase;
@@ -38,32 +37,11 @@ class ForgetPasswordCubit extends Cubit<ForgetPasswordState> {
   final emailFormKey = GlobalKey<FormState>();
   final passwordFormKey = GlobalKey<FormState>();
 
-  // /// Form Validations
-  // bool isEmailValid = false;
-  // bool isPasswordFormValid = false;
-  //
-  // bool passwordObsecure = true;
-  // bool confirmPasswordObsecure = true;
-
   void doEvent(ForgetPasswordEvents event) {
     switch (event) {
       case SendEmailEvent():
         {
           _sendEmail();
-          break;
-        }
-
-      case ClearSendEmailSuccessEvent():
-        {
-          emit(
-            state.copyWith(
-              sendEmailStateParam: state.sendEmailState.copyWith(
-                isSuccessParam: false,
-                errorMessageParam: null,
-                isLoadingParam: false,
-              ),
-            ),
-          );
           break;
         }
 
@@ -104,10 +82,6 @@ class ForgetPasswordCubit extends Cubit<ForgetPasswordState> {
             sendEmailStateParam: state.sendEmailState.copyWith(
               isLoadingParam: false,
               isSuccessParam: true,
-              errorMessageParam: null,
-            ),
-            verifyOtpStateParam: state.verifyOtpState.copyWith(
-              isLoadingParam: false,
               errorMessageParam: null,
             ),
           ),

@@ -11,12 +11,11 @@ class ForgetPasswordVerifyOtpView extends StatelessWidget {
     return PopScope(
       canPop: false,
       onPopInvokedWithResult: (didPop, result) {
-        if (didPop) return;
-
-        Navigator.of(
+        Navigator.pushNamedAndRemoveUntil(
           context,
-          rootNavigator: true,
-        ).pushNamedAndRemoveUntil(Routes.loginRoute, (route) => false);
+          Routes.loginRoute,
+          (route) => false,
+        );
       },
       child: Scaffold(
         appBar: AppBar(
@@ -24,7 +23,11 @@ class ForgetPasswordVerifyOtpView extends StatelessWidget {
           title: Text(AppStrings.password),
           leading: IconButton(
             onPressed: () {
-              Navigator.pop(context);
+              Navigator.pushNamedAndRemoveUntil(
+                context,
+                Routes.loginRoute,
+                (route) => false,
+              );
             },
             icon: Icon(Icons.arrow_back_ios_new),
           ),
