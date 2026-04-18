@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:online_exam/core/shared_widgets/svg_wrapper.dart';
+
 import '../../features/home/presentation/pages/home_screen.dart';
 import '../../features/profile/presentation/pages/profile_screen.dart';
 import '../../features/result/presentation/pages/result_screen.dart';
 import '../helpers/my_responsive.dart';
-import '../utils/app_colors.dart';
 import '../utils/app_assets.dart';
+import '../utils/app_colors.dart';
+import '../values/app_strings.dart';
 
 class CustomBottomNavBar extends StatefulWidget {
   const CustomBottomNavBar({super.key});
@@ -19,8 +21,8 @@ class _CustomBottomNavBarState extends State<CustomBottomNavBar> {
 
   final List<Widget> _screens = [
     HomeScreen(),
-    const ResultScreen(),
-    const ProfileScreen(),
+    ResultScreen(),
+    ProfileScreen(),
   ];
 
   void _onTap(int index) {
@@ -37,9 +39,9 @@ class _CustomBottomNavBarState extends State<CustomBottomNavBar> {
         currentIndex: currentIndex,
         onTap: _onTap,
         items: [
-          _buildItem(AppAssets.homePath, 'Explore', 0),
-          _buildItem(AppAssets.resultPath, 'Result', 1),
-          _buildItem(AppAssets.profilePath, 'Profile', 2),
+          _buildItem(AppAssets.homePath, AppStrings.home, 0),
+          _buildItem(AppAssets.resultPath, AppStrings.result, 1),
+          _buildItem(AppAssets.profilePath, AppStrings.profile, 2),
         ],
       ),
     );
