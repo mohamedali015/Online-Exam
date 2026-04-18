@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:online_exam/core/utils/app_text_styles.dart';
+import 'package:online_exam/features/home/domain/entities/get_all_subjects_entity.dart';
 import '../../../../config/route_manager/routes.dart';
 import '../../../../core/utils/app_colors.dart';
 
@@ -8,15 +9,25 @@ class HomeScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    String id = "69d980107c82914570305dbd";
-    String id1 = "67ca2e5d5554b32891261bf4";
     return Scaffold(
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            SubjectCard(id: id, name: "Math"),
-            SubjectCard(id: id1, name: "Flutter"),
+            SubjectCard(
+              item: SubjectEntity(
+                id: '69d980107c82914570305dbd',
+                icon: '',
+                name: 'name',
+              ),
+            ),
+            SubjectCard(
+              item: SubjectEntity(
+                id: '69d980107c82914570305dbd',
+                icon: '',
+                name: 'Flutter',
+              ),
+            ),
           ],
         ),
       ),
@@ -25,16 +36,15 @@ class HomeScreen extends StatelessWidget {
 }
 
 class SubjectCard extends StatelessWidget {
-  final String id;
-  final String name;
+  final SubjectEntity item;
 
-  const SubjectCard({super.key, required this.id, required this.name});
+  const SubjectCard({super.key, required this.item});
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        Navigator.pushNamed(context, Routes.examsRoute, arguments: id);
+        Navigator.pushNamed(context, Routes.examsRoute, arguments: item);
       },
       child: Card(
         elevation: 3,
@@ -43,17 +53,7 @@ class SubjectCard extends StatelessWidget {
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 24.0, vertical: 10),
           child: Row(
-            children: [
-              const Icon(Icons.percent),
-              const SizedBox(width: 30),
-              Text(
-                name,
-                textAlign: TextAlign.center,
-                style: AppTextStyles.medium20.copyWith(
-                  color: AppColors.baseBlack,
-                ),
-              ),
-            ],
+            children: [const Icon(Icons.percent), const SizedBox(width: 30)],
           ),
         ),
       ),

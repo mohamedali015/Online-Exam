@@ -7,23 +7,28 @@ import 'package:online_exam/features/exams/presentation/manager/exams_cubit/exam
 import 'package:online_exam/features/exams/presentation/manager/exams_cubit/exams_states.dart';
 import 'package:online_exam/features/exams/presentation/widgets/exams_list.dart';
 
-class ExamsScreen extends StatelessWidget {
-  final String subjectId;
-  ExamsScreen({super.key, required this.subjectId});
+import '../../../home/domain/entities/get_all_subjects_entity.dart';
 
-  ExamsCubit examsCubit = getIt.get<ExamsCubit>();
+class ExamsScreen extends StatelessWidget {
+  final SubjectEntity item;
+
+  ExamsScreen({super.key, required this.item});
+
+  final ExamsCubit examsCubit = getIt.get<ExamsCubit>();
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        title: Text(item.name!),
         leading: IconButton(
           onPressed: () => Navigator.pop(context),
           icon: const Icon(Icons.arrow_back_ios_new),
         ),
       ),
       body: BlocProvider<ExamsCubit>(
-        create: (context) => examsCubit..doEvent(GetSubjectExams(subjectId)),
+        create: (context) =>
+            examsCubit..doEvent(GetSubjectExams(subjectId: item.id!)),
         child: SingleChildScrollView(
           scrollDirection: Axis.vertical,
           child: Column(

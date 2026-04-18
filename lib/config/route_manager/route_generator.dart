@@ -5,6 +5,7 @@ import 'package:online_exam/config/route_manager/routes.dart';
 import 'package:online_exam/features/auth/presention/manager/register/register_cubit.dart';
 import 'package:online_exam/features/exams/presentation/pages/exam_details_screen.dart';
 import 'package:online_exam/features/auth/presention/pages/register/register_screen.dart';
+import 'package:online_exam/features/home/domain/entities/get_all_subjects_entity.dart';
 import '../../features/exams/presentation/pages/exams_screen.dart';
 import '../../features/exam/presentation/pages/exam_view.dart';
 import '../../features/splash/splash_screen.dart';
@@ -54,19 +55,17 @@ class RouteGenerator {
         );
 
       case Routes.examsRoute:
-        final String subjectId = settings.arguments as String;
+        SubjectEntity item = settings.arguments as SubjectEntity;
+
         return CupertinoPageRoute(
-          builder: (_) => ExamsScreen(subjectId: subjectId),
+          builder: (_) => ExamsScreen(item: item),
+          settings: settings,
         );
 
       case Routes.examDetailsRoute:
-        final args = settings.arguments as Map<String, dynamic>;
         return CupertinoPageRoute(
-          builder: (_) => ExamDetailsScreen(
-            examTitle: args['title'],
-            examDuration: args['duration'],
-            examNumberOfQuestions: args['numberOfQuestions'],
-          ),
+          builder: (_) => ExamDetailsScreen(),
+          settings: settings,
         );
 
       case Routes.examViewRoute:

@@ -123,10 +123,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   title: "${AppStrings.doNotHaveAnAccount}?",
                   actionText: AppStrings.signUp,
                   onTap: () {
-                    Navigator.pushReplacementNamed(
-                      context,
-                      Routes.registerRoute,
-                    );
+                    Navigator.pushNamed(context, Routes.registerRoute);
                   },
                 ),
               ],

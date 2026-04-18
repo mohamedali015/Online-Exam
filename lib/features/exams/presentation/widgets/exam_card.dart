@@ -15,15 +15,7 @@ class ExamCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        Navigator.pushNamed(
-          context,
-          Routes.examDetailsRoute,
-          arguments: {
-            'title': exam.title,
-            'duration': exam.duration,
-            'numberOfQuestions': exam.numberOfQuestions,
-          },
-        );
+        Navigator.pushNamed(context, Routes.examDetailsRoute, arguments: exam);
       },
       child: Container(
         height: MyResponsive.height(value: 90),
