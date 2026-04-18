@@ -1,22 +1,24 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/foundation.dart';
 import 'package:injectable/injectable.dart';
+import 'package:online_exam/config/module/token_interceptor.dart';
 import 'package:online_exam/core/values/api_end_points.dart';
 import 'package:pretty_dio_logger/pretty_dio_logger.dart';
 
-import '../../features/auth/api/api_client.dart';
+import '../../features/auth/api/api_client_auth.dart';
 
 @module
 abstract class ApiModule {
   @lazySingleton
-  ApiClient provideApiClient(Dio dio) {
-    return ApiClient(dio, baseUrl: ApiEndPoints.baseUrl);
+  ApiClientAuth provideApiClient(Dio dio) {
+    return ApiClientAuth(dio, baseUrl: ApiEndPoints.baseUrl);
   }
 
   @lazySingleton
-  Dio provideDio(BaseOptions option, PrettyDioLogger logger) {
+  Dio provideDio(BaseOptions option, PrettyDioLogger logger,) {
     var dio = Dio(option);
     dio.interceptors.add(logger);
+    dio.interceptors.add(TokenInterceptor());
     return dio;
   }
 

@@ -1,9 +1,8 @@
 import 'package:injectable/injectable.dart';
 import 'package:online_exam/config/error_handling/result.dart';
-import 'package:online_exam/features/home/data/model/response/get_all_subjects_response.dart';
 import 'package:online_exam/features/home/data/mappers/subject_response_mapper.dart';
-import '../../../../config/cache/secure_cache/cache_keys.dart';
-import '../../../../config/cache/secure_cache/secure_cache_helper.dart';
+import 'package:online_exam/features/home/data/model/response/get_all_subjects_response.dart';
+
 import '../../domain/entities/get_all_subjects_entity.dart';
 import '../../domain/repositories/get_all_subjects_repo.dart';
 import '../data_source/get_all_subjects_remote_data_source.dart';
@@ -16,8 +15,7 @@ class SubjectsRepositoryImpl implements SubjectsRepository {
 
   @override
   Future<Result<List<SubjectEntity>>> getAllSubjects() async {
-    final token = await SecureCacheHelper.getData(key: CacheKeys.token);
-    final response = await _dataSource.getSubjects(token: token!);
+    final response = await _dataSource.getSubjects();
 
     switch (response) {
       case Success<GetAllSubjectsResponse>():

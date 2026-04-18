@@ -2,6 +2,7 @@ import 'package:injectable/injectable.dart';
 import 'package:online_exam/config/error_handling/result.dart';
 import 'package:online_exam/features/auth/data/model/response/auth_response.dart';
 import 'package:online_exam/features/auth/domain/entities/auth_entity.dart';
+
 import '../../../../config/cache/secure_cache/cache_keys.dart';
 import '../../../../config/cache/secure_cache/secure_cache_helper.dart';
 import '../../domain/repositories/auth_repo.dart';
@@ -56,12 +57,11 @@ class AuthRepoImpl implements AuthRepo {
         {
           final entity = response.data.toEntity();
 
+          await SecureCacheHelper.saveData(
+            key: CacheKeys.token,
+            value: entity.token!,
+          );
           if (entity.token != null && rememberMe) {
-            await SecureCacheHelper.saveData(
-              key: CacheKeys.token,
-              value: entity.token!,
-            );
-
             await SecureCacheHelper.saveData(
               key: CacheKeys.rememberMe,
               value: rememberMe.toString(),
