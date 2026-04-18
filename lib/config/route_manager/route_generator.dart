@@ -74,23 +74,23 @@ class RouteGenerator {
         );
 
       case Routes.homeRoute:
-        return CupertinoPageRoute(builder: (_) => CustomBottomNavBar());
+        return CupertinoPageRoute(
+          builder: (_) => CustomBottomNavBar(),
+          settings: settings,
+        );
 
       case Routes.examsRoute:
         SubjectEntity item = settings.arguments as SubjectEntity;
 
         return CupertinoPageRoute(
           builder: (_) => ExamsScreen(item: item),
+          settings: settings,
         );
 
       case Routes.examDetailsRoute:
-        final args = settings.arguments as Map<String, dynamic>;
         return CupertinoPageRoute(
-          builder: (_) => ExamDetailsScreen(
-            examTitle: args['title'],
-            examDuration: args['duration'],
-            examNumberOfQuestions: args['numberOfQuestions'],
-          ),
+          builder: (_) => ExamDetailsScreen(),
+          settings: settings,
         );
 
       case Routes.examViewRoute:

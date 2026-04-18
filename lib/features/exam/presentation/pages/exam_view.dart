@@ -19,10 +19,12 @@ class ExamView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    ExamsModel exam = ModalRoute.of(context)!.settings.arguments as ExamsModel;
+
     return BlocProvider(
       create: (context) => ExamCubit(
         getExamQuestionsUseCase: getIt<GetExamQuestionsUseCase>(),
-        exam: ModalRoute.of(context)!.settings.arguments as ExamsModel,
+        exam: exam,
       )..doEvent(GetExamQuestions()),
       child: Scaffold(
         appBar: AppBar(

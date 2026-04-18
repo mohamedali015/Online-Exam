@@ -18,11 +18,7 @@ class ExamCard extends StatelessWidget {
         Navigator.pushNamed(
           context,
           Routes.examDetailsRoute,
-          arguments: {
-            'title': exam.title,
-            'duration': exam.duration,
-            'numberOfQuestions': exam.numberOfQuestions,
-          },
+          arguments: exam,
         );
       },
       child: Container(

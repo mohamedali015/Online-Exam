@@ -4,21 +4,15 @@ import 'package:online_exam/core/helpers/my_responsive.dart';
 import 'package:online_exam/core/utils/app_colors.dart';
 import 'package:online_exam/core/utils/app_text_styles.dart';
 import 'package:online_exam/core/values/app_strings.dart';
+import 'package:online_exam/features/exams/domain/entities/exam_model.dart';
 import 'package:online_exam/features/exams/presentation/widgets/exam_detailes.dart';
 
 class ExamDetailsScreen extends StatelessWidget {
-  final String examTitle;
-  final int examDuration;
-  final int examNumberOfQuestions;
-  const ExamDetailsScreen({
-    super.key,
-    required this.examTitle,
-    required this.examDuration,
-    required this.examNumberOfQuestions,
-  });
+  const ExamDetailsScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
+    ExamsModel exam = ModalRoute.of(context)!.settings.arguments as ExamsModel;
     return Scaffold(
       appBar: AppBar(
         leading: IconButton(
@@ -30,9 +24,9 @@ class ExamDetailsScreen extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           ExamDetailes(
-            examTitle: examTitle,
-            examDuration: examDuration,
-            examNumberOfQuestions: examNumberOfQuestions,
+            examTitle: exam.title,
+            examDuration: exam.duration,
+            examNumberOfQuestions: exam.numberOfQuestions,
           ),
           Divider(color: AppColors.selectedBlue),
           Padding(
@@ -67,11 +61,7 @@ class ExamDetailsScreen extends StatelessWidget {
                     Navigator.pushNamed(
                       context,
                       Routes.examViewRoute,
-                      arguments: {
-                        'title': examTitle,
-                        'duration': examDuration,
-                        'numberOfQuestions': examNumberOfQuestions,
-                      },
+                      arguments: exam,
                     );
                   },
                   child: Text(AppStrings.start),
