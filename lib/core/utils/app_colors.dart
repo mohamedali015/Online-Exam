@@ -5,6 +5,7 @@ abstract class AppColors {
   static const otpContainerBlue = Color(0xffDFE7F7);
   static const questionsLightBlue = Color(0xffEDEFF3);
   static const selectedBlue = Color(0xffCCD7EB);
+  static const changeProfilePhotoblue = Color(0xff5679BD);
 
   static const baseWhite = Color(0xffF9F9F9);
   static const baseBlack = Color(0xff0F0F0F);
