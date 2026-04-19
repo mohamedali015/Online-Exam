@@ -77,6 +77,10 @@ abstract class AppStrings {
 
   /// Exams view
   static const String exams = "Exams";
+  static const String questions = 'Questions';
+  static const String minutes = 'Minutes';
+  static const String examDate = 'Exam Date';
+
   static const String start = "Start";
   static const String instructions = "Instructions";
   static const String examInstruction =
@@ -87,6 +91,8 @@ abstract class AppStrings {
   static const String endTime = "6:00";
 
   /// exam view
+  static const String noExamsAvailable = "No exams available";
+
   static const String exam = "Exam";
   static const String question = 'Question';
 

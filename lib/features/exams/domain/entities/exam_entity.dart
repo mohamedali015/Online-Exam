@@ -1,12 +1,12 @@
 import 'package:equatable/equatable.dart';
 
-class ExamsModel extends Equatable {
+class ExamEntity extends Equatable {
   final String id;
   final String title;
   final int duration;
   final int numberOfQuestions;
 
-  const ExamsModel({
+  const ExamEntity({
     required this.id,
     required this.title,
     required this.duration,

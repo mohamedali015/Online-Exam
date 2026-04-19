@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:online_exam/core/utils/app_text_styles.dart';
 import 'package:online_exam/features/home/domain/entities/get_all_subjects_entity.dart';
 import '../../../../config/route_manager/routes.dart';
 import '../../../../core/utils/app_colors.dart';

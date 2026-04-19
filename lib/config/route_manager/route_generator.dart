@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:online_exam/config/route_manager/routes.dart';
 import 'package:online_exam/features/auth/presention/manager/register/register_cubit.dart';
+import 'package:online_exam/features/exams/domain/entities/exam_entity.dart';
 import 'package:online_exam/features/exams/presentation/pages/exam_details_screen.dart';
 import 'package:online_exam/features/auth/presention/pages/register/register_screen.dart';
 import 'package:online_exam/features/home/domain/entities/get_all_subjects_entity.dart';
@@ -21,97 +22,91 @@ import '../di/di.dart';
 
 class RouteGenerator {
   static Route<dynamic> getRoute(RouteSettings settings) {
-    switch (settings.name) {
-      /// Splash Screen
-      case Routes.splashRoute:
-        return CupertinoPageRoute(builder: (_) => const SplashScreen());
+    try {
+      switch (settings.name) {
+        /// Splash Screen
+        case Routes.splashRoute:
+          return CupertinoPageRoute(builder: (_) => const SplashScreen());
 
-      /// Login Screen
-      case Routes.loginRoute:
-        return CupertinoPageRoute(
-          builder: (_) => BlocProvider(
-            create: (context) => getIt.get<LoginCubit>(),
-            child: LoginScreen(),
-          ),
-        );
-      // case Routes.homeRoute:
-      // return CupertinoPageRoute(builder: (_) => HomeScreen(),);
+        /// Login Screen
+        case Routes.loginRoute:
+          return CupertinoPageRoute(
+            builder: (_) => BlocProvider(
+              create: (_) => getIt<LoginCubit>(),
+              child: LoginScreen(),
+            ),
+          );
 
-      /// Register Screen
-      case Routes.registerRoute:
-        return CupertinoPageRoute(
-          builder: (_) => BlocProvider(
-            create: (context) => getIt.get<RegisterCubit>(),
-            child: RegisterScreen(),
-          ),
-        );
+        /// Register Screen
+        case Routes.registerRoute:
+          return CupertinoPageRoute(
+            builder: (_) => BlocProvider(
+              create: (_) => getIt<RegisterCubit>(),
+              child: RegisterScreen(),
+            ),
+          );
 
-      case Routes.forgetPasswordEnterEmailViewRoute:
-        return CupertinoPageRoute(
-          builder: (_) => BlocProvider(
-            create: (_) => getIt<ForgetPasswordCubit>(),
-            child: const ForgetPasswordEnterEmailView(),
-          ),
-        );
+        /// Forget Password - Enter Email
+        case Routes.forgetPasswordEnterEmailViewRoute:
+          return CupertinoPageRoute(
+            builder: (_) => BlocProvider(
+              create: (_) => getIt<ForgetPasswordCubit>(),
+              child: const ForgetPasswordEnterEmailView(),
+            ),
+          );
 
-      case Routes.examsRoute:
-        SubjectEntity item = settings.arguments as SubjectEntity;
+        /// Exams Screen
+        case Routes.examsRoute:
+          final item = settings.arguments as SubjectEntity;
+          return CupertinoPageRoute(builder: (_) => ExamsScreen(item: item));
 
-        return CupertinoPageRoute(
-          builder: (_) => ExamsScreen(item: item),
-          settings: settings,
-        );
+        /// Exam Details
+        case Routes.examDetailsRoute:
+          final exam = settings.arguments as ExamEntity;
+          return CupertinoPageRoute(
+            builder: (_) => ExamDetailsScreen(exam: exam),
+          );
 
-      case Routes.examDetailsRoute:
-        return CupertinoPageRoute(
-          builder: (_) => ExamDetailsScreen(),
-          settings: settings,
-        );
+        /// Exam View
+        case Routes.examViewRoute:
+          final exam = settings.arguments as ExamEntity;
+          return CupertinoPageRoute(builder: (_) => ExamView(exam: exam));
 
-      case Routes.examViewRoute:
-        final args = settings.arguments as Map<String, dynamic>;
+        /// OTP View
+        case Routes.forgetPasswordOtpViewRoute:
+          final cubit = settings.arguments as ForgetPasswordCubit;
+          return CupertinoPageRoute(
+            builder: (_) => BlocProvider.value(
+              value: cubit,
+              child: const ForgetPasswordVerifyOtpView(),
+            ),
+          );
 
-        return CupertinoPageRoute(
-          builder: (_) => ExamView(
-            examTitle: args['title'],
-            examDuration: args['duration'],
-            examNumberOfQuestions: args['numberOfQuestions'],
-          ),
-          settings: settings,
-        );
+        /// New Password View
+        case Routes.forgetPasswordNewPassViewRoute:
+          final cubit = settings.arguments as ForgetPasswordCubit;
+          return CupertinoPageRoute(
+            builder: (_) => BlocProvider.value(
+              value: cubit,
+              child: const ForgetPasswordNewPasswordView(),
+            ),
+          );
 
-      case Routes.forgetPasswordOtpViewRoute:
-        final cubit = settings.arguments as ForgetPasswordCubit;
+        /// Home
+        case Routes.homeRoute:
+          return CupertinoPageRoute(builder: (_) => CustomBottomNavBar());
 
-        return CupertinoPageRoute(
-          builder: (_) => BlocProvider.value(
-            value: cubit,
-            child: const ForgetPasswordVerifyOtpView(),
-          ),
-        );
-
-      case Routes.forgetPasswordNewPassViewRoute:
-        final cubit = settings.arguments as ForgetPasswordCubit;
-
-        return CupertinoPageRoute(
-          builder: (_) => BlocProvider.value(
-            value: cubit,
-            child: const ForgetPasswordNewPasswordView(),
-          ),
-        );
-
-      case Routes.homeRoute:
-        return CupertinoPageRoute(builder: (_) => CustomBottomNavBar());
-
-      /// Default (Unknown Route)
-      default:
-        return _errorRoute();
+        default:
+          return _errorRoute();
+      }
+    } catch (e) {
+      return _errorRoute();
     }
   }
 
   static Route<dynamic> _errorRoute() {
     return CupertinoPageRoute(
-      builder: (_) => Scaffold(
+      builder: (_) => const Scaffold(
         body: Center(
           child: Text(AppStrings.pageNotFound, style: TextStyle(fontSize: 18)),
         ),

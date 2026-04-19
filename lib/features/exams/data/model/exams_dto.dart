@@ -1,5 +1,5 @@
 import 'package:json_annotation/json_annotation.dart';
-import 'package:online_exam/features/exams/domain/entities/exam_model.dart';
+import 'package:online_exam/features/exams/domain/entities/exam_entity.dart';
 part 'exams_dto.g.dart';
 
 @JsonSerializable()
@@ -29,8 +29,8 @@ class Exams {
     this.createdAt,
   });
 
-  ExamsModel toEntity() {
-    return ExamsModel(
+  ExamEntity toEntity() {
+    return ExamEntity(
       id: id ?? '',
       title: title ?? '',
       duration: duration ?? 0,

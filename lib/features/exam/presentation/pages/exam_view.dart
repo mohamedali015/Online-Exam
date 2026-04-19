@@ -1,36 +1,19 @@
 import 'package:flutter/material.dart';
-
-import '../../../../core/values/app_strings.dart';
+import 'package:online_exam/features/exams/domain/entities/exam_entity.dart';
 
 class ExamView extends StatelessWidget {
-  final String examTitle;
-  final int examDuration;
-  final int examNumberOfQuestions;
-  const ExamView({
-    super.key,
-    required this.examTitle,
-    required this.examDuration,
-    required this.examNumberOfQuestions,
-  });
+  final ExamEntity exam;
+
+  const ExamView({super.key, required this.exam});
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        automaticallyImplyLeading: false,
-        title: Text(AppStrings.exam),
-        leading: IconButton(
-          onPressed: () {
-            Navigator.pop(context);
-          },
-          icon: Icon(Icons.arrow_back_ios_new),
-        ),
-      ),
+      appBar: AppBar(title: Text(exam.title)),
       body: Column(
         children: [
-          Text(examTitle),
-          Text('$examDuration Minutes'),
-          Text('$examNumberOfQuestions Questions'),
+          Text("Duration: ${exam.duration}"),
+          Text("Questions: ${exam.numberOfQuestions}"),
         ],
       ),
     );

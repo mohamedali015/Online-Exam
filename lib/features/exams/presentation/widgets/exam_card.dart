@@ -1,15 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:online_exam/config/route_manager/routes.dart';
 import 'package:online_exam/core/helpers/my_responsive.dart';
+import 'package:online_exam/core/utils/app_assets.dart';
 import 'package:online_exam/core/utils/app_colors.dart';
 import 'package:online_exam/core/utils/app_text_styles.dart';
 import 'package:online_exam/core/values/app_strings.dart';
-import 'package:online_exam/features/exams/domain/entities/exam_model.dart';
+import 'package:online_exam/features/exams/domain/entities/exam_entity.dart';
 
 class ExamCard extends StatelessWidget {
   const ExamCard({super.key, required this.exam});
 
-  final ExamsModel exam;
+  final ExamEntity exam;
 
   @override
   Widget build(BuildContext context) {
@@ -33,7 +34,7 @@ class ExamCard extends StatelessWidget {
         child: Row(
           children: [
             Image.asset(
-              'assets/png/exam.png',
+              AppAssets.examPath,
               width: MyResponsive.width(value: 60),
               height: MyResponsive.height(value: 70),
             ),
@@ -50,13 +51,9 @@ class ExamCard extends StatelessWidget {
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
+                          Text(exam.title, style: AppTextStyles.medium16),
                           Text(
-                            exam.title,
-                            // exam.title,
-                            style: AppTextStyles.medium16,
-                          ),
-                          Text(
-                            '${exam.duration} Minutes',
+                            '${exam.duration} ${AppStrings.minutes}',
                             style: AppTextStyles.regular13.copyWith(
                               color: AppColors.primaryColor,
                             ),
@@ -64,14 +61,13 @@ class ExamCard extends StatelessWidget {
                         ],
                       ),
                       Text(
-                        '${exam.numberOfQuestions} Questions',
+                        '${exam.numberOfQuestions} ${AppStrings.questions}',
                         style: AppTextStyles.regular13.copyWith(
                           color: AppColors.baseGray,
                         ),
                       ),
                     ],
                   ),
-                  // SizedBox(height: MyResponsive.height(value: 20)),
                   Row(
                     children: [
                       RichText(

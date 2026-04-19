@@ -77,7 +77,7 @@ extension GetItInjectableX on _i174.GetIt {
     gh.lazySingleton<_i645.ApiClient>(
       () => apiModule.provideApiClient(gh<_i361.Dio>()),
     );
-    gh.factory<_i104.ExamsApiClient>(
+    gh.lazySingleton<_i104.ExamsApiClient>(
       () => _i104.ExamsApiClient(gh<_i361.Dio>()),
     );
     gh.factory<_i301.ForgetPasswordApiClient>(

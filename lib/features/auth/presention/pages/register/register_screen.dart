@@ -12,23 +12,14 @@ import 'package:online_exam/features/auth/presention/manager/register/register_s
 import 'package:online_exam/features/auth/presention/widgets/register/register_form.dart';
 import 'package:online_exam/features/auth/presention/widgets/register/sign_up_button.dart';
 
-class RegisterScreen extends StatelessWidget {
+class RegisterScreen extends StatefulWidget {
   const RegisterScreen({super.key});
 
   @override
-  Widget build(BuildContext context) {
-    return const _RegisterView();
-  }
+  State<RegisterScreen> createState() => RegisterScreenState();
 }
 
-class _RegisterView extends StatefulWidget {
-  const _RegisterView();
-
-  @override
-  State<_RegisterView> createState() => _RegisterViewState();
-}
-
-class _RegisterViewState extends State<_RegisterView> {
+class RegisterScreenState extends State<RegisterScreen> {
   final _formKey = GlobalKey<FormState>();
 
   bool autoValidate = false;
