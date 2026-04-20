@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:online_exam/features/profile/presentation/manager/user_cubit.dart';
+import 'package:online_exam/features/profile/presentation/manager/user_state.dart';
 import '../../config/cache/secure_cache/cache_keys.dart';
 import '../../config/cache/secure_cache/secure_cache_helper.dart';
 import '../../config/route_manager/routes.dart';
@@ -39,19 +40,21 @@ class _SplashScreenState extends State<SplashScreen>
 
     if (!mounted) return;
 
-    final String? token = await SecureCacheHelper.getData(key: CacheKeys.token);
-    final String? rememberMe = await SecureCacheHelper.getData(
+    final token = await SecureCacheHelper.getData(key: CacheKeys.token);
+    final rememberMe = await SecureCacheHelper.getData(
       key: CacheKeys.rememberMe,
     );
 
     if (token != null && token.isNotEmpty && rememberMe == 'true') {
-      await UserCubit.get(context).doEvent(GetUserData()).then((result) {
-        if (result) {
-          _replaceTo(Routes.homeRoute);
-        } else {
-          _replaceTo(Routes.loginRoute);
-        }
-      });
+      final cubit = UserCubit.get(context);
+
+      await cubit.doEvent(GetUserData());
+
+      if (cubit.state is GetUserDataSuccessState) {
+        _replaceTo(Routes.homeRoute);
+      } else {
+        _replaceTo(Routes.loginRoute);
+      }
     } else {
       _replaceTo(Routes.loginRoute);
     }

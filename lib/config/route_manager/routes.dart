@@ -17,5 +17,7 @@ class Routes {
   static const String examViewRoute = '/examView';
   static const String examScoreViewRoute = '/examScoreView';
 
+  static const String profileRoute = '/profile';
+
   static const String changePasswordRoute = '/changePassword';
 }
