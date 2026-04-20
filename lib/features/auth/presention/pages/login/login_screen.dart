@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:online_exam/config/route_manager/routes.dart';
 import 'package:online_exam/core/utils/app_colors.dart';
-import '../../../../../config/user/manager/user_cubit.dart';
+import '../../../../profile/presentation/manager/user_cubit.dart';
 import '../../../../../core/helpers/app_snackbar.dart';
 import '../../../../../core/helpers/my_responsive.dart';
 import '../../../../../core/helpers/validator.dart';

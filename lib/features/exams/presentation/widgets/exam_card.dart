@@ -15,15 +15,12 @@ class ExamCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        Navigator.pushNamed(
-          context,
-          Routes.examDetailsRoute,
-          arguments: exam,
-        );
+        Navigator.pushNamed(context, Routes.examDetailsRoute, arguments: exam);
       },
       child: Container(
         height: MyResponsive.height(value: 90),
         padding: MyResponsive.paddingAll(value: 10),
+        margin: MyResponsive.paddingOnly(bottom: 10),
         decoration: BoxDecoration(
           color: AppColors.baseWhite,
           borderRadius: BorderRadius.circular(MyResponsive.radius(value: 10)),

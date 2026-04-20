@@ -77,14 +77,17 @@ import '../../features/home/domain/use_case/get_all_subjects_use_case.dart'
     as _i17;
 import '../../features/home/presentation/manager/all_subjects_cubit.dart'
     as _i362;
+import '../../features/profile/api/data_sources/remote/user_remote_data_source_impl.dart'
+    as _i204;
+import '../../features/profile/api/user_api_client/user_api_client.dart'
+    as _i705;
+import '../../features/profile/data/data_sources/remote/user_remote_data_source.dart'
+    as _i567;
+import '../../features/profile/data/repositories/user_repo_impl.dart' as _i537;
+import '../../features/profile/domain/repositories/user_repo.dart' as _i412;
+import '../../features/profile/domain/use_cases/get_user_data_use_case.dart'
+    as _i941;
 import '../module/api_module.dart' as _i235;
-import '../user/api/data_sources/remote/user_remote_data_source_impl.dart'
-    as _i694;
-import '../user/api/user_api_client/user_api_client.dart' as _i1062;
-import '../user/data/data_sources/remote/user_remote_data_source.dart' as _i806;
-import '../user/data/repositories/user_repo_impl.dart' as _i419;
-import '../user/domain/repositories/user_repo.dart' as _i632;
-import '../user/domain/use_cases/get_user_data_use_case.dart' as _i180;
 
 extension GetItInjectableX on _i174.GetIt {
   // initializes the registration of main-scope dependencies inside of GetIt
@@ -110,9 +113,6 @@ extension GetItInjectableX on _i174.GetIt {
     gh.singleton<_i194.AllSubjectsApiClient>(
       () => _i194.AllSubjectsApiClient(gh<_i361.Dio>()),
     );
-    gh.factory<_i1062.UserApiClient>(
-      () => _i1062.UserApiClient(gh<_i361.Dio>()),
-    );
     gh.factory<_i665.ExamApiClient>(() => _i665.ExamApiClient(gh<_i361.Dio>()));
     gh.factory<_i104.ExamsApiClient>(
       () => _i104.ExamsApiClient(gh<_i361.Dio>()),
@@ -120,6 +120,7 @@ extension GetItInjectableX on _i174.GetIt {
     gh.factory<_i301.ForgetPasswordApiClient>(
       () => _i301.ForgetPasswordApiClient(gh<_i361.Dio>()),
     );
+    gh.factory<_i705.UserApiClient>(() => _i705.UserApiClient(gh<_i361.Dio>()));
     gh.factory<_i548.AuthRemoteDataSource>(
       () => _i321.AuthRemoteDataSourceImpl(gh<_i645.ApiClient>()),
     );
@@ -133,9 +134,6 @@ extension GetItInjectableX on _i174.GetIt {
       () => _i973.ForgetPasswordRemoteDataSourceImpl(
         gh<_i301.ForgetPasswordApiClient>(),
       ),
-    );
-    gh.factory<_i806.UserRemoteDataSource>(
-      () => _i694.UserRemoteDataSourceImpl(gh<_i1062.UserApiClient>()),
     );
     gh.factory<_i926.ExamsRepo>(
       () => _i52.ExamsRepoImpl(gh<_i586.ExamsRemoteDataSource>()),
@@ -153,6 +151,9 @@ extension GetItInjectableX on _i174.GetIt {
         gh<_i881.ForgetPasswordRemoteDataSource>(),
       ),
     );
+    gh.factory<_i567.UserRemoteDataSource>(
+      () => _i204.UserRemoteDataSourceImpl(gh<_i705.UserApiClient>()),
+    );
     gh.factory<_i377.ExamRepo>(
       () => _i1047.ExamRepoImpl(gh<_i4.ExamRemoteDataSource>()),
     );
@@ -168,11 +169,11 @@ extension GetItInjectableX on _i174.GetIt {
     gh.factory<_i463.RegisterUseCase>(
       () => _i463.RegisterUseCase(gh<_i723.AuthRepo>()),
     );
+    gh.factory<_i412.UserRepo>(
+      () => _i537.UserRepoImpl(gh<_i567.UserRemoteDataSource>()),
+    );
     gh.factory<_i55.GetExamQuestionsUseCase>(
       () => _i55.GetExamQuestionsUseCase(gh<_i377.ExamRepo>()),
-    );
-    gh.factory<_i632.UserRepo>(
-      () => _i419.UserRepoImpl(gh<_i806.UserRemoteDataSource>()),
     );
     gh.factory<_i219.LoginCubit>(
       () => _i219.LoginCubit(gh<_i973.LoginUseCase>()),
@@ -189,8 +190,8 @@ extension GetItInjectableX on _i174.GetIt {
       () =>
           _i252.VerifyOtpForgetPasswordUseCase(gh<_i184.ForgetPasswordRepo>()),
     );
-    gh.factory<_i180.GetUserDataUseCase>(
-      () => _i180.GetUserDataUseCase(gh<_i632.UserRepo>()),
+    gh.factory<_i941.GetUserDataUseCase>(
+      () => _i941.GetUserDataUseCase(gh<_i412.UserRepo>()),
     );
     gh.factory<_i1022.RegisterCubit>(
       () => _i1022.RegisterCubit(gh<_i463.RegisterUseCase>()),

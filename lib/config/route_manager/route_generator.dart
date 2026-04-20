@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:online_exam/config/route_manager/routes.dart';
 import 'package:online_exam/features/auth/presention/pages/register/register_screen.dart';
-import 'package:online_exam/features/profile/presentation/pages/change_password.dart';
+import 'package:online_exam/features/profile/presentation/pages/change_password/change_password.dart';
 import '../../features/exams/presentation/pages/exams_screen.dart';
 import '../../features/home/domain/entities/get_all_subjects_entity.dart';
 import '../../features/splash/splash_screen.dart';

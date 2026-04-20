@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:online_exam/config/error_handling/result.dart';
-import 'package:online_exam/config/user/domain/use_cases/get_user_data_use_case.dart';
-import 'package:online_exam/config/user/manager/user_events.dart';
-import 'package:online_exam/config/user/manager/user_state.dart';
+import 'package:online_exam/features/profile/domain/use_cases/get_user_data_use_case.dart';
+import 'package:online_exam/features/profile/presentation/manager/user_events.dart';
+import 'package:online_exam/features/profile/presentation/manager/user_state.dart';
 import 'package:online_exam/features/auth/domain/entities/user_entity.dart';
 
 class UserCubit extends Cubit<UserState> {

@@ -1,8 +1,7 @@
 import 'package:json_annotation/json_annotation.dart';
 
-import '../../../domain/entities/get_all_subjects_entity.dart';
-
 part 'subject_response.g.dart';
+
 @JsonSerializable()
 class SubjectResponse {
   @JsonKey(name: "_id")
@@ -14,12 +13,7 @@ class SubjectResponse {
   @JsonKey(name: "createdAt")
   final String? createdAt;
 
-  SubjectResponse ({
-    this.id,
-    this.name,
-    this.icon,
-    this.createdAt,
-  });
+  SubjectResponse({this.id, this.name, this.icon, this.createdAt});
 
   factory SubjectResponse.fromJson(Map<String, dynamic> json) {
     return _$SubjectResponseFromJson(json);
@@ -28,7 +22,4 @@ class SubjectResponse {
   Map<String, dynamic> toJson() {
     return _$SubjectResponseToJson(this);
   }
-
-
-
 }

@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:online_exam/config/user/manager/user_cubit.dart';
+import 'package:online_exam/features/profile/presentation/manager/user_cubit.dart';
 import '../../config/cache/secure_cache/cache_keys.dart';
 import '../../config/cache/secure_cache/secure_cache_helper.dart';
 import '../../config/route_manager/routes.dart';
-import '../../config/user/manager/user_events.dart';
+import '../profile/presentation/manager/user_events.dart';
 import '../../core/utils/app_assets.dart';
 
 class SplashScreen extends StatefulWidget {
