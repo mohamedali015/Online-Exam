@@ -57,6 +57,20 @@ class AppTheme {
       ),
     ),
 
+    searchBarTheme: SearchBarThemeData(
+      backgroundColor: WidgetStateProperty.all(AppColors.baseWhite),
+      elevation: WidgetStateProperty.all(0),
+      padding: WidgetStateProperty.all(
+        MyResponsive.paddingSymmetric(horizontal: 18, vertical: 4),
+      ),
+      shape: WidgetStateProperty.all(
+        RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(MyResponsive.radius(value: 20)),
+          side: BorderSide(color: AppColors.baseGray, width: 1.2),
+        ),
+      ),
+    ),
+
     elevatedButtonTheme: ElevatedButtonThemeData(
       style: ElevatedButton.styleFrom(
         elevation: 0,
@@ -87,13 +101,13 @@ class AppTheme {
     ),
 
     bottomNavigationBarTheme: BottomNavigationBarThemeData(
-      backgroundColor: AppColors.quistionsLightBlue,
+      backgroundColor: AppColors.questionsLightBlue,
       selectedItemColor: AppColors.primaryColor,
       unselectedItemColor: AppColors.disabledGray,
-      unselectedLabelStyle: AppTextStyles.medium16.copyWith(
+      unselectedLabelStyle: AppTextStyles.medium12.copyWith(
         color: AppColors.disabledGray,
       ),
-      selectedLabelStyle: AppTextStyles.medium16,
+      selectedLabelStyle: AppTextStyles.medium12,
       showSelectedLabels: true,
       showUnselectedLabels: true,
       elevation: 0,

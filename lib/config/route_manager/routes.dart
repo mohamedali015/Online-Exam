@@ -10,4 +10,14 @@ class Routes {
       '/forgetPasswordNewPassView';
 
   static const String homeRoute = "/home";
+
+  static const String examsRoute = "/examsRoute";
+  static const String examDetailsRoute = "/examDetailsRoute";
+
+  static const String examViewRoute = '/examView';
+  static const String examScoreViewRoute = '/examScoreView';
+
+  static const String profileRoute = '/profile';
+
+  static const String changePasswordRoute = '/changePassword';
 }

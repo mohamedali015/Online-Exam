@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:online_exam/features/profile/presentation/manager/user_cubit.dart';
+import 'package:online_exam/features/profile/presentation/manager/user_state.dart';
 import '../../config/cache/secure_cache/cache_keys.dart';
 import '../../config/cache/secure_cache/secure_cache_helper.dart';
 import '../../config/route_manager/routes.dart';
+import '../profile/presentation/manager/user_events.dart';
 import '../../core/utils/app_assets.dart';
 
 class SplashScreen extends StatefulWidget {
@@ -11,7 +14,8 @@ class SplashScreen extends StatefulWidget {
   State<SplashScreen> createState() => _SplashScreenState();
 }
 
-class _SplashScreenState extends State<SplashScreen> with SingleTickerProviderStateMixin {
+class _SplashScreenState extends State<SplashScreen>
+    with SingleTickerProviderStateMixin {
   late AnimationController _controller;
   late Animation<double> _fadeAnimation;
 
@@ -27,10 +31,7 @@ class _SplashScreenState extends State<SplashScreen> with SingleTickerProviderSt
       vsync: this,
       duration: const Duration(milliseconds: 1500),
     );
-    _fadeAnimation = CurvedAnimation(
-      parent: _controller,
-      curve: Curves.easeIn,
-    );
+    _fadeAnimation = CurvedAnimation(parent: _controller, curve: Curves.easeIn);
     _controller.forward();
   }
 
@@ -39,12 +40,21 @@ class _SplashScreenState extends State<SplashScreen> with SingleTickerProviderSt
 
     if (!mounted) return;
 
-    final String? token = await SecureCacheHelper.getData(key: CacheKeys.token);
-    final String? rememberMe = await SecureCacheHelper.getData(key: CacheKeys.rememberMe);
-
+    final token = await SecureCacheHelper.getData(key: CacheKeys.token);
+    final rememberMe = await SecureCacheHelper.getData(
+      key: CacheKeys.rememberMe,
+    );
 
     if (token != null && token.isNotEmpty && rememberMe == 'true') {
-      _replaceTo(Routes.homeRoute);
+      final cubit = UserCubit.get(context);
+
+      await cubit.doEvent(GetUserData());
+
+      if (cubit.state is GetUserDataSuccessState) {
+        _replaceTo(Routes.homeRoute);
+      } else {
+        _replaceTo(Routes.loginRoute);
+      }
     } else {
       _replaceTo(Routes.loginRoute);
     }

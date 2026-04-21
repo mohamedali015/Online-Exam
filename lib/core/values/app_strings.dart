@@ -65,16 +65,70 @@ abstract class AppStrings {
   static const String change = "Change";
   static const String currentPassword = "Current password";
 
-
-  static const String thisUserNameIsNotValid ="This user name is not valid";
-  static const String thisEmailIsNotValid ="This Email is not valid";
-  static const String thisPasswordIsNotValid ="This password is not valid";
-  static const String thisPhoneNumberIsNotValid ="This phone number is not valid";
-  static const String invalidPassword ="Invalid password";
+  static const String thisUserNameIsNotValid = "This user name is not valid";
+  static const String thisEmailIsNotValid = "This Email is not valid";
+  static const String thisPasswordIsNotValid = "This password is not valid";
+  static const String thisPhoneNumberIsNotValid =
+      "This phone number is not valid";
+  static const String invalidPassword = "Invalid password";
 
 
   static const String home ="Explore";
   static const String result ="Result";
+  static const String survey ="Survey";
+  static const String  browseBySubject ="Browse by subject";
+  static const String  noSubjectsFound ="No subjects found";
+  static const String  unknown ="Unknown";
+  static const String  search ="Search";
 
+  static const String  noNameFound ="No name found";
+  static const String  noIdFound ="No id found";
+  static const String  noIconFound ="No icon found";
 
+  /// Exams view
+  static const String exams = "Exams";
+  static const String start = "Start";
+  static const String instructions = "Instructions";
+  static const String examInstruction =
+      "Lorem ipsum dolor sit amet consectetur.";
+  static const String from = "From: ";
+  static const String startTime = "1:00";
+  static const String to = "To: ";
+  static const String endTime = "6:00";
+
+  /// exam view
+  static const String exam = "Exam";
+  static const String question = 'Question';
+
+  static const String of = 'of';
+
+  static const String back = 'Back';
+
+  static const String next = 'Next';
+
+  static const String finish = 'Finish';
+
+  static const String timeOut = 'Time Out !!';
+
+  static const String viewScore = 'View Score';
+  static const String noQuestions = 'No Questions Found';
+
+  static const String tryAgain = 'Try Again';
+
+  static const String warning = 'Warning';
+
+  static const String warningSubtitle =
+      'Are you sure you want to finish the exam?';
+
+  static const String examScore = 'Exam Score';
+
+  static const String yourScore = 'Your Score';
+
+  static const String correct = 'Correct';
+
+  static const String incorrect = 'Incorrect';
+
+  static const String showResult = 'Show Result';
+
+  static const String startAgain = 'Start Again';
 }

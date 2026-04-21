@@ -39,7 +39,6 @@ class AuthRepoImpl implements AuthRepo {
     }
   }
 
-
   @override
   Future<Result<AuthEntity>> login({
     required String email,
@@ -56,12 +55,12 @@ class AuthRepoImpl implements AuthRepo {
         {
           final entity = response.data.toEntity();
 
-          if (entity.token != null && rememberMe) {
-            await SecureCacheHelper.saveData(
-              key: CacheKeys.token,
-              value: entity.token!,
-            );
+          await SecureCacheHelper.saveData(
+            key: CacheKeys.token,
+            value: entity.token!,
+          );
 
+          if (entity.token != null && rememberMe) {
             await SecureCacheHelper.saveData(
               key: CacheKeys.rememberMe,
               value: rememberMe.toString(),
@@ -73,7 +72,7 @@ class AuthRepoImpl implements AuthRepo {
 
       case Failure<AuthResponse>():
         {
-          return Failure( errorMessage: response.errorMessage);
+          return Failure(errorMessage: response.errorMessage);
         }
     }
   }

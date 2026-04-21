@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:online_exam/core/helpers/my_responsive.dart';
+
+import '../utils/app_colors.dart';
 import '../utils/app_text_styles.dart';
 
 class CustomButton extends StatelessWidget {
@@ -30,13 +32,20 @@ class CustomButton extends StatelessWidget {
 
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(radiusValue!),
+          side: BorderSide(
+            color: onPressed == null || isLoading
+                ? AppColors.disabledGray
+                : AppColors.primaryColor,
+            width: MyResponsive.width(value: 1),
+          ),
         ),
       ),
       child: isLoading
           ? SizedBox(
-              width: MyResponsive.width(value: 22),
               height: MyResponsive.height(value: 22),
+              width: MyResponsive.width(value: 22),
               child: CircularProgressIndicator(
+                color: AppColors.baseWhite,
                 strokeWidth: MyResponsive.width(value: 2),
               ),
             )

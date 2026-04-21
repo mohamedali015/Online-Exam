@@ -1,8 +1,6 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:online_exam/config/di/di.dart';
-import 'package:online_exam/config/route_manager/routes.dart';
 import 'package:online_exam/core/helpers/app_snackbar.dart';
 import 'package:online_exam/core/helpers/my_responsive.dart';
 import 'package:online_exam/core/utils/app_colors.dart';
@@ -18,10 +16,7 @@ class RegisterScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider(
-      create: (_) => getIt<RegisterCubit>(),
-      child: const _RegisterView(),
-    );
+    return const _RegisterView();
   }
 }
 
@@ -104,29 +99,11 @@ class _RegisterViewState extends State<_RegisterView> {
           padding: MyResponsive.paddingSymmetric(horizontal: 16, vertical: 4),
           child: Column(
             children: [
-              RegisterForm(
-                formKey: _formKey,
-                autoValidate: autoValidate,
-                onChanged: _validateForm,
-                userNameController: userNameController,
-                firstNameController: firstNameController,
-                lastNameController: lastNameController,
-                emailController: emailController,
-                passwordController: passwordController,
-                confirmPasswordController: confirmPasswordController,
-                phoneController: phoneController,
-              ),
-
-              SizedBox(height: MyResponsive.height(value: 40)),
-
               BlocConsumer<RegisterCubit, RegisterState>(
                 listener: (context, state) {
                   switch (state) {
                     case RegisterSuccess():
-                      Navigator.pushReplacementNamed(
-                        context,
-                        Routes.loginRoute,
-                      );
+                      Navigator.pop(context);
                       break;
 
                     case RegisterFailure():
@@ -140,19 +117,39 @@ class _RegisterViewState extends State<_RegisterView> {
                 builder: (context, state) {
                   final isLoading = state is RegisterLoading;
 
-                  return SignUpButton(
-                    formKey: _formKey,
-                    isLoading: isLoading,
-                    isFormValid: isFormValid,
-                    hasSubmitted: hasSubmitted,
-                    onFirstSubmitFailed: _onFirstSubmitFailed,
-                    userNameController: userNameController,
-                    firstNameController: firstNameController,
-                    lastNameController: lastNameController,
-                    emailController: emailController,
-                    passwordController: passwordController,
-                    confirmPasswordController: confirmPasswordController,
-                    phoneController: phoneController,
+                  return Column(
+                    children: [
+                      RegisterForm(
+                        formKey: _formKey,
+                        autoValidate: autoValidate,
+                        onChanged: _validateForm,
+                        isLoading: isLoading,
+                        userNameController: userNameController,
+                        firstNameController: firstNameController,
+                        lastNameController: lastNameController,
+                        emailController: emailController,
+                        passwordController: passwordController,
+                        confirmPasswordController: confirmPasswordController,
+                        phoneController: phoneController,
+                      ),
+
+                      SizedBox(height: MyResponsive.height(value: 40)),
+
+                      SignUpButton(
+                        formKey: _formKey,
+                        isLoading: isLoading,
+                        isFormValid: isFormValid,
+                        hasSubmitted: hasSubmitted,
+                        onFirstSubmitFailed: _onFirstSubmitFailed,
+                        userNameController: userNameController,
+                        firstNameController: firstNameController,
+                        lastNameController: lastNameController,
+                        emailController: emailController,
+                        passwordController: passwordController,
+                        confirmPasswordController: confirmPasswordController,
+                        phoneController: phoneController,
+                      ),
+                    ],
                   );
                 },
               ),
@@ -174,10 +171,7 @@ class _RegisterViewState extends State<_RegisterView> {
                       ),
                       recognizer: TapGestureRecognizer()
                         ..onTap = () {
-                          Navigator.pushReplacementNamed(
-                            context,
-                            Routes.loginRoute,
-                          );
+                          Navigator.pop(context);
                         },
                     ),
                   ],

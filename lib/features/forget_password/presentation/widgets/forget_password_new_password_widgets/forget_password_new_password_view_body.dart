@@ -74,6 +74,7 @@ class ForgetPasswordNewPasswordViewBody extends StatelessWidget {
                       onChanged: (_) => cubit.validatePasswordForm(),
                       enabled: !state.resetPasswordState.isLoading,
                       validator: Validator.password,
+                      keyboardType: TextInputType.visiblePassword,
                       decoration: InputDecoration(
                         labelText: AppStrings.password,
                         hintText: AppStrings.enterYouPassword,
@@ -91,6 +92,7 @@ class ForgetPasswordNewPasswordViewBody extends StatelessWidget {
                         value,
                         cubit.passwordController.text,
                       ),
+                      keyboardType: TextInputType.visiblePassword,
                       decoration: InputDecoration(
                         labelText: AppStrings.confirmPassword,
                         hintText: AppStrings.enterYouPassword,

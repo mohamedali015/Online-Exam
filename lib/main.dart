@@ -1,15 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:online_exam/features/profile/presentation/manager/user_cubit.dart';
 import 'package:online_exam/core/theme/app_theme.dart';
 
+import 'features/profile/domain/use_cases/get_user_data_use_case.dart';
 import 'core/helpers/custom_bloc_observer.dart';
 
 import 'config/di/di.dart';
 import 'config/route_manager/route_generator.dart';
 import 'config/route_manager/routes.dart';
 
-void main() {
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
   configureDependencies();
   Bloc.observer = CustomBlocObserver();
   runApp(const MyApp());
@@ -25,14 +28,20 @@ class MyApp extends StatelessWidget {
       minTextAdapt: true,
       splitScreenMode: true,
       builder: (context, child) {
-        return MaterialApp(
-          title: 'Online Exam',
-          theme: AppTheme.appTheme,
-          debugShowCheckedModeBanner: false,
-          initialRoute: Routes.splashRoute,
-          onGenerateRoute: RouteGenerator.getRoute,
+        return BlocProvider(
+          create: (context) => UserCubit(getIt<GetUserDataUseCase>()),
+          child: MaterialApp(
+            title: 'Online Exam',
+            theme: AppTheme.appTheme,
+            debugShowCheckedModeBanner: false,
+            initialRoute: Routes.splashRoute,
+            onGenerateRoute: RouteGenerator.getRoute,
+          ),
         );
       },
     );
   }
 }
+
+//? mousa1152003@gmail.com
+//? Mohamed@123
