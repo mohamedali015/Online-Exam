@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:online_exam/features/profile/presentation/manager/user_cubit.dart';
+import 'package:online_exam/config/user/domain/use_cases/get_user_data_use_case.dart';
+import 'package:online_exam/config/user/manager/user_cubit.dart';
 import 'package:online_exam/core/theme/app_theme.dart';
 
-import 'features/profile/domain/use_cases/get_user_data_use_case.dart';
 import 'core/helpers/custom_bloc_observer.dart';
 
 import 'config/di/di.dart';
