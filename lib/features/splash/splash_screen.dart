@@ -24,6 +24,8 @@ class _SplashScreenState extends State<SplashScreen>
   final Completer<void> _animationDone = Completer<void>();
   final Completer<bool> _dataResult = Completer<bool>();
 
+  bool _stopNavigation = false;
+
   @override
   void initState() {
     super.initState();
@@ -74,7 +76,7 @@ class _SplashScreenState extends State<SplashScreen>
       _dataResult.future,
     ]);
 
-    if (!mounted) return;
+    if (!mounted || _stopNavigation) return;
 
     final isSuccess = results[1] as bool;
 
@@ -101,6 +103,15 @@ class _SplashScreenState extends State<SplashScreen>
     return Scaffold(
       body: BlocListener<UserCubit, UserState>(
         listener: (context, state) {
+          if (state.isUnauthorized) {
+            _stopNavigation = true;
+
+            if (!_dataResult.isCompleted) {
+              _dataResult.complete(false);
+            }
+            return;
+          }
+
           if (_dataResult.isCompleted) return;
 
           if (state.user != null) {

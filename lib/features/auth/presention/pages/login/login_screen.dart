@@ -65,6 +65,8 @@ class _LoginScreenState extends State<LoginScreen> {
               );
             }
 
+            context.read<UserCubit>().doEvent(ResetUnauthorized());
+
             Navigator.pushNamedAndRemoveUntil(
               context,
               Routes.homeRoute,

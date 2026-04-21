@@ -9,3 +9,7 @@ class SetUserData extends UserEvents {
 
   SetUserData({required this.user});
 }
+
+class UnauthorizedUser extends UserEvents {}
+
+class ResetUnauthorized extends UserEvents {}
