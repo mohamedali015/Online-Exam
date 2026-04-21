@@ -24,8 +24,4 @@ abstract interface class ApiClient {
   @POST(ApiEndPoints.login)
   @Extra({ApiStrings.requireAuth: false})
   Future<AuthResponse> login(@Body() LoginRequest login);
-  @GET(ApiEndPoints.getAllSubjects)
-  Future<GetAllSubjectsResponse> getAllSubjects(
-      @Header(CacheKeys.token) String token,
-      );
 }

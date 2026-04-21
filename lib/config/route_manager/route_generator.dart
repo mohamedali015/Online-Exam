@@ -8,9 +8,13 @@ import '../../core/values/app_strings.dart';
 import '../../features/auth/presention/manager/login/login_cubit.dart';
 import 'package:online_exam/features/exam/presentation/pages/exam_score_view.dart';
 import 'package:online_exam/features/auth/presention/pages/register/register_screen.dart';
+import '../../features/auth/presention/manager/register/register_cubit.dart';
 import '../../features/exam/domain/entities/exam_result_entity.dart';
 import '../../features/exam/presentation/pages/exam_view.dart';
 import '../../features/exams/domain/entities/exam_model.dart';
+import '../../features/exams/presentation/pages/exam_details_screen.dart';
+import '../../features/exams/presentation/pages/exams_screen.dart';
+import '../../features/home/domain/entities/get_all_subjects_entity.dart';
 import '../../features/splash/splash_screen.dart';
 import '../../features/auth/presention/pages/login/login_screen.dart';
 import '../../features/forget_password/presentation/manager/forget_password_cubit/forget_password_cubit.dart';
@@ -108,12 +112,6 @@ class RouteGenerator {
 
         return CupertinoPageRoute(
           builder: (_) => ExamScoreView(examResult: examResult),
-          settings: settings,
-        );
-
-      case Routes.changePasswordRoute:
-        return CupertinoPageRoute(
-          builder: (_) => ChangePassword(),
           settings: settings,
         );
 
