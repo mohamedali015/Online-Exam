@@ -18,10 +18,10 @@ class CustomBottomNavBar extends StatefulWidget {
 class _CustomBottomNavBarState extends State<CustomBottomNavBar> {
   int currentIndex = 0;
 
-  final List<Widget> _screens = [
-    const HomeScreen(),
-    const ResultScreen(),
-    const ProfileScreen(),
+  final List<Widget> _screens = const [
+    HomeScreen(),
+    ResultScreen(),
+    ProfileScreen(),
   ];
 
   void _onTap(int index) {
@@ -48,25 +48,34 @@ class _CustomBottomNavBarState extends State<CustomBottomNavBar> {
 
   BottomNavigationBarItem _buildItem(String image, String label, int index) {
     return BottomNavigationBarItem(
-      icon: Container(
-        padding: MyResponsive.paddingSymmetric(vertical: 8, horizontal: 20),
-        decoration: BoxDecoration(
-          color: currentIndex == index
-              ? AppColors.selectedBlue
-              : Colors.transparent,
-          borderRadius: BorderRadius.circular(MyResponsive.radius(value: 16)),
-        ),
-        child: SvgWrapper(
-          path: image,
-          width: MyResponsive.width(value: 16),
-          height: MyResponsive.height(value: 16),
-          fit: BoxFit.contain,
-          color: currentIndex == index
-              ? AppColors.primaryColor
-              : AppColors.disabledGray,
-        ),
-      ),
+      icon: _NavIcon(image: image, isSelected: currentIndex == index),
       label: label,
+    );
+  }
+}
+
+/// 👇 ده الكلاس اللي البشمهندس كان يقصده
+class _NavIcon extends StatelessWidget {
+  const _NavIcon({required this.image, required this.isSelected});
+
+  final String image;
+  final bool isSelected;
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      padding: MyResponsive.paddingSymmetric(vertical: 8, horizontal: 20),
+      decoration: BoxDecoration(
+        color: isSelected ? AppColors.selectedBlue : Colors.transparent,
+        borderRadius: BorderRadius.circular(MyResponsive.radius(value: 16)),
+      ),
+      child: SvgWrapper(
+        path: image,
+        width: MyResponsive.width(value: 16),
+        height: MyResponsive.height(value: 16),
+        fit: BoxFit.contain,
+        color: isSelected ? AppColors.primaryColor : AppColors.disabledGray,
+      ),
     );
   }
 }

@@ -1,10 +1,13 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/foundation.dart';
 import 'package:injectable/injectable.dart';
+import 'package:online_exam/config/cache/secure_cache/secure_cache_helper.dart';
 import 'package:online_exam/core/values/api_end_points.dart';
 import 'package:pretty_dio_logger/pretty_dio_logger.dart';
 
+import '../../core/values/api_strings.dart';
 import '../../features/auth/api/api_client.dart';
+import '../cache/secure_cache/cache_keys.dart';
 
 @module
 abstract class ApiModule {
@@ -16,7 +19,23 @@ abstract class ApiModule {
   @lazySingleton
   Dio provideDio(BaseOptions option, PrettyDioLogger logger) {
     var dio = Dio(option);
+
+    dio.interceptors.add(
+      InterceptorsWrapper(
+        onRequest: (options, handler) async {
+          final token = await SecureCacheHelper.getData(key: CacheKeys.token);
+
+          if (token != null) {
+            options.headers[ApiStrings.token] = token;
+          }
+
+          return handler.next(options);
+        },
+      ),
+    );
+
     dio.interceptors.add(logger);
+
     return dio;
   }
 

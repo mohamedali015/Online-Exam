@@ -1,5 +1,8 @@
+import 'dart:async';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:online_exam/config/user/manager/user_cubit.dart';
+import 'package:online_exam/config/user/manager/user_state.dart';
 import '../../config/cache/secure_cache/cache_keys.dart';
 import '../../config/cache/secure_cache/secure_cache_helper.dart';
 import '../../config/route_manager/routes.dart';
@@ -18,11 +21,15 @@ class _SplashScreenState extends State<SplashScreen>
   late AnimationController _controller;
   late Animation<double> _fadeAnimation;
 
+  final Completer<void> _animationDone = Completer<void>();
+  final Completer<bool> _dataResult = Completer<bool>();
+
   @override
   void initState() {
     super.initState();
     _setupAnimation();
-    _navigateToNextScreen();
+    _checkUser();
+    _waitAndNavigate();
   }
 
   void _setupAnimation() {
@@ -30,34 +37,56 @@ class _SplashScreenState extends State<SplashScreen>
       vsync: this,
       duration: const Duration(milliseconds: 1500),
     );
+
     _fadeAnimation = CurvedAnimation(parent: _controller, curve: Curves.easeIn);
+
     _controller.forward();
+
+    _controller.addStatusListener((status) {
+      if (status == AnimationStatus.completed && !_animationDone.isCompleted) {
+        _animationDone.complete();
+      }
+    });
   }
 
-  Future<void> _navigateToNextScreen() async {
-    await Future.delayed(const Duration(seconds: 2));
+  void _checkUser() async {
+    final cubit = context.read<UserCubit>();
 
-    if (!mounted) return;
-
-    final String? token = await SecureCacheHelper.getData(key: CacheKeys.token);
-    final String? rememberMe = await SecureCacheHelper.getData(
+    final token = await SecureCacheHelper.getData(key: CacheKeys.token);
+    final rememberMe = await SecureCacheHelper.getData(
       key: CacheKeys.rememberMe,
     );
 
+    if (!mounted) return;
+
     if (token != null && token.isNotEmpty && rememberMe == 'true') {
-      await UserCubit.get(context).doEvent(GetUserData()).then((result) {
-        if (result) {
-          _replaceTo(Routes.homeRoute);
-        } else {
-          _replaceTo(Routes.loginRoute);
-        }
-      });
+      cubit.doEvent(GetUserData());
+    } else {
+      if (!_dataResult.isCompleted) {
+        _dataResult.complete(false);
+      }
+    }
+  }
+
+  void _waitAndNavigate() async {
+    final results = await Future.wait([
+      _animationDone.future,
+      _dataResult.future,
+    ]);
+
+    if (!mounted) return;
+
+    final isSuccess = results[1] as bool;
+
+    if (isSuccess) {
+      _replaceTo(Routes.homeRoute);
     } else {
       _replaceTo(Routes.loginRoute);
     }
   }
 
   void _replaceTo(String routeName) {
+    if (!mounted) return;
     Navigator.pushReplacementNamed(context, routeName);
   }
 
@@ -70,14 +99,25 @@ class _SplashScreenState extends State<SplashScreen>
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Center(
-        child: FadeTransition(
-          opacity: _fadeAnimation,
-          child: Image.asset(
-            AppAssets.logoSplashPath,
-            width: 250,
-            height: 250,
-            fit: BoxFit.contain,
+      body: BlocListener<UserCubit, UserState>(
+        listener: (context, state) {
+          if (_dataResult.isCompleted) return;
+
+          if (state.user != null) {
+            _dataResult.complete(true);
+          } else if (state.error != null) {
+            _dataResult.complete(false);
+          }
+        },
+        child: Center(
+          child: FadeTransition(
+            opacity: _fadeAnimation,
+            child: Image.asset(
+              AppAssets.logoSplashPath,
+              width: 250,
+              height: 250,
+              fit: BoxFit.contain,
+            ),
           ),
         ),
       ),

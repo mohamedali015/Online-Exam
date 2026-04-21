@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:online_exam/config/di/di.dart';
 import 'package:online_exam/core/helpers/my_responsive.dart';
 import 'package:online_exam/core/utils/app_assets.dart';
 import 'package:online_exam/core/utils/app_colors.dart';
@@ -10,60 +9,67 @@ import 'package:online_exam/features/exam/presentation/manager/exam_state.dart';
 
 import '../../../../core/values/app_strings.dart';
 import '../../../exams/domain/entities/exam_model.dart';
-import '../../domain/use_cases/get_exam_questions_use_case.dart';
 import '../manager/exam_events.dart';
 import '../widgets/exam_view_body.dart';
 
-class ExamView extends StatelessWidget {
-  const ExamView({super.key});
+class ExamView extends StatefulWidget {
+  const ExamView({super.key, required this.examsModel});
+
+  final ExamsModel examsModel;
+
+  @override
+  State<ExamView> createState() => _ExamViewState();
+}
+
+class _ExamViewState extends State<ExamView> {
+  @override
+  void initState() {
+    super.initState();
+    context.read<ExamCubit>().exam = widget.examsModel;
+    context.read<ExamCubit>().doEvent(GetExamQuestions());
+  }
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider(
-      create: (context) => ExamCubit(
-        getExamQuestionsUseCase: getIt<GetExamQuestionsUseCase>(),
-        exam: ModalRoute.of(context)!.settings.arguments as ExamsModel,
-      )..doEvent(GetExamQuestions()),
-      child: Scaffold(
-        appBar: AppBar(
-          automaticallyImplyLeading: false,
-          title: Text(AppStrings.exam),
-          leading: IconButton(
-            onPressed: () {
-              Navigator.pop(context);
-            },
-            icon: Icon(Icons.arrow_back_ios_new),
-          ),
-
-          actions: [
-            Padding(
-              padding: MyResponsive.paddingOnly(end: 16),
-              child: Row(
-                children: [
-                  Image.asset(
-                    AppAssets.timerImagePath,
-                    width: MyResponsive.width(value: 24),
-                  ),
-                  SizedBox(width: MyResponsive.width(value: 8)),
-                  BlocBuilder<ExamCubit, ExamState>(
-                    builder: (context, state) {
-                      return Text(
-                        ExamCubit.get(context).formattedTime,
-                        style: AppTextStyles.regular20.copyWith(
-                          color: ExamCubit.get(context).lastFewMinutes
-                              ? AppColors.error
-                              : AppColors.success,
-                        ),
-                      );
-                    },
-                  ),
-                ],
-              ),
-            ),
-          ],
+    return Scaffold(
+      appBar: AppBar(
+        automaticallyImplyLeading: false,
+        title: Text(AppStrings.exam),
+        leading: IconButton(
+          onPressed: () {
+            Navigator.pop(context);
+          },
+          icon: Icon(Icons.arrow_back_ios_new),
         ),
-        body: ExamViewBody(),
+
+        actions: [
+          Padding(
+            padding: MyResponsive.paddingOnly(end: 16),
+            child: Row(
+              children: [
+                Image.asset(
+                  AppAssets.timerImagePath,
+                  width: MyResponsive.width(value: 24),
+                ),
+                SizedBox(width: MyResponsive.width(value: 8)),
+                BlocBuilder<ExamCubit, ExamState>(
+                  builder: (context, state) {
+                    return Text(
+                      context.read<ExamCubit>().formattedTime,
+                      style: AppTextStyles.regular20.copyWith(
+                        color: context.read<ExamCubit>().lastFewMinutes
+                            ? AppColors.error
+                            : AppColors.success,
+                      ),
+                    );
+                  },
+                ),
+              ],
+            ),
+          ),
+        ],
       ),
+      body: ExamViewBody(),
     );
   }
 }

@@ -19,7 +19,7 @@ class ExamRemoteDataSourceImpl implements ExamRemoteDataSource {
   }) {
     return executeApi(() async {
       final token = await SecureCacheHelper.getData(key: CacheKeys.token);
-      return await _apiClient.getExamQuestions(examId, token!);
+      return await _apiClient.getExamQuestions(examId,);
     });
   }
 }
