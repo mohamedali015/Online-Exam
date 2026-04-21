@@ -6,13 +6,8 @@ import 'package:online_exam/features/exams/presentation/widgets/exam_card.dart';
 class ExamsList extends StatelessWidget {
   final String? title;
   final List<ExamsModel> exams;
-  final String? errorMessage;
-  const ExamsList({
-    super.key,
-    this.title,
-    this.exams = const [],
-    this.errorMessage,
-  });
+
+  const ExamsList({super.key, this.title, this.exams = const []});
 
   @override
   Widget build(BuildContext context) {
@@ -26,8 +21,6 @@ class ExamsList extends StatelessWidget {
             style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
           ),
           SizedBox(height: MyResponsive.height(value: 12)),
-          if (errorMessage != null && errorMessage!.isNotEmpty)
-            Center(child: Text('Error: ${errorMessage}')),
 
           if (exams.isNotEmpty)
             ListView.builder(

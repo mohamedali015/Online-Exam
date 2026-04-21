@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:online_exam/config/di/di.dart';
+import 'package:online_exam/core/shared_widgets/custom_error_widget.dart';
+import 'package:online_exam/core/shared_widgets/custom_loading_indicator.dart';
 import 'package:online_exam/core/utils/app_text_styles.dart';
 import 'package:online_exam/features/home/presentation/manager/all_subjects_cubit.dart';
 import 'package:online_exam/features/home/presentation/manager/all_subjects_event.dart';
@@ -69,13 +71,19 @@ class _HomeScreenState extends State<HomeScreen> {
                     child: BlocBuilder<SubjectsCubit, SubjectsState>(
                       builder: (context, state) {
                         if (state.isLoading == true) {
-                          return const Center(
-                            child: CircularProgressIndicator(),
-                          );
+                          return const CustomLoadingIndicator();
                         }
 
                         if (state.errorMessage != null) {
-                          return Center(child: Text(state.errorMessage!));
+                          return CustomErrorWidget(
+                            errorMessage: state.errorMessage!,
+                            haveTryAgain: true,
+                            onPressed: () {
+                              context.read<SubjectsCubit>().doEvent(
+                                GetAllSubjectsEvent(),
+                              );
+                            },
+                          );
                         }
 
                         if (state.subjects.isEmpty) {

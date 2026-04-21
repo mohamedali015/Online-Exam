@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:online_exam/config/di/di.dart';
-import 'package:online_exam/core/utils/app_colors.dart';
+import 'package:online_exam/core/shared_widgets/custom_error_widget.dart';
+import 'package:online_exam/core/shared_widgets/custom_loading_indicator.dart';
 import 'package:online_exam/features/exams/presentation/manager/exams_cubit/exams_cubit.dart';
 import 'package:online_exam/features/exams/presentation/manager/exams_cubit/exams_events.dart';
 import 'package:online_exam/features/exams/presentation/manager/exams_cubit/exams_states.dart';
@@ -12,9 +13,7 @@ import '../../../home/domain/entities/get_all_subjects_entity.dart';
 class ExamsScreen extends StatelessWidget {
   final SubjectEntity item;
 
-  ExamsScreen({super.key, required this.item});
-
-  final ExamsCubit examsCubit = getIt.get<ExamsCubit>();
+  const ExamsScreen({super.key, required this.item});
 
   @override
   Widget build(BuildContext context) {
@@ -28,34 +27,44 @@ class ExamsScreen extends StatelessWidget {
       ),
       body: BlocProvider<ExamsCubit>(
         create: (context) =>
-            examsCubit..doEvent(GetSubjectExams(subjectId: item.id!)),
-        child: SingleChildScrollView(
-          scrollDirection: Axis.vertical,
-          child: Column(
-            children: [
-              BlocBuilder<ExamsCubit, ExamsState>(
-                builder: (context, state) {
-                  if (state is ExamsLoading) {
-                    return const Center(
-                      child: CircularProgressIndicator(
-                        color: AppColors.baseGray,
-                      ),
-                    );
-                  } else if (state is ExamsSuccessState &&
-                      state.exams.isNotEmpty) {
-                    return ExamsList(title: 'Exams', exams: state.exams);
-                  } else if (state is ExamsSuccessState &&
-                      state.exams.isEmpty) {
-                    return const Center(child: Text('No exams available'));
-                  } else if (state is ExamsErrorState) {
-                    return ExamsList(errorMessage: state.errorMessage);
-                  }
+            getIt<ExamsCubit>()..doEvent(GetSubjectExams(subjectId: item.id!)),
+        child: Builder(
+          builder: (context) {
+            return BlocBuilder<ExamsCubit, ExamsState>(
+              builder: (context, state) {
+                if (state is ExamsLoading) {
+                  return CustomLoadingIndicator();
+                }
 
-                  return const SizedBox(); // initial state
-                },
-              ),
-            ],
-          ),
+                if (state is ExamsSuccessState && state.exams.isNotEmpty) {
+                  return SingleChildScrollView(
+                    scrollDirection: Axis.vertical,
+                    child: Column(
+                      children: [ExamsList(title: 'Exams', exams: state.exams)],
+                    ),
+                  );
+                }
+
+                if (state is ExamsSuccessState && state.exams.isEmpty) {
+                  return CustomErrorWidget(errorMessage: 'No exams available');
+                }
+
+                if (state is ExamsErrorState) {
+                  return CustomErrorWidget(
+                    errorMessage: state.errorMessage,
+                    haveTryAgain: true,
+                    onPressed: () {
+                      context.read<ExamsCubit>().doEvent(
+                        GetSubjectExams(subjectId: item.id!),
+                      );
+                    },
+                  );
+                }
+
+                return const SizedBox();
+              },
+            );
+          },
         ),
       ),
     );

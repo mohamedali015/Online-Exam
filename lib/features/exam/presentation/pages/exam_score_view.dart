@@ -24,7 +24,7 @@ class ExamScoreView extends StatelessWidget {
         title: Text(AppStrings.examScore),
         leading: IconButton(
           onPressed: () {
-            // ToDo : navigate to exams screen
+            Navigator.pop(context);
           },
           icon: Icon(Icons.arrow_back_ios_new),
         ),
