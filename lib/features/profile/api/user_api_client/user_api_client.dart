@@ -15,5 +15,5 @@ abstract class UserApiClient {
   factory UserApiClient(Dio dio) = _UserApiClient;
 
   @GET(ApiEndPoints.getUserData)
-  Future<GetUserDataResponse> getUserData(@Header('token') String token);
+  Future<GetUserDataResponse> getUserData();
 }

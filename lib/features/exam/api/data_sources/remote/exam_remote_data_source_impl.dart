@@ -1,6 +1,4 @@
 import 'package:injectable/injectable.dart';
-import 'package:online_exam/config/cache/secure_cache/cache_keys.dart';
-import 'package:online_exam/config/cache/secure_cache/secure_cache_helper.dart';
 import 'package:online_exam/config/error_handling/execute_api.dart';
 import 'package:online_exam/config/error_handling/result.dart';
 import 'package:online_exam/features/exam/api/exam_api_client/exam_api_client.dart';
@@ -18,8 +16,7 @@ class ExamRemoteDataSourceImpl implements ExamRemoteDataSource {
     required String examId,
   }) {
     return executeApi(() async {
-      final token = await SecureCacheHelper.getData(key: CacheKeys.token);
-      return await _apiClient.getExamQuestions(examId, token!);
+      return await _apiClient.getExamQuestions(examId);
     });
   }
 }

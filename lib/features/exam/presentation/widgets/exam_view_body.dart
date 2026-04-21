@@ -22,7 +22,7 @@ class ExamViewBody extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var cubit = ExamCubit.get(context);
+    var cubit = context.read<ExamCubit>();
     return Padding(
       padding: MyResponsive.paddingSymmetric(
         horizontal: AppConstants.paddingHorizontal,

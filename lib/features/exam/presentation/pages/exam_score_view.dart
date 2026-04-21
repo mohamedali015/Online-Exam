@@ -12,13 +12,12 @@ import '../widgets/exam_score_widgets/exam_score_percentage.dart';
 import '../widgets/exam_score_widgets/exam_score_row_count.dart';
 
 class ExamScoreView extends StatelessWidget {
-  const ExamScoreView({super.key});
+  const ExamScoreView({super.key, required this.examResult});
+
+  final ExamResultEntity examResult;
 
   @override
   Widget build(BuildContext context) {
-    ExamResultEntity examResult =
-        ModalRoute.of(context)!.settings.arguments as ExamResultEntity;
-
     return Scaffold(
       appBar: AppBar(
         automaticallyImplyLeading: false,
