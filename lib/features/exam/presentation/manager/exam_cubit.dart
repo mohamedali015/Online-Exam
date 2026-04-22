@@ -1,7 +1,8 @@
 import 'dart:async';
 
-import 'package:flutter/material.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:injectable/injectable.dart';
 import 'package:online_exam/features/exam/domain/entities/exam_result_entity.dart';
 import 'package:online_exam/features/exam/domain/use_cases/get_exam_questions_use_case.dart';
 import 'package:online_exam/features/exams/domain/entities/exam_model.dart';
@@ -11,15 +12,13 @@ import '../../domain/entities/questions_entity.dart';
 import 'exam_events.dart';
 import 'exam_state.dart';
 
+@injectable
 class ExamCubit extends Cubit<ExamState> {
-  ExamCubit({required this.getExamQuestionsUseCase, required this.exam})
-    : super(ExamState());
-
-  static ExamCubit get(BuildContext context) => BlocProvider.of(context);
+  ExamCubit({required this.getExamQuestionsUseCase}) : super(ExamState());
 
   GetExamQuestionsUseCase getExamQuestionsUseCase;
 
-  ExamsModel exam;
+  ExamsModel? exam;
   ExamResultEntity? examResult;
   PageController pageViewController = PageController();
   Timer? _timer;
@@ -69,7 +68,7 @@ class ExamCubit extends Cubit<ExamState> {
       ),
     );
 
-    final result = await getExamQuestionsUseCase(examId: exam.id);
+    final result = await getExamQuestionsUseCase(examId: exam!.id);
 
     switch (result) {
       case Success():
@@ -105,7 +104,7 @@ class ExamCubit extends Cubit<ExamState> {
   }
 
   void _startTimer() {
-    remainingSeconds = exam.duration * 60;
+    remainingSeconds = exam!.duration * 60;
 
     _timer?.cancel();
 
@@ -185,7 +184,7 @@ class ExamCubit extends Cubit<ExamState> {
     }
 
     return ExamResultEntity(
-      exam: exam,
+      exam: exam!,
       questions: questions,
       correctAnswers: correctAnswers,
       wrongAnswers: wrongAnswers,

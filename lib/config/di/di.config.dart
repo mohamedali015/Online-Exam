@@ -14,7 +14,7 @@ import 'package:get_it/get_it.dart' as _i174;
 import 'package:injectable/injectable.dart' as _i526;
 import 'package:pretty_dio_logger/pretty_dio_logger.dart' as _i528;
 
-import '../../features/auth/api/api_client.dart' as _i645;
+import '../../features/auth/api/api_client_auth.dart' as _i519;
 import '../../features/auth/api/data_source/remote/auth_remote_data_source_impl.dart'
     as _i321;
 import '../../features/auth/data/data_source/remote/auth_remote_data_source.dart'
@@ -35,6 +35,7 @@ import '../../features/exam/data/repositories/exam_repo_impl.dart' as _i1047;
 import '../../features/exam/domain/repositories/exam_repo.dart' as _i377;
 import '../../features/exam/domain/use_cases/get_exam_questions_use_case.dart'
     as _i55;
+import '../../features/exam/presentation/manager/exam_cubit.dart' as _i689;
 import '../../features/exams/api/data_source/exams_remote_data_source_impl.dart'
     as _i895;
 import '../../features/exams/api/exams_api_client.dart' as _i104;
@@ -119,15 +120,13 @@ extension GetItInjectableX on _i174.GetIt {
         gh<_i528.PrettyDioLogger>(),
       ),
     );
-    gh.lazySingleton<_i645.ApiClient>(
-      () => apiModule.provideApiClient(gh<_i361.Dio>()),
-    );
-    gh.singleton<_i194.AllSubjectsApiClient>(
+    gh.lazySingleton<_i194.AllSubjectsApiClient>(
       () => _i194.AllSubjectsApiClient(gh<_i361.Dio>()),
     );
     gh.factory<_i1062.UserApiClient>(
       () => _i1062.UserApiClient(gh<_i361.Dio>()),
     );
+    gh.factory<_i519.ApiClientAuth>(() => _i519.ApiClientAuth(gh<_i361.Dio>()));
     gh.factory<_i665.ExamApiClient>(() => _i665.ExamApiClient(gh<_i361.Dio>()));
     gh.factory<_i104.ExamsApiClient>(
       () => _i104.ExamsApiClient(gh<_i361.Dio>()),
@@ -138,11 +137,11 @@ extension GetItInjectableX on _i174.GetIt {
     gh.factory<_i317.UpdateProfileApiClient>(
       () => _i317.UpdateProfileApiClient(gh<_i361.Dio>()),
     );
-    gh.factory<_i548.AuthRemoteDataSource>(
-      () => _i321.AuthRemoteDataSourceImpl(gh<_i645.ApiClient>()),
-    );
     gh.factory<_i586.ExamsRemoteDataSource>(
       () => _i895.ExamsRemoteDataSourceImpl(gh<_i104.ExamsApiClient>()),
+    );
+    gh.factory<_i548.AuthRemoteDataSource>(
+      () => _i321.AuthRemoteDataSourceImpl(gh<_i519.ApiClientAuth>()),
     );
     gh.factory<_i723.AuthRepo>(
       () => _i662.AuthRepoImpl(gh<_i548.AuthRemoteDataSource>()),
@@ -232,6 +231,11 @@ extension GetItInjectableX on _i174.GetIt {
     gh.factory<_i186.UpdateProfileUseCase>(
       () => _i186.UpdateProfileUseCase(gh<_i234.UpdateProfileRepo>()),
     );
+    gh.factory<_i689.ExamCubit>(
+      () => _i689.ExamCubit(
+        getExamQuestionsUseCase: gh<_i55.GetExamQuestionsUseCase>(),
+      ),
+    );
     gh.factory<_i987.ForgetPasswordCubit>(
       () => _i987.ForgetPasswordCubit(
         gh<_i382.EnterEmailUseCase>(),
@@ -239,7 +243,7 @@ extension GetItInjectableX on _i174.GetIt {
         gh<_i696.GetNewPasswordForgetPasswordUseCase>(),
       ),
     );
-    gh.factory<_i720.UserCubit>(
+    gh.lazySingleton<_i720.UserCubit>(
       () => _i720.UserCubit(gh<_i180.GetUserDataUseCase>()),
     );
     gh.factory<_i362.SubjectsCubit>(

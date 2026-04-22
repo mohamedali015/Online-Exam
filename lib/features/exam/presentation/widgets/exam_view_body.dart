@@ -22,7 +22,7 @@ class ExamViewBody extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var cubit = ExamCubit.get(context);
+    var cubit = context.read<ExamCubit>();
     return Padding(
       padding: MyResponsive.paddingSymmetric(
         horizontal: AppConstants.paddingHorizontal,
@@ -40,6 +40,7 @@ class ExamViewBody extends StatelessWidget {
                 child: TimeOutDialog(
                   onPressed: () {
                     cubit.doEvent(FinishExam());
+                    Navigator.pop(context);
                     Navigator.pushReplacementNamed(
                       context,
                       Routes.examScoreViewRoute,
@@ -140,6 +141,7 @@ class ExamViewBody extends StatelessWidget {
                                       return FinishExamDialog(
                                         onFinish: () {
                                           cubit.doEvent(FinishExam());
+                                          Navigator.pop(context);
                                           Navigator.pushReplacementNamed(
                                             context,
                                             Routes.examScoreViewRoute,

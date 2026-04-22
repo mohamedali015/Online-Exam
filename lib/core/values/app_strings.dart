@@ -23,6 +23,8 @@ abstract class AppStrings {
   static const String phoneInvalid = "Please enter a valid phone number";
 
   static const String pageNotFound = "Page not found";
+  static const String sessionExpired = 'Session Expired';
+  static const String pleaseLoginAgain = 'Please Login Again';
 
   static const String login = "Login";
   static const String email = "Email";
@@ -85,6 +87,7 @@ abstract class AppStrings {
   static const String noNameFound = "No name found";
   static const String noIdFound = "No id found";
   static const String noIconFound = "No icon found";
+  static const String noUserData = "No user data";
 
   /// Exams view
   static const String exams = "Exams";

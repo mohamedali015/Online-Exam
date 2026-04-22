@@ -12,12 +12,12 @@ final class UpdateProfileInitial extends UpdateProfileState {}
 class UpdateProfileLoading extends UpdateProfileState {}
 
 final class UpdateProfileSuccess extends UpdateProfileState {
-  final UpdateProfileEntity updateProfileEntity;
+  final UserEntity updateProfile;
 
-  const UpdateProfileSuccess(this.updateProfileEntity);
+  const UpdateProfileSuccess(this.updateProfile);
 
   @override
-  List<Object> get props => [updateProfileEntity];
+  List<Object> get props => [updateProfile];
 }
 
 final class UpdateProfileError extends UpdateProfileState {

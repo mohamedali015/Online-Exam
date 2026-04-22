@@ -1,31 +1,29 @@
-import 'package:equatable/equatable.dart';
-import 'package:online_exam/features/auth/domain/entities/user_entity.dart';
+import '../../../features/auth/domain/entities/user_entity.dart';
 
-sealed class UserState extends Equatable {
-  const UserState();
+class UserState {
+  final bool isLoading;
+  final UserEntity? user;
+  final String? error;
+  final bool isUnauthorized;
 
-  @override
-  List<Object> get props => [];
-}
+  UserState({
+    this.isLoading = false,
+    this.user,
+    this.error,
+    this.isUnauthorized = false,
+  });
 
-class UserInitial extends UserState {}
-
-class UserLoading extends UserState {}
-
-class GetUserDataSuccessState extends UserState {
-  final UserEntity user;
-
-  const GetUserDataSuccessState(this.user);
-
-  @override
-  List<Object> get props => [user];
-}
-
-class GetUserDataErrorState extends UserState {
-  final String errorMessage;
-
-  const GetUserDataErrorState(this.errorMessage);
-
-  @override
-  List<Object> get props => [errorMessage];
+  UserState copyWith({
+    bool? isLoading,
+    UserEntity? user,
+    String? error,
+    bool? isUnauthorized,
+  }) {
+    return UserState(
+      isLoading: isLoading ?? this.isLoading,
+      user: user ?? this.user,
+      error: error,
+      isUnauthorized: isUnauthorized ?? false,
+    );
+  }
 }

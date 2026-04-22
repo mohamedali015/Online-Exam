@@ -1,6 +1,5 @@
 import 'package:json_annotation/json_annotation.dart';
-import 'package:online_exam/features/profile/domain/entities/update_profile_entity.dart';
-
+import 'package:online_exam/features/auth/domain/entities/user_entity.dart';
 part 'updated_user.g.dart';
 
 @JsonSerializable()
@@ -39,8 +38,9 @@ class UpdatedUser {
     this.createdAt,
   });
 
-  UpdateProfileEntity toEntity() {
-    return UpdateProfileEntity(
+  UserEntity toEntity() {
+    return UserEntity(
+      id: id ?? '',
       username: username ?? '',
       firstName: firstName ?? '',
       lastName: lastName ?? '',

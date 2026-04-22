@@ -2,7 +2,7 @@ import 'package:equatable/equatable.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:injectable/injectable.dart';
 import 'package:online_exam/config/error_handling/result.dart';
-import 'package:online_exam/features/profile/domain/entities/update_profile_entity.dart';
+import 'package:online_exam/features/auth/domain/entities/user_entity.dart';
 import 'package:online_exam/features/profile/domain/use_cases/update_profile_use_case.dart';
 import 'package:online_exam/features/profile/presentation/manager/update_profile/update_profile_event.dart';
 part 'update_profile_state.dart';
@@ -29,9 +29,9 @@ class UpdateProfileCubit extends Cubit<UpdateProfileState> {
     final result = await _updateProfileUseCase.call(body: body);
 
     switch (result) {
-      case Success<UpdateProfileEntity>():
+      case Success<UserEntity>():
         emit(UpdateProfileSuccess(result.data));
-      case Failure<UpdateProfileEntity>():
+      case Failure<UserEntity>():
         emit(UpdateProfileError(result.errorMessage));
     }
   }

@@ -1,5 +1,6 @@
 import 'package:dio/dio.dart';
 import 'package:injectable/injectable.dart';
+import 'package:online_exam/core/values/api_strings.dart';
 import 'package:retrofit/retrofit.dart';
 
 import '../../../../core/values/api_end_points.dart';
@@ -15,7 +16,6 @@ abstract class ExamApiClient {
 
   @GET(ApiEndPoints.getExamQuestions)
   Future<ExamQuestionsResponse> getExamQuestions(
-    @Query('exam') String examId,
-    @Header('token') String token,
+    @Query(ApiStrings.examId) String examId,
   );
 }

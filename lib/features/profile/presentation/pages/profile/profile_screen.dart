@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:online_exam/config/route_manager/routes.dart';
 import 'package:online_exam/config/user/manager/user_cubit.dart';
 import 'package:online_exam/config/user/manager/user_events.dart';
 import 'package:online_exam/config/user/manager/user_state.dart';
+import 'package:online_exam/core/helpers/my_responsive.dart';
 import 'package:online_exam/core/values/app_strings.dart';
 import 'package:online_exam/features/profile/presentation/manager/profile_controller.dart';
 import 'package:online_exam/features/profile/presentation/manager/update_profile/update_profile_cubit.dart';
@@ -19,7 +21,6 @@ class ProfileScreen extends StatefulWidget {
 
 class _ProfileScreenState extends State<ProfileScreen> {
   final controller = ProfileController();
-
   final _formKey = GlobalKey<FormState>();
 
   @override
@@ -27,10 +28,6 @@ class _ProfileScreenState extends State<ProfileScreen> {
     super.initState();
 
     _addListeners();
-
-    Future.microtask(() {
-      context.read<UserCubit>().doEvent(GetUserData());
-    });
   }
 
   void _addListeners() {
@@ -60,8 +57,20 @@ class _ProfileScreenState extends State<ProfileScreen> {
         BlocListener<UpdateProfileCubit, UpdateProfileState>(
           listener: (context, state) {
             if (state is UpdateProfileSuccess) {
-              controller.fillFromUser(state.updateProfileEntity);
-              setState(() {});
+              controller.fillFromUser(state.updateProfile);
+            }
+          },
+        ),
+
+        /// Unauthorized Listener
+        BlocListener<UserCubit, UserState>(
+          listenWhen: (prev, curr) =>
+              prev.isUnauthorized != curr.isUnauthorized,
+          listener: (context, state) {
+            if (state.isUnauthorized) {
+              Navigator.pushReplacementNamed(context, Routes.loginRoute);
+
+              context.read<UserCubit>().doEvent(ResetUnauthorized());
             }
           },
         ),
@@ -71,26 +80,31 @@ class _ProfileScreenState extends State<ProfileScreen> {
           title: const Text(AppStrings.profile),
           automaticallyImplyLeading: false,
         ),
-        body: BlocConsumer<UserCubit, UserState>(
-          listener: (context, state) {
-            if (state is GetUserDataSuccessState) {
-              controller.fillFromUser(state.user);
-              setState(() {});
-            }
-          },
+        body: BlocBuilder<UserCubit, UserState>(
           builder: (context, state) {
-            if (state is UserLoading) {
+            if (state.isLoading) {
               return const Center(child: CircularProgressIndicator());
             }
+
+            if (state.user == null) {
+              return Center(child: Text(state.error ?? AppStrings.noUserData));
+            }
+
+            WidgetsBinding.instance.addPostFrameCallback((_) {
+              if (!controller.isInitialized) {
+                controller.fillFromUser(state.user!);
+                controller.isInitialized = true;
+              }
+            });
 
             return SafeArea(
               child: SingleChildScrollView(
                 child: Padding(
-                  padding: const EdgeInsets.all(16),
+                  padding: MyResponsive.paddingAll(value: 16),
                   child: Column(
                     children: [
                       const ProfilePicture(),
-                      const SizedBox(height: 40),
+                      SizedBox(height: MyResponsive.height(value: 40)),
 
                       ProfileForm(
                         formKey: _formKey,
@@ -101,7 +115,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                         phoneController: controller.phone,
                       ),
 
-                      const SizedBox(height: 40),
+                      SizedBox(height: MyResponsive.height(value: 40)),
 
                       BlocBuilder<UpdateProfileCubit, UpdateProfileState>(
                         builder: (context, state) {

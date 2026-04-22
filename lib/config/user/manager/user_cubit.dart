@@ -1,43 +1,64 @@
-import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:injectable/injectable.dart';
-import 'package:online_exam/config/user/domain/use_cases/get_user_data_use_case.dart';
 import 'package:online_exam/config/user/manager/user_events.dart';
 import 'package:online_exam/config/user/manager/user_state.dart';
-import 'package:online_exam/features/auth/domain/entities/user_entity.dart';
-import 'package:online_exam/config/error_handling/result.dart';
 
-@injectable
+import '../../error_handling/result.dart';
+import '../domain/use_cases/get_user_data_use_case.dart';
+
+@lazySingleton
 class UserCubit extends Cubit<UserState> {
-  UserCubit(this._getUserDataUseCase) : super(UserInitial());
-
-  static UserCubit get(BuildContext context) => BlocProvider.of(context);
+  UserCubit(this._getUserDataUseCase) : super(UserState());
 
   final GetUserDataUseCase _getUserDataUseCase;
+  bool _handledUnauthorized = false;
 
-  UserEntity? user;
-
-  Future<void> doEvent(UserEvents event) async {
+  /// events
+  void doEvent(UserEvents event) {
     switch (event) {
       case GetUserData():
-        await _getUserData();
+        {
+          _getUserData();
+          break;
+        }
+      case SetUserData():
+        {
+          emit(state.copyWith(user: event.user));
+          break;
+        }
+      case UnauthorizedUser():
+        {
+          _handleUnauthorized();
+          break;
+        }
+      case ResetUnauthorized():
+        _handledUnauthorized = false;
+
+        emit(state.copyWith(isUnauthorized: false));
+        break;
     }
   }
 
   Future<void> _getUserData() async {
-    emit(UserLoading());
+    emit(state.copyWith(isLoading: true));
 
     final response = await _getUserDataUseCase.call();
 
     switch (response) {
       case Success():
-        user = response.data;
-        emit(GetUserDataSuccessState(user!));
+        emit(state.copyWith(isLoading: false, user: response.data));
         break;
 
       case Failure():
-        emit(GetUserDataErrorState(response.errorMessage));
+        emit(state.copyWith(isLoading: false, error: response.errorMessage));
         break;
     }
+  }
+
+  void _handleUnauthorized() {
+    if (_handledUnauthorized) return;
+    _handledUnauthorized = true;
+
+    emit(state.copyWith(isUnauthorized: true, user: null));
   }
 }

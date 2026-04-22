@@ -3,8 +3,7 @@ import 'package:online_exam/config/error_handling/result.dart';
 import 'package:online_exam/config/user/api/user_api_client/user_api_client.dart';
 import 'package:online_exam/config/user/data/data_sources/remote/user_remote_data_source.dart';
 import 'package:online_exam/config/user/data/models/responses/get_user_response/get_user_data_response.dart';
-
-import '../../../../../config/error_handling/execute_api.dart';
+import '../../../../error_handling/execute_api.dart';
 
 @Injectable(as: UserRemoteDataSource)
 class UserRemoteDataSourceImpl implements UserRemoteDataSource {
@@ -15,7 +14,7 @@ class UserRemoteDataSourceImpl implements UserRemoteDataSource {
   @override
   Future<Result<GetUserDataResponse>> getUserData() async {
     return executeApi(() async {
-      final response = await _apiClient.getUserData();
+      var response = await _apiClient.getUserData();
       return response;
     });
   }
