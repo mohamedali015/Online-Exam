@@ -29,13 +29,18 @@ class ExamsScreen extends StatelessWidget {
       ),
       body: BlocProvider<ExamsCubit>(
         create: (context) {
-          if (item.id == null) {
-            return examsCubit;
+          final cubit = examsCubit;
+          if (item.id != null) {
+            cubit.doEvent(GetSubjectExams(subjectId: item.id!));
           }
-          return examsCubit..doEvent(GetSubjectExams(subjectId: item.id!));
+          return cubit;
         },
         child: BlocBuilder<ExamsCubit, ExamsState>(
           builder: (context, state) {
+            if (item.id == null) {
+              return const Center(child: Text(AppStrings.invalidSubject));
+            }
+
             switch (state) {
               case ExamsLoading():
                 return const Center(

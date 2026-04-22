@@ -14,5 +14,5 @@ class ExamEntity extends Equatable {
   });
 
   @override
-  List<Object?> get props => [title, duration, numberOfQuestions];
+  List<Object?> get props => [id, title, duration, numberOfQuestions];
 }

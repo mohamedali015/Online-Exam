@@ -92,6 +92,7 @@ abstract class AppStrings {
 
   /// exam view
   static const String noExamsAvailable = "No exams available";
+  static const String invalidSubject = "Invalid subject or no subject selected";
 
   static const String exam = "Exam";
   static const String question = 'Question';
