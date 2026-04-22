@@ -1,7 +1,6 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/foundation.dart';
 import 'package:injectable/injectable.dart';
-import 'package:online_exam/config/cache/secure_cache/secure_cache_helper.dart';
 import 'package:online_exam/core/values/api_end_points.dart';
 import 'package:pretty_dio_logger/pretty_dio_logger.dart';
 

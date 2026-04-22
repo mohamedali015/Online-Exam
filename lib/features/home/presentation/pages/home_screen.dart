@@ -23,6 +23,12 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen> {
   final TextEditingController searchController = TextEditingController();
 
+
+  @override
+  void initState() {
+    super.initState();
+  }
+
   @override
   void dispose() {
     searchController.dispose();
@@ -31,41 +37,43 @@ class _HomeScreenState extends State<HomeScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider(
-      create: (context) =>
-          getIt<SubjectsCubit>()..doEvent(GetAllSubjectsEvent()),
+    return Scaffold(
 
-      child: Builder(
-        builder: (context) {
-          return Scaffold(
-            appBar: AppBar(
-              title: Text(
-                AppStrings.survey,
-                style: AppTextStyles.medium20.copyWith(
-                  color: AppColors.primaryColor,
-                ),
+      appBar: AppBar(
+        title: Text(
+          AppStrings.survey,
+          style: AppTextStyles.medium20.copyWith(
+            color: AppColors.primaryColor,
+          ),
+        ),
+        automaticallyImplyLeading: false,
+      ),
+
+      body: Padding(
+        padding: MyResponsive.paddingSymmetric(horizontal: 16),
+        child: Column(
+          children: [
+            SizedBox(height: MyResponsive.height(value: 16)),
+
+            SearchBar(
+              backgroundColor: WidgetStatePropertyAll(
+                AppColors.baseWhite,
               ),
-              automaticallyImplyLeading: false,
+
+              padding: WidgetStatePropertyAll<EdgeInsets>(
+                MyResponsive.paddingSymmetric(horizontal: 8),
+              ),
+              hintText: AppStrings.search,
+              leading: Icon(Icons.search, color: AppColors.baseGray),
+              controller: searchController,
+              onChanged: (value) {
+                context.read<SubjectsCubit>().doEvent(
+                  GetSearchSubjectsEvent(query: value),
+                );
+              },
             ),
 
-            body: Padding(
-              padding: MyResponsive.paddingSymmetric(horizontal: 16),
-              child: Column(
-                children: [
-                  SizedBox(height: MyResponsive.height(value: 16)),
-
-                  SearchBar(
-                    hintText: AppStrings.search,
-                    leading: Icon(Icons.search, color: AppColors.baseGray),
-                    controller: searchController,
-                    onChanged: (value) {
-                      context.read<SubjectsCubit>().doEvent(
-                        GetSearchSubjectsEvent(query: value),
-                      );
-                    },
-                  ),
-
-                  SizedBox(height: MyResponsive.height(value: 20)),
+            SizedBox(height: MyResponsive.height(value: 20)),
 
                   Expanded(
                     child: BlocBuilder<SubjectsCubit, SubjectsState>(
@@ -86,42 +94,39 @@ class _HomeScreenState extends State<HomeScreen> {
                           );
                         }
 
-                        if (state.subjects.isEmpty) {
-                          return Column(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              Image.asset(
-                                AppAssets.noFoundResearch,
-                                fit: BoxFit.contain,
-                              ),
-                              Text(
-                                AppStrings.noSubjectsFound,
-                                style: AppTextStyles.medium18,
-                              ),
-                            ],
-                          );
-                        }
+                  if (state.subjects.isEmpty) {
+                    return Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Image.asset(
+                          AppAssets.noFoundResearch,
+                          fit: BoxFit.contain,
+                        ),
+                        Text(
+                          AppStrings.noSubjectsFound,
+                          style: AppTextStyles.medium18,
+                        ),
+                      ],
+                    );
+                  }
 
-                        return ListView.builder(
-                          itemCount: state.subjects.length,
-                          itemBuilder: (context, index) {
-                            final subject = state.subjects[index];
-                            return SubjectCard(item: subject);
-                          },
-                        );
-                      },
+                  return ListView.builder(
+                    itemCount: state.subjects.length,
+                    itemBuilder: (context, index) {
+                      final subject = state.subjects[index];
+                      return SubjectCard(item: subject);
+                    },
+                  );
+                },
 
-                      buildWhen: (prev, curr) =>
-                          prev.subjects != curr.subjects ||
-                          prev.isLoading != curr.isLoading ||
-                          prev.errorMessage != curr.errorMessage,
-                    ),
-                  ),
-                ],
+                buildWhen: (prev, curr) =>
+                prev.subjects != curr.subjects ||
+                    prev.isLoading != curr.isLoading ||
+                    prev.errorMessage != curr.errorMessage,
               ),
             ),
-          );
-        },
+          ],
+        ),
       ),
     );
   }

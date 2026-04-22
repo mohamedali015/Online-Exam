@@ -1,21 +1,20 @@
 import 'package:dio/dio.dart';
-import 'package:injectable/injectable.dart';
 import 'package:online_exam/features/auth/data/model/request/register_request.dart';
 import 'package:online_exam/features/auth/data/model/response/auth_response.dart';
-import 'package:retrofit/dio.dart';
 import 'package:retrofit/error_logger.dart';
 import 'package:retrofit/http.dart';
+import '../../../config/cache/secure_cache/cache_keys.dart';
 import '../../../core/values/api_end_points.dart';
-import '../../../core/values/api_strings.dart';
+import '../../home/data/model/response/get_all_subjects_response.dart';
 import '../data/model/request/login_request.dart';
 
-part 'api_client.g.dart';
+part 'api_client_auth.g.dart';
 
 @injectable
 @RestApi()
-abstract interface class ApiClient {
+abstract class ApiClientAuth {
   @factoryMethod
-  factory ApiClient(Dio dio) = _ApiClient;
+  factory ApiClientAuth(Dio dio) = _ApiClientAuth;
 
   @POST(ApiEndPoints.register)
   @Extra({ApiStrings.requireAuth: false})
