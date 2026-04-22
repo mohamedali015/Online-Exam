@@ -30,15 +30,21 @@ class ExamsScreen extends StatelessWidget {
       body: BlocProvider<ExamsCubit>(
         create: (context) {
           final cubit = examsCubit;
+
+          // 🔹 Only call API if id exists
           if (item.id != null) {
             cubit.doEvent(GetSubjectExams(subjectId: item.id!));
           }
+
           return cubit;
         },
         child: BlocBuilder<ExamsCubit, ExamsState>(
           builder: (context, state) {
+            // 🔴 Handle null id case
             if (item.id == null) {
-              return const Center(child: Text(AppStrings.invalidSubject));
+              return const Center(
+                child: Text('Invalid subject or no subject selected'),
+              );
             }
 
             switch (state) {
