@@ -133,4 +133,6 @@ abstract class AppStrings {
   static const String showResult = 'Show Result';
 
   static const String startAgain = 'Start Again';
+
+  static const String failedToSaveExamResult = "Failed to save exam result";
 }

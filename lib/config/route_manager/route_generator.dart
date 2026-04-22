@@ -95,8 +95,9 @@ class RouteGenerator {
         );
 
       case Routes.examDetailsRoute:
+        final examsModel = settings.arguments as ExamsModel;
         return CupertinoPageRoute(
-          builder: (_) => ExamDetailsScreen(),
+          builder: (_) => ExamDetailsScreen(exam: examsModel),
           settings: settings,
         );
 

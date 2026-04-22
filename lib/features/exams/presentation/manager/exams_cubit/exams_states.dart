@@ -14,10 +14,12 @@ class ExamsLoading extends ExamsState {}
 
 class ExamsSuccessState extends ExamsState {
   final List<ExamsModel> exams;
-  ExamsSuccessState(this.exams);
+
+  const ExamsSuccessState(this.exams);
 }
 
 class ExamsErrorState extends ExamsState {
   final String errorMessage;
-  ExamsErrorState(this.errorMessage);
+
+  const ExamsErrorState(this.errorMessage);
 }

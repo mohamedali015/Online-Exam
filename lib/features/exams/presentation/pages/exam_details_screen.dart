@@ -8,11 +8,12 @@ import 'package:online_exam/features/exams/domain/entities/exam_model.dart';
 import 'package:online_exam/features/exams/presentation/widgets/exam_detailes.dart';
 
 class ExamDetailsScreen extends StatelessWidget {
-  const ExamDetailsScreen({super.key});
+  const ExamDetailsScreen({super.key, required this.exam});
+
+  final ExamsModel exam;
 
   @override
   Widget build(BuildContext context) {
-    ExamsModel exam = ModalRoute.of(context)!.settings.arguments as ExamsModel;
     return Scaffold(
       appBar: AppBar(
         leading: IconButton(

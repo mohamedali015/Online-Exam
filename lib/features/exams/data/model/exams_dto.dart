@@ -35,6 +35,7 @@ class Exams {
       title: title ?? '',
       duration: duration ?? 0,
       numberOfQuestions: numberOfQuestions ?? 0,
+      subjectName: '',
     );
   }
 

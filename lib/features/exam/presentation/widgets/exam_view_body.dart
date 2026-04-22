@@ -22,13 +22,14 @@ class ExamViewBody extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var cubit = context.read<ExamCubit>();
     return Padding(
       padding: MyResponsive.paddingSymmetric(
         horizontal: AppConstants.paddingHorizontal,
       ),
       child: BlocConsumer<ExamCubit, ExamState>(
         listener: (context, state) {
+          final cubit = context.read<ExamCubit>();
+
           if (cubit.remainingSeconds == 0 &&
               state.examState.data != null &&
               state.examState.data!.isNotEmpty) {
@@ -40,15 +41,18 @@ class ExamViewBody extends StatelessWidget {
                 child: TimeOutDialog(
                   onPressed: () {
                     cubit.doEvent(FinishExam());
-                    Navigator.pop(context);
-                    Navigator.pushReplacementNamed(
-                      context,
-                      Routes.examScoreViewRoute,
-                      arguments: cubit.examResult,
-                    );
                   },
                 ),
               ),
+            );
+          }
+
+          if (state.isSaved) {
+            Navigator.pop(context);
+            Navigator.pushReplacementNamed(
+              context,
+              Routes.examScoreViewRoute,
+              arguments: cubit.examResult,
             );
           }
         },
@@ -59,9 +63,13 @@ class ExamViewBody extends StatelessWidget {
         },
 
         builder: (context, state) {
+          final cubit = context.read<ExamCubit>();
+
           if (state.examState.isLoading) {
-            return CustomLoadingIndicator();
-          } else if (state.examState.errorMessage != null &&
+            return const CustomLoadingIndicator();
+          }
+
+          if (state.examState.errorMessage != null &&
               state.examState.errorMessage!.isNotEmpty) {
             return CustomErrorWidget(
               errorMessage: state.examState.errorMessage!,
@@ -70,23 +78,27 @@ class ExamViewBody extends StatelessWidget {
                 cubit.doEvent(GetExamQuestions());
               },
             );
-          } else if (state.examState.data != null &&
-              state.examState.data!.isNotEmpty &&
-              state.examState.isLoading == false) {
+          }
+
+          if (state.examState.data != null &&
+              state.examState.data!.isNotEmpty) {
             return Column(
               children: [
                 QuestionsProgress(
                   currentQuestion: state.currentPage + 1,
                   totalQuestions: state.examState.data!.length,
                 ),
+
                 SizedBox(height: MyResponsive.height(value: 28)),
+
                 Expanded(
                   child: PageView.builder(
                     itemCount: state.examState.data!.length,
                     controller: cubit.pageViewController,
-                    physics: NeverScrollableScrollPhysics(),
+                    physics: const NeverScrollableScrollPhysics(),
                     itemBuilder: (context, index) {
-                      var question = state.examState.data![index];
+                      final question = state.examState.data![index];
+
                       return QuestionPageViewItem(
                         question: question,
                         selectedAnswer: question.userAnswer,
@@ -103,7 +115,6 @@ class ExamViewBody extends StatelessWidget {
                 SizedBox(height: MyResponsive.height(value: 20)),
 
                 Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Expanded(
                       child: Visibility(
@@ -122,7 +133,9 @@ class ExamViewBody extends StatelessWidget {
                         ),
                       ),
                     ),
+
                     SizedBox(width: MyResponsive.width(value: 16)),
+
                     Expanded(
                       child: CustomButton(
                         onPressed:
@@ -137,16 +150,10 @@ class ExamViewBody extends StatelessWidget {
                                     state.examState.data!.length - 1) {
                                   showDialog(
                                     context: context,
-                                    builder: (context) {
+                                    builder: (_) {
                                       return FinishExamDialog(
                                         onFinish: () {
                                           cubit.doEvent(FinishExam());
-                                          Navigator.pop(context);
-                                          Navigator.pushReplacementNamed(
-                                            context,
-                                            Routes.examScoreViewRoute,
-                                            arguments: cubit.examResult,
-                                          );
                                         },
                                         onCancel: () {
                                           Navigator.pop(context);
@@ -168,12 +175,13 @@ class ExamViewBody extends StatelessWidget {
                     ),
                   ],
                 ),
+
                 SizedBox(height: MyResponsive.height(value: 180)),
               ],
             );
-          } else if (state.examState.data != null &&
-              state.examState.data!.isEmpty &&
-              state.examState.isLoading == false) {
+          }
+
+          if (state.examState.data != null && state.examState.data!.isEmpty) {
             return CustomErrorWidget(
               errorMessage: AppStrings.noQuestions,
               haveTryAgain: true,
@@ -181,9 +189,9 @@ class ExamViewBody extends StatelessWidget {
                 cubit.doEvent(GetExamQuestions());
               },
             );
-          } else {
-            return SizedBox();
           }
+
+          return const SizedBox();
         },
       ),
     );

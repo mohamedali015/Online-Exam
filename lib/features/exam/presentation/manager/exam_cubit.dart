@@ -9,14 +9,19 @@ import 'package:online_exam/features/exams/domain/entities/exam_model.dart';
 
 import '../../../../config/error_handling/result.dart';
 import '../../domain/entities/questions_entity.dart';
+import '../../domain/use_cases/save_exam_result_use_case.dart';
 import 'exam_events.dart';
 import 'exam_state.dart';
 
 @injectable
 class ExamCubit extends Cubit<ExamState> {
-  ExamCubit({required this.getExamQuestionsUseCase}) : super(ExamState());
+  ExamCubit({
+    required this.getExamQuestionsUseCase,
+    required this.saveExamResultUseCase,
+  }) : super(ExamState());
 
-  GetExamQuestionsUseCase getExamQuestionsUseCase;
+  final GetExamQuestionsUseCase getExamQuestionsUseCase;
+  final SaveExamResultUseCase saveExamResultUseCase;
 
   ExamsModel? exam;
   ExamResultEntity? examResult;
@@ -166,12 +171,19 @@ class ExamCubit extends Cubit<ExamState> {
     }
   }
 
-  void _finishExam() {
+  Future<void> _finishExam() async {
+    _timer?.cancel();
+
     examResult = _calculateExamResult();
+
+    await saveExamResultUseCase(examResult: examResult!);
+
+    emit(state.copyWith(isSavedParam: true));
   }
 
   ExamResultEntity _calculateExamResult() {
     final List<QuestionsEntity> questions = List.of(state.examState.data!);
+
     int correctAnswers = 0;
     int wrongAnswers = 0;
 
@@ -183,12 +195,17 @@ class ExamCubit extends Cubit<ExamState> {
       }
     }
 
+    final totalSeconds = exam!.duration * 60;
+    final spentSeconds = totalSeconds - remainingSeconds;
+    final spentMinutes = (spentSeconds / 60).ceil();
+
     return ExamResultEntity(
       exam: exam!,
       questions: questions,
       correctAnswers: correctAnswers,
       wrongAnswers: wrongAnswers,
       percentage: ((correctAnswers / questions.length) * 100),
+      spentMinutes: spentMinutes,
     );
   }
 

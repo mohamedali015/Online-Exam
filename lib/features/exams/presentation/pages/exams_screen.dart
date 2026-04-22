@@ -27,7 +27,7 @@ class ExamsScreen extends StatelessWidget {
       ),
       body: BlocProvider<ExamsCubit>(
         create: (context) =>
-            getIt<ExamsCubit>()..doEvent(GetSubjectExams(subjectId: item.id!)),
+            getIt<ExamsCubit>()..doEvent(GetSubjectExams(subject: item)),
         child: Builder(
           builder: (context) {
             return BlocBuilder<ExamsCubit, ExamsState>(
@@ -55,7 +55,7 @@ class ExamsScreen extends StatelessWidget {
                     haveTryAgain: true,
                     onPressed: () {
                       context.read<ExamsCubit>().doEvent(
-                        GetSubjectExams(subjectId: item.id!),
+                        GetSubjectExams(subject: item),
                       );
                     },
                   );
