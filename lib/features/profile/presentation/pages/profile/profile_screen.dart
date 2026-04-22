@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:online_exam/config/route_manager/routes.dart';
 import 'package:online_exam/config/user/manager/user_cubit.dart';
 import 'package:online_exam/config/user/manager/user_events.dart';
 import 'package:online_exam/config/user/manager/user_state.dart';
@@ -26,7 +25,6 @@ class _ProfileScreenState extends State<ProfileScreen> {
   @override
   void initState() {
     super.initState();
-
     _addListeners();
   }
 
@@ -52,29 +50,16 @@ class _ProfileScreenState extends State<ProfileScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return MultiBlocListener(
-      listeners: [
-        BlocListener<UpdateProfileCubit, UpdateProfileState>(
-          listener: (context, state) {
-            if (state is UpdateProfileSuccess) {
-              controller.fillFromUser(state.updateProfile);
-            }
-          },
-        ),
+    return BlocListener<UpdateProfileCubit, UpdateProfileState>(
+      listener: (context, state) {
+        if (state is UpdateProfileSuccess) {
+          controller.fillFromUser(state.updateProfile);
 
-        /// Unauthorized Listener
-        BlocListener<UserCubit, UserState>(
-          listenWhen: (prev, curr) =>
-              prev.isUnauthorized != curr.isUnauthorized,
-          listener: (context, state) {
-            if (state.isUnauthorized) {
-              Navigator.pushReplacementNamed(context, Routes.loginRoute);
-
-              context.read<UserCubit>().doEvent(ResetUnauthorized());
-            }
-          },
-        ),
-      ],
+          context.read<UserCubit>().doEvent(
+            SetUserData(user: state.updateProfile),
+          );
+        }
+      },
       child: Scaffold(
         appBar: AppBar(
           title: const Text(AppStrings.profile),
@@ -86,16 +71,9 @@ class _ProfileScreenState extends State<ProfileScreen> {
               return const Center(child: CircularProgressIndicator());
             }
 
-            if (state.user == null) {
-              return Center(child: Text(state.error ?? AppStrings.noUserData));
+            if (!controller.isInitialized) {
+              controller.fillFromUser(state.user!);
             }
-
-            WidgetsBinding.instance.addPostFrameCallback((_) {
-              if (!controller.isInitialized) {
-                controller.fillFromUser(state.user!);
-                controller.isInitialized = true;
-              }
-            });
 
             return SafeArea(
               child: SingleChildScrollView(
