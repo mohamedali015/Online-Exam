@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:online_exam/config/di/di.dart';
 import 'package:online_exam/core/shared_widgets/custom_error_widget.dart';
 import 'package:online_exam/core/shared_widgets/custom_loading_indicator.dart';
 import 'package:online_exam/core/utils/app_text_styles.dart';
@@ -23,7 +22,6 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen> {
   final TextEditingController searchController = TextEditingController();
 
-
   @override
   void initState() {
     super.initState();
@@ -38,13 +36,10 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-
       appBar: AppBar(
         title: Text(
           AppStrings.survey,
-          style: AppTextStyles.medium20.copyWith(
-            color: AppColors.primaryColor,
-          ),
+          style: AppTextStyles.medium20.copyWith(color: AppColors.primaryColor),
         ),
         automaticallyImplyLeading: false,
       ),
@@ -56,9 +51,7 @@ class _HomeScreenState extends State<HomeScreen> {
             SizedBox(height: MyResponsive.height(value: 16)),
 
             SearchBar(
-              backgroundColor: WidgetStatePropertyAll(
-                AppColors.baseWhite,
-              ),
+              backgroundColor: WidgetStatePropertyAll(AppColors.baseWhite),
 
               padding: WidgetStatePropertyAll<EdgeInsets>(
                 MyResponsive.paddingSymmetric(horizontal: 8),
@@ -75,24 +68,24 @@ class _HomeScreenState extends State<HomeScreen> {
 
             SizedBox(height: MyResponsive.height(value: 20)),
 
-                  Expanded(
-                    child: BlocBuilder<SubjectsCubit, SubjectsState>(
-                      builder: (context, state) {
-                        if (state.isLoading == true) {
-                          return const CustomLoadingIndicator();
-                        }
+            Expanded(
+              child: BlocBuilder<SubjectsCubit, SubjectsState>(
+                builder: (context, state) {
+                  if (state.isLoading == true) {
+                    return const CustomLoadingIndicator();
+                  }
 
-                        if (state.errorMessage != null) {
-                          return CustomErrorWidget(
-                            errorMessage: state.errorMessage!,
-                            haveTryAgain: true,
-                            onPressed: () {
-                              context.read<SubjectsCubit>().doEvent(
-                                GetAllSubjectsEvent(),
-                              );
-                            },
-                          );
-                        }
+                  if (state.errorMessage != null) {
+                    return CustomErrorWidget(
+                      errorMessage: state.errorMessage!,
+                      haveTryAgain: true,
+                      onPressed: () {
+                        context.read<SubjectsCubit>().doEvent(
+                          GetAllSubjectsEvent(),
+                        );
+                      },
+                    );
+                  }
 
                   if (state.subjects.isEmpty) {
                     return Column(
@@ -120,7 +113,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 },
 
                 buildWhen: (prev, curr) =>
-                prev.subjects != curr.subjects ||
+                    prev.subjects != curr.subjects ||
                     prev.isLoading != curr.isLoading ||
                     prev.errorMessage != curr.errorMessage,
               ),

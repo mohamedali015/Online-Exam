@@ -6,6 +6,7 @@ import 'package:pretty_dio_logger/pretty_dio_logger.dart';
 
 import '../../core/values/api_strings.dart';
 import '../cache/secure_cache/cache_keys.dart';
+import '../cache/secure_cache/secure_cache_helper.dart';
 import '../di/di.dart';
 import '../user/manager/user_cubit.dart';
 import '../user/manager/user_events.dart';
