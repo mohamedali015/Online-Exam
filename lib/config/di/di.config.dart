@@ -77,17 +77,29 @@ import '../../features/home/domain/use_case/get_all_subjects_use_case.dart'
     as _i17;
 import '../../features/home/presentation/manager/all_subjects_cubit.dart'
     as _i362;
-import '../../features/profile/api/data_sources/remote/user_remote_data_source_impl.dart'
-    as _i204;
-import '../../features/profile/api/user_api_client/user_api_client.dart'
-    as _i705;
-import '../../features/profile/data/data_sources/remote/user_remote_data_source.dart'
-    as _i567;
-import '../../features/profile/data/repositories/user_repo_impl.dart' as _i537;
-import '../../features/profile/domain/repositories/user_repo.dart' as _i412;
-import '../../features/profile/domain/use_cases/get_user_data_use_case.dart'
-    as _i941;
+import '../../features/profile/api/data_sources/remote/update_profile_remote_data_source_impl.dart'
+    as _i467;
+import '../../features/profile/api/profile_api_client/update_profile_api_client.dart'
+    as _i317;
+import '../../features/profile/data/data_sources/remote/update_profile_remote_data_source.dart'
+    as _i890;
+import '../../features/profile/data/repositories/update_profile_repo_impl.dart'
+    as _i249;
+import '../../features/profile/domain/repositories/update_profile_repo.dart'
+    as _i234;
+import '../../features/profile/domain/use_cases/update_profile_use_case.dart'
+    as _i186;
+import '../../features/profile/presentation/manager/update_profile/update_profile_cubit.dart'
+    as _i357;
 import '../module/api_module.dart' as _i235;
+import '../user/api/data_sources/remote/user_remote_data_source_impl.dart'
+    as _i694;
+import '../user/api/user_api_client/user_api_client.dart' as _i1062;
+import '../user/data/data_sources/remote/user_remote_data_source.dart' as _i806;
+import '../user/data/repositories/user_repo_impl.dart' as _i419;
+import '../user/domain/repositories/user_repo.dart' as _i632;
+import '../user/domain/use_cases/get_user_data_use_case.dart' as _i180;
+import '../user/manager/user_cubit.dart' as _i720;
 
 extension GetItInjectableX on _i174.GetIt {
   // initializes the registration of main-scope dependencies inside of GetIt
@@ -113,6 +125,9 @@ extension GetItInjectableX on _i174.GetIt {
     gh.singleton<_i194.AllSubjectsApiClient>(
       () => _i194.AllSubjectsApiClient(gh<_i361.Dio>()),
     );
+    gh.factory<_i1062.UserApiClient>(
+      () => _i1062.UserApiClient(gh<_i361.Dio>()),
+    );
     gh.factory<_i665.ExamApiClient>(() => _i665.ExamApiClient(gh<_i361.Dio>()));
     gh.factory<_i104.ExamsApiClient>(
       () => _i104.ExamsApiClient(gh<_i361.Dio>()),
@@ -120,7 +135,9 @@ extension GetItInjectableX on _i174.GetIt {
     gh.factory<_i301.ForgetPasswordApiClient>(
       () => _i301.ForgetPasswordApiClient(gh<_i361.Dio>()),
     );
-    gh.factory<_i705.UserApiClient>(() => _i705.UserApiClient(gh<_i361.Dio>()));
+    gh.factory<_i317.UpdateProfileApiClient>(
+      () => _i317.UpdateProfileApiClient(gh<_i361.Dio>()),
+    );
     gh.factory<_i548.AuthRemoteDataSource>(
       () => _i321.AuthRemoteDataSourceImpl(gh<_i645.ApiClient>()),
     );
@@ -135,12 +152,20 @@ extension GetItInjectableX on _i174.GetIt {
         gh<_i301.ForgetPasswordApiClient>(),
       ),
     );
+    gh.factory<_i806.UserRemoteDataSource>(
+      () => _i694.UserRemoteDataSourceImpl(gh<_i1062.UserApiClient>()),
+    );
     gh.factory<_i926.ExamsRepo>(
       () => _i52.ExamsRepoImpl(gh<_i586.ExamsRemoteDataSource>()),
     );
     gh.lazySingleton<_i990.GetAllSubjectsDataSource>(
       () => _i888.GetAllSubjectsRemoteDataSourceImpl(
         gh<_i194.AllSubjectsApiClient>(),
+      ),
+    );
+    gh.factory<_i890.UpdateProfileRemoteDataSource>(
+      () => _i467.UpdateProfileRemoteDataSourceImpl(
+        gh<_i317.UpdateProfileApiClient>(),
       ),
     );
     gh.factory<_i4.ExamRemoteDataSource>(
@@ -150,9 +175,6 @@ extension GetItInjectableX on _i174.GetIt {
       () => _i732.ForgetPasswordRepoImpl(
         gh<_i881.ForgetPasswordRemoteDataSource>(),
       ),
-    );
-    gh.factory<_i567.UserRemoteDataSource>(
-      () => _i204.UserRemoteDataSourceImpl(gh<_i705.UserApiClient>()),
     );
     gh.factory<_i377.ExamRepo>(
       () => _i1047.ExamRepoImpl(gh<_i4.ExamRemoteDataSource>()),
@@ -169,11 +191,16 @@ extension GetItInjectableX on _i174.GetIt {
     gh.factory<_i463.RegisterUseCase>(
       () => _i463.RegisterUseCase(gh<_i723.AuthRepo>()),
     );
-    gh.factory<_i412.UserRepo>(
-      () => _i537.UserRepoImpl(gh<_i567.UserRemoteDataSource>()),
+    gh.factory<_i234.UpdateProfileRepo>(
+      () => _i249.UpdateProfileRepoImpl(
+        gh<_i890.UpdateProfileRemoteDataSource>(),
+      ),
     );
     gh.factory<_i55.GetExamQuestionsUseCase>(
       () => _i55.GetExamQuestionsUseCase(gh<_i377.ExamRepo>()),
+    );
+    gh.factory<_i632.UserRepo>(
+      () => _i419.UserRepoImpl(gh<_i806.UserRemoteDataSource>()),
     );
     gh.factory<_i219.LoginCubit>(
       () => _i219.LoginCubit(gh<_i973.LoginUseCase>()),
@@ -190,8 +217,8 @@ extension GetItInjectableX on _i174.GetIt {
       () =>
           _i252.VerifyOtpForgetPasswordUseCase(gh<_i184.ForgetPasswordRepo>()),
     );
-    gh.factory<_i941.GetUserDataUseCase>(
-      () => _i941.GetUserDataUseCase(gh<_i412.UserRepo>()),
+    gh.factory<_i180.GetUserDataUseCase>(
+      () => _i180.GetUserDataUseCase(gh<_i632.UserRepo>()),
     );
     gh.factory<_i1022.RegisterCubit>(
       () => _i1022.RegisterCubit(gh<_i463.RegisterUseCase>()),
@@ -202,6 +229,9 @@ extension GetItInjectableX on _i174.GetIt {
     gh.factory<_i17.GetAllSubjectsUseCase>(
       () => _i17.GetAllSubjectsUseCase(gh<_i408.SubjectsRepository>()),
     );
+    gh.factory<_i186.UpdateProfileUseCase>(
+      () => _i186.UpdateProfileUseCase(gh<_i234.UpdateProfileRepo>()),
+    );
     gh.factory<_i987.ForgetPasswordCubit>(
       () => _i987.ForgetPasswordCubit(
         gh<_i382.EnterEmailUseCase>(),
@@ -209,8 +239,14 @@ extension GetItInjectableX on _i174.GetIt {
         gh<_i696.GetNewPasswordForgetPasswordUseCase>(),
       ),
     );
+    gh.factory<_i720.UserCubit>(
+      () => _i720.UserCubit(gh<_i180.GetUserDataUseCase>()),
+    );
     gh.factory<_i362.SubjectsCubit>(
       () => _i362.SubjectsCubit(gh<_i17.GetAllSubjectsUseCase>()),
+    );
+    gh.factory<_i357.UpdateProfileCubit>(
+      () => _i357.UpdateProfileCubit(gh<_i186.UpdateProfileUseCase>()),
     );
     return this;
   }
