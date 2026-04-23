@@ -23,8 +23,11 @@ abstract class AppStrings {
   static const String phoneInvalid = "Please enter a valid phone number";
 
   static const String pageNotFound = "Page not found";
+  static const String sessionExpired = 'Session Expired';
+  static const String pleaseLoginAgain = 'Please Login Again';
 
   static const String login = "Login";
+  static const String changePassword = "Change Password";
   static const String email = "Email";
   static const String enterYouEmail = "Enter you email";
   static const String password = "Password";
@@ -56,11 +59,16 @@ abstract class AppStrings {
   static const String invalidCode = "Invalid code";
   static const String resetPassword = "Reset password";
   static const String newPassword = "New password";
+  static const String loading = "Loading...";
+  static const String passwordChangedSuccessfully =
+      "Password changed successfully";
   static const String passwordMustNotBeEmpty =
       "Password must not be empty and must be at least 6\ncharacters long, containing uppercase, lowercase,\nnumber, and special character";
   static const String editProfile = "Edit profile";
-  static const String profile = "profile";
+  static const String profile = "Profile";
   static const String update = "Update";
+  static const String obscuringCharacter = '★';
+
   static const String cancel = "Cancel";
   static const String change = "Change";
   static const String currentPassword = "Current password";
@@ -72,18 +80,18 @@ abstract class AppStrings {
       "This phone number is not valid";
   static const String invalidPassword = "Invalid password";
 
+  static const String home = "Explore";
+  static const String result = "Result";
+  static const String survey = "Survey";
+  static const String browseBySubject = "Browse by subject";
+  static const String noSubjectsFound = "No subjects found";
+  static const String unknown = "Unknown";
+  static const String search = "Search";
 
-  static const String home ="Explore";
-  static const String result ="Result";
-  static const String survey ="Survey";
-  static const String  browseBySubject ="Browse by subject";
-  static const String  noSubjectsFound ="No subjects found";
-  static const String  unknown ="Unknown";
-  static const String  search ="Search";
-
-  static const String  noNameFound ="No name found";
-  static const String  noIdFound ="No id found";
-  static const String  noIconFound ="No icon found";
+  static const String noNameFound = "No name found";
+  static const String noIdFound = "No id found";
+  static const String noIconFound = "No icon found";
+  static const String noUserData = "No user data";
 
   /// Exams view
   static const String exams = "Exams";

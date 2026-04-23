@@ -1,6 +1,8 @@
+import 'package:equatable/equatable.dart';
+
 import '../../domain/entities/get_all_subjects_entity.dart';
 
-class SubjectsState  {
+class SubjectsState extends Equatable {
   final bool isLoading;
   final List<SubjectEntity> allSubjects;
   final List<SubjectEntity> subjects;
@@ -27,5 +29,6 @@ class SubjectsState  {
     );
   }
 
-
+  @override
+  List<Object?> get props => [isLoading, subjects, allSubjects, errorMessage];
 }
