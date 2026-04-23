@@ -16,6 +16,7 @@ abstract class ApiModule {
   @lazySingleton
   Dio provideDio(BaseOptions option, PrettyDioLogger logger) {
     var dio = Dio(option);
+    // dio.interceptors.add(TokenInterceptor());
     dio.interceptors.add(logger);
     return dio;
   }

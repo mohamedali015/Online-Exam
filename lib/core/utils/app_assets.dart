@@ -8,5 +8,5 @@ abstract class AppAssets {
 
   static const String timerImagePath = "$baseSavePathPng/time_image.png";
   static const String timeOutImagePath = "$baseSavePathPng/time_out_image.png";
-  static const String noFoundResearch = "$baseSavePathPng/no found.gif";
+  static const String noFoundResearch = "$baseSavePathPng/no_found.gif";
 }

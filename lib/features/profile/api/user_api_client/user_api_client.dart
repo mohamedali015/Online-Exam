@@ -4,6 +4,8 @@ import 'package:retrofit/error_logger.dart';
 import 'package:retrofit/http.dart';
 
 import '../../../../core/values/api_end_points.dart';
+import '../../data/models/request/change_password/change_password_request.dart';
+import '../../data/models/responses/change_password/change_password_response.dart';
 import '../../data/models/responses/get_user_response/get_user_data_response.dart';
 
 part 'user_api_client.g.dart';
@@ -16,4 +18,9 @@ abstract class UserApiClient {
 
   @GET(ApiEndPoints.getUserData)
   Future<GetUserDataResponse> getUserData(@Header('token') String token);
+
+  @PATCH(ApiEndPoints.changePassword)
+  Future<ChangePasswordResponse> changePassword(
+    @Body() ChangePasswordRequest changePasswordRequest,
+  );
 }

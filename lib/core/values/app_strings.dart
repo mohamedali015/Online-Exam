@@ -25,6 +25,7 @@ abstract class AppStrings {
   static const String pageNotFound = "Page not found";
 
   static const String login = "Login";
+  static const String changePassword = "Change Password";
   static const String email = "Email";
   static const String enterYouEmail = "Enter you email";
   static const String password = "Password";
@@ -56,6 +57,9 @@ abstract class AppStrings {
   static const String invalidCode = "Invalid code";
   static const String resetPassword = "Reset password";
   static const String newPassword = "New password";
+  static const String loading = "Loading...";
+  static const String passwordChangedSuccessfully =
+      "Password changed successfully";
   static const String passwordMustNotBeEmpty =
       "Password must not be empty and must be at least 6\ncharacters long, containing uppercase, lowercase,\nnumber, and special character";
   static const String editProfile = "Edit profile";
