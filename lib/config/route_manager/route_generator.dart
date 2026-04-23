@@ -3,12 +3,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:online_exam/config/route_manager/routes.dart';
 import 'package:online_exam/features/auth/presention/pages/register/register_screen.dart';
-import 'package:online_exam/features/profile/presentation/manager/user_cubit.dart';
-import 'package:online_exam/features/profile/presentation/manager/user_events.dart';
-import 'package:online_exam/features/profile/presentation/pages/change_password/change_password.dart';
-import 'package:online_exam/features/profile/presentation/pages/profile/profile_screen.dart';
+import '../../features/exam/domain/entities/exam_result_entity.dart';
+import '../../features/exam/presentation/manager/exam_cubit.dart';
+import '../../features/exam/presentation/pages/exam_score_view.dart';
+import '../../features/exams/domain/entities/exam_model.dart';
 import '../../features/exams/presentation/pages/exams_screen.dart';
 import '../../features/home/domain/entities/get_all_subjects_entity.dart';
+import '../../features/home/presentation/manager/all_subjects_cubit.dart';
+import '../../features/home/presentation/manager/all_subjects_event.dart';
 import '../../features/splash/splash_screen.dart';
 import 'package:online_exam/features/auth/presention/manager/register/register_cubit.dart';
 import 'package:online_exam/features/exams/presentation/pages/exam_details_screen.dart';
@@ -17,15 +19,10 @@ import '../../core/shared_widgets/custom_bottom_nav.dart';
 import '../../core/values/app_strings.dart';
 import '../../features/auth/presention/manager/login/login_cubit.dart';
 import '../../features/auth/presention/pages/login/login_screen.dart';
-import '../../features/exam/presentation/pages/exam_view.dart';
-import '../../features/exams/presentation/pages/exams_screen.dart';
 import '../../features/forget_password/presentation/manager/forget_password_cubit/forget_password_cubit.dart';
 import '../../features/forget_password/presentation/pages/forget_password_enter_email_view.dart';
 import '../../features/forget_password/presentation/pages/forget_password_new_password_view.dart';
 import '../../features/forget_password/presentation/pages/forget_password_verify_otp_view.dart';
-import '../../features/home/domain/entities/get_all_subjects_entity.dart';
-import '../../features/profile/presentation/manager/change_password_cubit/change_password_cubit.dart';
-import '../../features/splash/splash_screen.dart';
 import '../di/di.dart';
 
 class RouteGenerator {
@@ -121,14 +118,6 @@ class RouteGenerator {
         return CupertinoPageRoute(
           builder: (_) => ExamScoreView(examResult: examResult),
           settings: settings,
-        );
-
-      case Routes.changePasswordRoute:
-        return CupertinoPageRoute(
-          builder: (_) => BlocProvider(
-            create: (context) => getIt<ChangePasswordCubit>(),
-            child: ChangePassword(),
-          ),
         );
 
       /// Default (Unknown Route)
