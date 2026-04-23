@@ -5,17 +5,24 @@ import 'package:retrofit/http.dart';
 import 'package:retrofit/error_logger.dart';
 
 import '../../../../core/values/api_end_points.dart';
+import '../../data/models/request/change_password/change_password_request.dart';
+import '../../data/models/responses/change_password/change_password_response.dart';
 
-part 'update_profile_api_client.g.dart';
+part 'profile_api_client.g.dart';
 
 @injectable
 @RestApi()
-abstract class UpdateProfileApiClient {
+abstract class ProfileApiClient {
   @factoryMethod
-  factory UpdateProfileApiClient(Dio dio) = _UpdateProfileApiClient;
+  factory ProfileApiClient(Dio dio) = _ProfileApiClient;
 
   @PUT(ApiEndPoints.editProfile)
   Future<UpdateProfileResponse> updateUserData(
     @Body() Map<String, dynamic> body,
+  );
+
+  @PATCH(ApiEndPoints.changePassword)
+  Future<ChangePasswordResponse> changePassword(
+    @Body() ChangePasswordRequest changePasswordRequest,
   );
 }

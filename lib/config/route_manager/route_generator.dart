@@ -11,6 +11,8 @@ import '../../features/exams/presentation/pages/exams_screen.dart';
 import '../../features/home/domain/entities/get_all_subjects_entity.dart';
 import '../../features/home/presentation/manager/all_subjects_cubit.dart';
 import '../../features/home/presentation/manager/all_subjects_event.dart';
+import '../../features/profile/presentation/manager/change_password_cubit/change_password_cubit.dart';
+import '../../features/profile/presentation/pages/change_password/change_password.dart';
 import '../../features/splash/splash_screen.dart';
 import 'package:online_exam/features/auth/presention/manager/register/register_cubit.dart';
 import 'package:online_exam/features/exams/presentation/pages/exam_details_screen.dart';
@@ -118,6 +120,14 @@ class RouteGenerator {
         return CupertinoPageRoute(
           builder: (_) => ExamScoreView(examResult: examResult),
           settings: settings,
+        );
+
+      case Routes.changePasswordRoute:
+        return CupertinoPageRoute(
+          builder: (_) => BlocProvider(
+            create: (context) => getIt<ChangePasswordCubit>(),
+            child: ChangePassword(),
+          ),
         );
 
       /// Default (Unknown Route)
