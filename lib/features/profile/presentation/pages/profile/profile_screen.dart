@@ -37,6 +37,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
   }
 
   void _onChange() {
+    if (!mounted || !controller.isInitialized) return;
+
     setState(() {
       controller.checkChanges();
     });
@@ -67,12 +69,17 @@ class _ProfileScreenState extends State<ProfileScreen> {
         ),
         body: BlocBuilder<UserCubit, UserState>(
           builder: (context, state) {
+            /// Loading
             if (state.isLoading) {
               return const Center(child: CircularProgressIndicator());
             }
 
             if (!controller.isInitialized) {
-              controller.fillFromUser(state.user!);
+              controller.isInitialized = true;
+
+              WidgetsBinding.instance.addPostFrameCallback((_) {
+                controller.fillFromUser(state.user!);
+              });
             }
 
             return SafeArea(
