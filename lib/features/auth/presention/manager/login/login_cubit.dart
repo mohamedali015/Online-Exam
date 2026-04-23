@@ -12,13 +12,17 @@ class LoginCubit extends Cubit<LoginState> {
       : super(const LoginInitialState());
 
   void changeRememberMe(bool value) {
-    final currentState = state as LoginInitialState;
-    emit(currentState.copyWith(rememberMe: value));
+    emit(LoginInitialState(
+      isFormValid: state.isFormValid,
+      rememberMe: value,
+    ));
   }
 
   void validateForm(bool isValid) {
-    final currentState = state as LoginInitialState;
-    emit(currentState.copyWith(isFormValid: isValid));
+    emit(LoginInitialState(
+      isFormValid: isValid,
+      rememberMe: state.rememberMe,
+    ));
   }
 
   Future<void> loginWithEmailAndPassword({
@@ -38,9 +42,11 @@ class LoginCubit extends Cubit<LoginState> {
     switch (resultLogin) {
       case Success():
         emit(LoginSuccessState(resultLogin.data));
+        break;
 
       case Failure():
         emit(LoginFailureState(resultLogin.errorMessage));
+        break;
     }
   }
 }

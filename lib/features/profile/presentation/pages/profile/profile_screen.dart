@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:online_exam/core/helpers/my_responsive.dart';
-import 'package:online_exam/core/values/app_strings.dart';
 import 'package:online_exam/features/profile/presentation/manager/user_cubit.dart';
 import 'package:online_exam/features/profile/presentation/manager/user_events.dart';
 import 'package:online_exam/features/profile/presentation/manager/user_state.dart';
@@ -28,10 +27,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text(AppStrings.profile),
-        automaticallyImplyLeading: false,
-      ),
+      appBar: AppBar(title: const Text("Profile")),
       body: BlocBuilder<UserCubit, UserState>(
         builder: (context, state) {
           if (state is UserLoading) {
@@ -55,9 +51,10 @@ class _ProfileScreenState extends State<ProfileScreen> {
                       ProfileForm(user: user),
                       const SizedBox(height: 40),
 
+                      /// UPDATE BUTTON
                       ElevatedButton(
                         onPressed: () {},
-                        child: const Text(AppStrings.update),
+                        child: const Text("Update"),
                       ),
                     ],
                   ),

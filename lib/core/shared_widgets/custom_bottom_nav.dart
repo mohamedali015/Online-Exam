@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:online_exam/core/shared_widgets/svg_wrapper.dart';
 import 'package:online_exam/core/values/app_strings.dart';
 import '../../features/home/presentation/pages/home_screen.dart';
-import '../../features/profile/presentation/pages/profile/profile_screen.dart';
+import '../../features/profile/presentation/pages/profile_screen.dart';
 import '../../features/result/presentation/pages/result_screen.dart';
 import '../helpers/my_responsive.dart';
 import '../utils/app_colors.dart';
@@ -48,25 +48,33 @@ class _CustomBottomNavBarState extends State<CustomBottomNavBar> {
 
   BottomNavigationBarItem _buildItem(String image, String label, int index) {
     return BottomNavigationBarItem(
-      icon: Container(
-        padding: MyResponsive.paddingSymmetric(vertical: 8, horizontal: 20),
-        decoration: BoxDecoration(
-          color: currentIndex == index
-              ? AppColors.selectedBlue
-              : Colors.transparent,
-          borderRadius: BorderRadius.circular(MyResponsive.radius(value: 16)),
-        ),
-        child: SvgWrapper(
-          path: image,
-          width: MyResponsive.width(value: 16),
-          height: MyResponsive.height(value: 16),
-          fit: BoxFit.contain,
-          color: currentIndex == index
-              ? AppColors.primaryColor
-              : AppColors.disabledGray,
-        ),
-      ),
+      icon: _NavIcon(image: image, isSelected: currentIndex == index),
       label: label,
+    );
+  }
+}
+
+class _NavIcon extends StatelessWidget {
+  const _NavIcon({required this.image, required this.isSelected});
+
+  final String image;
+  final bool isSelected;
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      padding: MyResponsive.paddingSymmetric(vertical: 8, horizontal: 20),
+      decoration: BoxDecoration(
+        color: isSelected ? AppColors.selectedBlue : Colors.transparent,
+        borderRadius: BorderRadius.circular(MyResponsive.radius(value: 16)),
+      ),
+      child: SvgWrapper(
+        path: image,
+        width: MyResponsive.width(value: 16),
+        height: MyResponsive.height(value: 16),
+        fit: BoxFit.contain,
+        color: isSelected ? AppColors.primaryColor : AppColors.disabledGray,
+      ),
     );
   }
 }

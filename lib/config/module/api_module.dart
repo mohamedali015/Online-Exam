@@ -4,23 +4,15 @@ import 'package:injectable/injectable.dart';
 import 'package:online_exam/core/values/api_end_points.dart';
 import 'package:pretty_dio_logger/pretty_dio_logger.dart';
 
-import '../../features/auth/api/api_client.dart';
+import '../../core/values/api_strings.dart';
+import '../cache/secure_cache/cache_keys.dart';
+import '../cache/secure_cache/secure_cache_helper.dart';
+import '../di/di.dart';
+import '../user/manager/user_cubit.dart';
+import '../user/manager/user_events.dart';
 
 @module
 abstract class ApiModule {
-  @lazySingleton
-  ApiClient provideApiClient(Dio dio) {
-    return ApiClient(dio, baseUrl: ApiEndPoints.baseUrl);
-  }
-
-  @lazySingleton
-  Dio provideDio(BaseOptions option, PrettyDioLogger logger) {
-    var dio = Dio(option);
-    // dio.interceptors.add(TokenInterceptor());
-    dio.interceptors.add(logger);
-    return dio;
-  }
-
   @lazySingleton
   BaseOptions providerOption() {
     return BaseOptions(
@@ -52,5 +44,53 @@ abstract class ApiModule {
         return !args.isResponse || !args.hasUint8ListData;
       },
     );
+  }
+
+  @lazySingleton
+  Dio provideDio(BaseOptions option, PrettyDioLogger logger) {
+    final dio = Dio(option);
+
+    dio.interceptors.add(
+      InterceptorsWrapper(
+        onRequest: (options, handler) async {
+          final requiresAuth = options.extra[ApiStrings.requireAuth] ?? true;
+
+          if (requiresAuth) {
+            final token = await SecureCacheHelper.getData(key: CacheKeys.token);
+
+            if (token != null && token.isNotEmpty) {
+              options.headers[ApiStrings.token] = token;
+            }
+          }
+
+          return handler.next(options);
+        },
+
+        onError: (error, handler) async {
+          final requiresAuth =
+              error.requestOptions.extra[ApiStrings.requireAuth] ?? true;
+
+          final message = (error.response?.data?['message'] ?? "")
+              .toString()
+              .toLowerCase();
+
+          final isTokenError =
+              message.contains("invalid token") ||
+              message.contains("user not found");
+
+          if (requiresAuth && isTokenError) {
+            await SecureCacheHelper.removeData(key: CacheKeys.token);
+
+            getIt<UserCubit>().doEvent(UnauthorizedUser());
+          }
+
+          return handler.next(error);
+        },
+      ),
+    );
+
+    dio.interceptors.add(logger);
+
+    return dio;
   }
 }

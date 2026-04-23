@@ -2,12 +2,17 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:online_exam/config/route_manager/routes.dart';
-import 'package:online_exam/features/auth/presention/manager/register/register_cubit.dart';
 import 'package:online_exam/features/auth/presention/pages/register/register_screen.dart';
-import 'package:online_exam/features/exam/presentation/pages/exam_score_view.dart';
-import 'package:online_exam/features/exams/presentation/pages/exam_details_screen.dart';
+import 'package:online_exam/features/profile/presentation/manager/user_cubit.dart';
+import 'package:online_exam/features/profile/presentation/manager/user_events.dart';
 import 'package:online_exam/features/profile/presentation/pages/change_password/change_password.dart';
-
+import 'package:online_exam/features/profile/presentation/pages/profile/profile_screen.dart';
+import '../../features/exams/presentation/pages/exams_screen.dart';
+import '../../features/home/domain/entities/get_all_subjects_entity.dart';
+import '../../features/splash/splash_screen.dart';
+import 'package:online_exam/features/auth/presention/manager/register/register_cubit.dart';
+import 'package:online_exam/features/exams/presentation/pages/exam_details_screen.dart';
+import '../../features/exam/presentation/pages/exam_view.dart';
 import '../../core/shared_widgets/custom_bottom_nav.dart';
 import '../../core/values/app_strings.dart';
 import '../../features/auth/presention/manager/login/login_cubit.dart';
@@ -78,8 +83,11 @@ class RouteGenerator {
 
       case Routes.homeRoute:
         return CupertinoPageRoute(
-          builder: (_) => CustomBottomNavBar(),
-          settings: settings,
+          builder: (_) => BlocProvider(
+            create: (context) =>
+                getIt.get<SubjectsCubit>()..doEvent(GetAllSubjectsEvent()),
+            child: CustomBottomNavBar(),
+          ),
         );
 
       case Routes.examsRoute:
@@ -97,14 +105,21 @@ class RouteGenerator {
         );
 
       case Routes.examViewRoute:
+        final examsModel = settings.arguments as ExamsModel;
+
         return CupertinoPageRoute(
-          builder: (_) => ExamView(),
+          builder: (_) => BlocProvider(
+            create: (context) => getIt.get<ExamCubit>()..exam = examsModel,
+            child: ExamView(examsModel: examsModel),
+          ),
           settings: settings,
         );
 
       case Routes.examScoreViewRoute:
+        final examResult = settings.arguments as ExamResultEntity;
+
         return CupertinoPageRoute(
-          builder: (_) => ExamScoreView(),
+          builder: (_) => ExamScoreView(examResult: examResult),
           settings: settings,
         );
 
@@ -116,6 +131,7 @@ class RouteGenerator {
           ),
         );
 
+      /// Default (Unknown Route)
       default:
         return _errorRoute();
     }

@@ -1,6 +1,8 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:online_exam/features/home/domain/entities/get_all_subjects_entity.dart';
+
 import '../../../../config/route_manager/routes.dart';
 import '../../../../core/helpers/my_responsive.dart';
 import '../../../../core/utils/app_colors.dart';
@@ -37,11 +39,13 @@ class SubjectCard extends StatelessWidget {
           child: Row(
             children: [
               item.icon != null && item.icon!.isNotEmpty
-                  ? Image.network(
-                      item.icon ?? AppStrings.noIconFound,
+                  ? CachedNetworkImage(
+                      imageUrl: item.icon!,
                       width: 50.w,
                       height: 50.h,
-                      errorBuilder: (_, _, _) =>
+                      fit: BoxFit.contain,
+                      placeholder: (_, _) => const CircularProgressIndicator(),
+                      errorWidget: (_, _, _) =>
                           Icon(Icons.error, color: AppColors.error),
                     )
                   : const Icon(Icons.book),

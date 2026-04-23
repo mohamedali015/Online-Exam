@@ -1,5 +1,8 @@
 import 'package:injectable/injectable.dart';
 import 'package:online_exam/config/error_handling/result.dart';
+import 'package:online_exam/config/user/data/models/responses/get_user_response/get_user_data_response.dart';
+import 'package:online_exam/config/user/domain/repositories/user_repo.dart';
+import 'package:online_exam/features/auth/domain/entities/user_entity.dart';
 import 'package:online_exam/features/auth/domain/entities/user_entity.dart';
 import 'package:online_exam/features/profile/data/models/responses/get_user_response/get_user_data_response.dart';
 import 'package:online_exam/features/profile/domain/entities/change_password_entity.dart';

@@ -39,6 +39,7 @@ class AuthRepoImpl implements AuthRepo {
     }
   }
 
+
   @override
   Future<Result<AuthEntity>> login({
     required String email,
