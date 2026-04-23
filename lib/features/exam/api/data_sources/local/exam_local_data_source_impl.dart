@@ -8,14 +8,14 @@ import '../../../data/models/hive_models/exam_result_hive_model.dart';
 
 @Injectable(as: ExamLocalDataSource)
 class ExamLocalDataSourceImpl implements ExamLocalDataSource {
-  final LocalStorage storage;
+  final LocalStorage _storage;
 
-  ExamLocalDataSourceImpl(this.storage);
+  ExamLocalDataSourceImpl(this._storage);
 
   @override
   Future<Result<bool>> saveExamResult(ExamResultHiveModel model) async {
     try {
-      await storage.add(box: HiveBoxKeys.examResults, value: model);
+      await _storage.add(box: HiveBoxKeys.examResults, value: model);
 
       return Success(data: true);
     } catch (e) {

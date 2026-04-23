@@ -13,6 +13,7 @@ extension ExamResultMapper on ExamResultEntity {
         duration: exam.duration,
         numberOfQuestions: exam.numberOfQuestions,
         subjectName: exam.subjectName,
+        icon: exam.icon,
       ),
       questions: questions.map((q) {
         return QuestionHiveModel(

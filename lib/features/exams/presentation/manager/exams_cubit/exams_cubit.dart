@@ -29,7 +29,10 @@ class ExamsCubit extends Cubit<ExamsState> {
     switch (response) {
       case Success<List<ExamsModel>>(data: final data):
         final updatedExams = data.map((exam) {
-          return exam.copyWith(subjectNameParam: subject.name);
+          return exam.copyWith(
+            subjectNameParam: subject.name,
+            iconParam: subject.icon,
+          );
         }).toList();
 
         emit(ExamsSuccessState(updatedExams));

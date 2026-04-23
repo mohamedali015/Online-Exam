@@ -19,11 +19,15 @@ class ExamHiveModel {
   @HiveField(4)
   final String subjectName;
 
+  @HiveField(5)
+  final String icon;
+
   ExamHiveModel({
     required this.id,
     required this.title,
     required this.duration,
     required this.numberOfQuestions,
     required this.subjectName,
+    required this.icon,
   });
 }

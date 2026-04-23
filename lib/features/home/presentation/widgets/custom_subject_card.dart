@@ -1,6 +1,5 @@
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:online_exam/core/shared_widgets/cached_network_image_wrapper.dart';
 import 'package:online_exam/features/home/domain/entities/get_all_subjects_entity.dart';
 
 import '../../../../config/route_manager/routes.dart';
@@ -24,7 +23,7 @@ class SubjectCard extends StatelessWidget {
         margin: MyResponsive.paddingSymmetric(vertical: 8, horizontal: 2),
         decoration: BoxDecoration(
           color: AppColors.baseWhite,
-          borderRadius: BorderRadius.circular(10.r),
+          borderRadius: BorderRadius.circular(MyResponsive.radius(value: 5)),
           boxShadow: const [
             BoxShadow(
               color: AppColors.selectedBlue,
@@ -39,14 +38,11 @@ class SubjectCard extends StatelessWidget {
           child: Row(
             children: [
               item.icon != null && item.icon!.isNotEmpty
-                  ? CachedNetworkImage(
-                      imageUrl: item.icon!,
-                      width: 50.w,
-                      height: 50.h,
+                  ? CachedNetworkImageWrapper(
+                      imagePath: item.icon!,
+                      width: MyResponsive.width(value: 50),
+                      height: MyResponsive.height(value: 50),
                       fit: BoxFit.contain,
-                      placeholder: (_, _) => const CircularProgressIndicator(),
-                      errorWidget: (_, _, _) =>
-                          Icon(Icons.error, color: AppColors.error),
                     )
                   : const Icon(Icons.book),
 

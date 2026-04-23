@@ -74,18 +74,17 @@ abstract class AppStrings {
       "This phone number is not valid";
   static const String invalidPassword = "Invalid password";
 
+  static const String home = "Explore";
+  static const String result = "Result";
+  static const String survey = "Survey";
+  static const String browseBySubject = "Browse by subject";
+  static const String noSubjectsFound = "No subjects found";
+  static const String unknown = "Unknown";
+  static const String search = "Search";
 
-  static const String home ="Explore";
-  static const String result ="Result";
-  static const String survey ="Survey";
-  static const String  browseBySubject ="Browse by subject";
-  static const String  noSubjectsFound ="No subjects found";
-  static const String  unknown ="Unknown";
-  static const String  search ="Search";
-
-  static const String  noNameFound ="No name found";
-  static const String  noIdFound ="No id found";
-  static const String  noIconFound ="No icon found";
+  static const String noNameFound = "No name found";
+  static const String noIdFound = "No id found";
+  static const String noIconFound = "No icon found";
 
   /// Exams view
   static const String exams = "Exams";
@@ -134,5 +133,12 @@ abstract class AppStrings {
 
   static const String startAgain = 'Start Again';
 
-  static const String failedToSaveExamResult = "Failed to save exam result";
+  static const String failedToSaveExamResult = "Failed to save exam results";
+  static const String failedToGetAllResults = "Failed to get all results";
+  static const String noResults = "No Results Yet";
+  static const String minutes = "minutes";
+  static const String correctedAnswersIn = "Corrected answers in";
+  static const String min = "min.";
+
+  static const String answers = "Answers";
 }

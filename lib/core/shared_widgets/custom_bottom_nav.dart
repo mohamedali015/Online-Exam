@@ -3,26 +3,34 @@ import 'package:online_exam/core/shared_widgets/svg_wrapper.dart';
 import 'package:online_exam/core/values/app_strings.dart';
 import '../../features/home/presentation/pages/home_screen.dart';
 import '../../features/profile/presentation/pages/profile_screen.dart';
-import '../../features/result/presentation/pages/result_screen.dart';
+import '../../features/results/presentation/pages/results_screen.dart';
 import '../helpers/my_responsive.dart';
 import '../utils/app_colors.dart';
 import '../utils/app_assets.dart';
 
 class CustomBottomNavBar extends StatefulWidget {
-  const CustomBottomNavBar({super.key});
+  const CustomBottomNavBar({super.key, this.initialIndex = 0});
+
+  final int initialIndex;
 
   @override
   State<CustomBottomNavBar> createState() => _CustomBottomNavBarState();
 }
 
 class _CustomBottomNavBarState extends State<CustomBottomNavBar> {
-  int currentIndex = 0;
+  late int currentIndex;
 
   final List<Widget> _screens = [
     HomeScreen(),
-    const ResultScreen(),
+    const ResultsScreen(),
     const ProfileScreen(),
   ];
+
+  @override
+  void initState() {
+    super.initState();
+    currentIndex = widget.initialIndex;
+  }
 
   void _onTap(int index) {
     setState(() {
