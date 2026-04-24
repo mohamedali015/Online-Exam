@@ -1,9 +1,9 @@
 import 'package:json_annotation/json_annotation.dart';
 import 'package:online_exam/features/auth/domain/entities/user_entity.dart';
-part 'updated_user.g.dart';
+part 'updated_user_data.g.dart';
 
 @JsonSerializable()
-class UpdatedUser {
+class UpdatedUserData {
   @JsonKey(name: "_id")
   final String? id;
   @JsonKey(name: "username")
@@ -25,7 +25,7 @@ class UpdatedUser {
   @JsonKey(name: "createdAt")
   final String? createdAt;
 
-  UpdatedUser({
+  UpdatedUserData({
     this.id,
     this.username,
     this.firstName,
@@ -49,11 +49,11 @@ class UpdatedUser {
     );
   }
 
-  factory UpdatedUser.fromJson(Map<String, dynamic> json) {
-    return _$UpdatedUserFromJson(json);
+  factory UpdatedUserData.fromJson(Map<String, dynamic> json) {
+    return _$UpdatedUserDataFromJson(json);
   }
 
   Map<String, dynamic> toJson() {
-    return _$UpdatedUserToJson(this);
+    return _$UpdatedUserDataToJson(this);
   }
 }

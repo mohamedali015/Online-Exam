@@ -8,11 +8,12 @@ class ProfileController {
   final email = TextEditingController();
   final phone = TextEditingController();
 
-  Map<String, String> _initialData = {};
-  bool isChanged = false;
+  Map<String, String> _originalData = {};
+  bool hasChanges = false;
   bool isInitialized = false;
 
-  void fillFromUser(UserEntity user) {
+  /// بدل fillFromUser
+  void initializeFromUser(UserEntity user) {
     final newData = {
       "username": user.username ?? "",
       "firstName": user.firstName ?? "",
@@ -21,7 +22,7 @@ class ProfileController {
       "phone": user.phone ?? "",
     };
 
-    if (_isSameData(newData, _initialData)) return;
+    if (_isSameProfileData(newData, _originalData)) return;
 
     username.text = newData["username"]!;
     firstName.text = newData["firstName"]!;
@@ -29,12 +30,13 @@ class ProfileController {
     email.text = newData["email"]!;
     phone.text = newData["phone"]!;
 
-    _initialData = newData;
-    isChanged = false;
+    _originalData = newData;
+    hasChanges = false;
     isInitialized = true;
   }
 
-  bool _isSameData(Map<String, String> a, Map<String, String> b) {
+  /// بدل _isSameData
+  bool _isSameProfileData(Map<String, String> a, Map<String, String> b) {
     if (a.length != b.length) return false;
 
     for (final key in a.keys) {
@@ -43,17 +45,18 @@ class ProfileController {
     return true;
   }
 
-  bool checkChanges() {
+  /// بدل checkChanges
+  bool updateChangeStatus() {
     if (!isInitialized) return false;
 
-    isChanged =
-        username.text != _initialData["username"] ||
-        firstName.text != _initialData["firstName"] ||
-        lastName.text != _initialData["lastName"] ||
-        email.text != _initialData["email"] ||
-        phone.text != _initialData["phone"];
+    hasChanges =
+        username.text != _originalData["username"] ||
+        firstName.text != _originalData["firstName"] ||
+        lastName.text != _originalData["lastName"] ||
+        email.text != _originalData["email"] ||
+        phone.text != _originalData["phone"];
 
-    return isChanged;
+    return hasChanges;
   }
 
   void dispose() {
