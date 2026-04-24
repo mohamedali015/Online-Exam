@@ -3,13 +3,10 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:online_exam/config/user/manager/user_cubit.dart';
 import 'package:online_exam/config/user/manager/user_events.dart';
 import 'package:online_exam/config/user/manager/user_state.dart';
-import 'package:online_exam/core/helpers/my_responsive.dart';
 import 'package:online_exam/core/values/app_strings.dart';
 import 'package:online_exam/features/profile/presentation/manager/profile_controller.dart';
 import 'package:online_exam/features/profile/presentation/manager/update_profile/update_profile_cubit.dart';
-import 'package:online_exam/features/profile/presentation/widgets/profile_form.dart';
-import 'package:online_exam/features/profile/presentation/widgets/profile_picture.dart';
-import 'package:online_exam/features/profile/presentation/widgets/update_button.dart';
+import 'package:online_exam/features/profile/presentation/widgets/profile_content.dart';
 
 class ProfileScreen extends StatefulWidget {
   const ProfileScreen({super.key});
@@ -37,8 +34,10 @@ class _ProfileScreenState extends State<ProfileScreen> {
   }
 
   void _onChange() {
+    if (!mounted || !controller.isInitialized) return;
+
     setState(() {
-      controller.checkChanges();
+      controller.updateChangeStatus();
     });
   }
 
@@ -53,7 +52,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
     return BlocListener<UpdateProfileCubit, UpdateProfileState>(
       listener: (context, state) {
         if (state is UpdateProfileSuccess) {
-          controller.fillFromUser(state.updateProfile);
+          controller.initializeFromUser(state.updateProfile);
 
           context.read<UserCubit>().doEvent(
             SetUserData(user: state.updateProfile),
@@ -65,54 +64,21 @@ class _ProfileScreenState extends State<ProfileScreen> {
           title: const Text(AppStrings.profile),
           automaticallyImplyLeading: false,
         ),
+
         body: BlocBuilder<UserCubit, UserState>(
           builder: (context, state) {
             if (state.isLoading) {
               return const Center(child: CircularProgressIndicator());
             }
 
-            if (!controller.isInitialized) {
-              controller.fillFromUser(state.user!);
+            if (state.user == null) {
+              return Center(child: Text(AppStrings.noUserData));
             }
 
-            return SafeArea(
-              child: SingleChildScrollView(
-                child: Padding(
-                  padding: MyResponsive.paddingAll(value: 16),
-                  child: Column(
-                    children: [
-                      const ProfilePicture(),
-                      SizedBox(height: MyResponsive.height(value: 40)),
-
-                      ProfileForm(
-                        formKey: _formKey,
-                        usernameController: controller.username,
-                        firstNameController: controller.firstName,
-                        lastNameController: controller.lastName,
-                        emailController: controller.email,
-                        phoneController: controller.phone,
-                      ),
-
-                      SizedBox(height: MyResponsive.height(value: 40)),
-
-                      BlocBuilder<UpdateProfileCubit, UpdateProfileState>(
-                        builder: (context, state) {
-                          final loading = state is UpdateProfileLoading;
-
-                          return UpdateButton(
-                            usernameController: controller.username,
-                            firstNameController: controller.firstName,
-                            lastNameController: controller.lastName,
-                            emailController: controller.email,
-                            phoneController: controller.phone,
-                            isEnabled: controller.isChanged && !loading,
-                          );
-                        },
-                      ),
-                    ],
-                  ),
-                ),
-              ),
+            return ProfileContent(
+              controller: controller,
+              formKey: _formKey,
+              user: state.user!,
             );
           },
         ),

@@ -1,6 +1,7 @@
 import 'package:dio/dio.dart';
 import 'package:injectable/injectable.dart';
 import 'package:online_exam/features/profile/data/models/responses/update_user_response/update_profile_response.dart';
+import 'package:online_exam/features/profile/data/models/update_profile_request.dart';
 import 'package:retrofit/http.dart';
 import 'package:retrofit/error_logger.dart';
 
@@ -18,7 +19,7 @@ abstract class ProfileApiClient {
 
   @PUT(ApiEndPoints.editProfile)
   Future<UpdateProfileResponse> updateUserData(
-    @Body() Map<String, dynamic> body,
+    @Body() UpdateProfileRequest request,
   );
 
   @PATCH(ApiEndPoints.changePassword)
