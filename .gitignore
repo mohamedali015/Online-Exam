@@ -52,3 +52,4 @@ app.*.map.json
 *.gr.dart
 *.generated.dart
 /pubspec.lock
+/lib/config/di/di.config.dart
