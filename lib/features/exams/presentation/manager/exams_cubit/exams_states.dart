@@ -1,5 +1,5 @@
 import 'package:equatable/equatable.dart';
-import 'package:online_exam/features/exams/domain/entities/exam_model.dart';
+import 'package:online_exam/features/exams/domain/entities/exam_entity.dart';
 
 sealed class ExamsState extends Equatable {
   const ExamsState();
@@ -13,11 +13,19 @@ class ExamsInitial extends ExamsState {}
 class ExamsLoading extends ExamsState {}
 
 class ExamsSuccessState extends ExamsState {
-  final List<ExamsModel> exams;
-  ExamsSuccessState(this.exams);
+  final List<ExamEntity> exams;
+
+  const ExamsSuccessState(this.exams);
+
+  @override
+  List<Object> get props => [exams];
 }
 
 class ExamsErrorState extends ExamsState {
   final String errorMessage;
-  ExamsErrorState(this.errorMessage);
+
+  const ExamsErrorState(this.errorMessage);
+
+  @override
+  List<Object> get props => [errorMessage];
 }

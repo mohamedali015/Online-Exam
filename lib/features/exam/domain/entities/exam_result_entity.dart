@@ -1,8 +1,8 @@
 import 'package:online_exam/features/exam/domain/entities/questions_entity.dart';
-import 'package:online_exam/features/exams/domain/entities/exam_model.dart';
+import 'package:online_exam/features/exams/domain/entities/exam_entity.dart';
 
 class ExamResultEntity {
-  final ExamsModel exam;
+  final ExamEntity exam;
   final List<QuestionsEntity> questions;
   final int correctAnswers;
   final int wrongAnswers;

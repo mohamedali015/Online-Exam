@@ -7,7 +7,7 @@ import 'package:retrofit/retrofit.dart';
 
 part 'exams_api_client.g.dart';
 
-@injectable
+@lazySingleton
 @RestApi()
 abstract class ExamsApiClient {
   @factoryMethod

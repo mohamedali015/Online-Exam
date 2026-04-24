@@ -6,16 +6,16 @@ import 'package:online_exam/core/utils/app_colors.dart';
 import 'package:online_exam/core/utils/app_text_styles.dart';
 import 'package:online_exam/features/exam/presentation/manager/exam_cubit.dart';
 import 'package:online_exam/features/exam/presentation/manager/exam_state.dart';
+import 'package:online_exam/features/exams/domain/entities/exam_entity.dart';
 
 import '../../../../core/values/app_strings.dart';
-import '../../../exams/domain/entities/exam_model.dart';
 import '../manager/exam_events.dart';
 import '../widgets/exam_view_body.dart';
 
 class ExamView extends StatefulWidget {
   const ExamView({super.key, required this.examsModel});
 
-  final ExamsModel examsModel;
+  final ExamEntity examsModel;
 
   @override
   State<ExamView> createState() => _ExamViewState();

@@ -4,15 +4,15 @@ import 'package:online_exam/core/helpers/my_responsive.dart';
 import 'package:online_exam/core/utils/app_colors.dart';
 import 'package:online_exam/core/utils/app_text_styles.dart';
 import 'package:online_exam/core/values/app_strings.dart';
-import 'package:online_exam/features/exams/domain/entities/exam_model.dart';
-import 'package:online_exam/features/exams/presentation/widgets/exam_detailes.dart';
+import 'package:online_exam/features/exams/domain/entities/exam_entity.dart';
+import 'package:online_exam/features/exams/presentation/widgets/exam_details.dart';
 
 class ExamDetailsScreen extends StatelessWidget {
-  const ExamDetailsScreen({super.key});
+  final ExamEntity exam;
 
+  const ExamDetailsScreen({super.key, required this.exam});
   @override
   Widget build(BuildContext context) {
-    ExamsModel exam = ModalRoute.of(context)!.settings.arguments as ExamsModel;
     return Scaffold(
       appBar: AppBar(
         leading: IconButton(
@@ -23,7 +23,7 @@ class ExamDetailsScreen extends StatelessWidget {
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          ExamDetailes(
+          ExamDetails(
             examTitle: exam.title,
             examDuration: exam.duration,
             examNumberOfQuestions: exam.numberOfQuestions,

@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:online_exam/config/di/di.dart';
 import 'package:online_exam/core/shared_widgets/custom_error_widget.dart';
 import 'package:online_exam/core/shared_widgets/custom_loading_indicator.dart';
+import 'package:online_exam/core/values/app_strings.dart';
 import 'package:online_exam/features/exams/presentation/manager/exams_cubit/exams_cubit.dart';
 import 'package:online_exam/features/exams/presentation/manager/exams_cubit/exams_events.dart';
 import 'package:online_exam/features/exams/presentation/manager/exams_cubit/exams_states.dart';
@@ -13,57 +14,67 @@ import '../../../home/domain/entities/get_all_subjects_entity.dart';
 class ExamsScreen extends StatelessWidget {
   final SubjectEntity item;
 
-  const ExamsScreen({super.key, required this.item});
+  ExamsScreen({super.key, required this.item});
+
+  final ExamsCubit examsCubit = getIt.get<ExamsCubit>();
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(item.name!),
+        title: Text(item.name ?? ''),
         leading: IconButton(
           onPressed: () => Navigator.pop(context),
           icon: const Icon(Icons.arrow_back_ios_new),
         ),
       ),
       body: BlocProvider<ExamsCubit>(
-        create: (context) =>
-            getIt<ExamsCubit>()..doEvent(GetSubjectExams(subjectId: item.id!)),
-        child: Builder(
-          builder: (context) {
-            return BlocBuilder<ExamsCubit, ExamsState>(
-              builder: (context, state) {
-                if (state is ExamsLoading) {
-                  return CustomLoadingIndicator();
-                }
+        create: (context) {
+          final cubit = examsCubit;
 
-                if (state is ExamsSuccessState && state.exams.isNotEmpty) {
-                  return SingleChildScrollView(
-                    scrollDirection: Axis.vertical,
-                    child: Column(
-                      children: [ExamsList(title: 'Exams', exams: state.exams)],
-                    ),
+          if (item.id != null) {
+            cubit.doEvent(GetSubjectExams(subjectId: item.id!));
+          }
+
+          return cubit;
+        },
+        child: BlocBuilder<ExamsCubit, ExamsState>(
+          builder: (context, state) {
+            if (item.id == null) {
+              return const CustomErrorWidget(
+                errorMessage: 'Invalid subject or no subject selected',
+              );
+            }
+
+            switch (state) {
+              case ExamsLoading():
+                return const CustomLoadingIndicator();
+
+              case ExamsSuccessState():
+                final exams = state.exams;
+
+                if (exams.isEmpty) {
+                  return const CustomErrorWidget(
+                    errorMessage: AppStrings.noExamsAvailable,
                   );
                 }
 
-                if (state is ExamsSuccessState && state.exams.isEmpty) {
-                  return CustomErrorWidget(errorMessage: 'No exams available');
-                }
+                return ExamsList(title: AppStrings.exams, exams: exams);
 
-                if (state is ExamsErrorState) {
-                  return CustomErrorWidget(
-                    errorMessage: state.errorMessage,
-                    haveTryAgain: true,
-                    onPressed: () {
-                      context.read<ExamsCubit>().doEvent(
-                        GetSubjectExams(subjectId: item.id!),
-                      );
-                    },
-                  );
-                }
+              case ExamsErrorState():
+                return CustomErrorWidget(
+                  errorMessage: state.errorMessage,
+                  haveTryAgain: true,
+                  onPressed: () {
+                    context.read<ExamsCubit>().doEvent(
+                      GetSubjectExams(subjectId: item.id!),
+                    );
+                  },
+                );
 
+              default:
                 return const SizedBox();
-              },
-            );
+            }
           },
         ),
       ),

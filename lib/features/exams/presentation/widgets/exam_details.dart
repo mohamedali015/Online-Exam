@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:online_exam/core/helpers/my_responsive.dart';
+import 'package:online_exam/core/utils/app_assets.dart';
 import 'package:online_exam/core/utils/app_colors.dart';
 import 'package:online_exam/core/utils/app_text_styles.dart';
+import 'package:online_exam/core/values/app_strings.dart';
 
-class ExamDetailes extends StatelessWidget {
-  const ExamDetailes({
+class ExamDetails extends StatelessWidget {
+  const ExamDetails({
     super.key,
     required this.examTitle,
     required this.examDuration,
@@ -24,7 +26,7 @@ class ExamDetailes extends StatelessWidget {
           Row(
             children: [
               Image.asset(
-                'assets/png/exam.png',
+                AppAssets.examPath,
                 width: MyResponsive.width(value: 42),
                 height: MyResponsive.height(value: 47),
               ),
@@ -36,7 +38,7 @@ class ExamDetailes extends StatelessWidget {
                     Text(examTitle, style: AppTextStyles.semiBold20),
                     SizedBox(width: MyResponsive.width(value: 10)),
                     Text(
-                      '$examDuration Minutes',
+                      '$examDuration ${AppStrings.minutes}',
                       style: AppTextStyles.regular13.copyWith(
                         color: AppColors.primaryColor,
                       ),
@@ -49,7 +51,7 @@ class ExamDetailes extends StatelessWidget {
           SizedBox(height: MyResponsive.height(value: 10)),
           Row(
             children: [
-              Text('Exam Date', style: AppTextStyles.medium18),
+              Text('${AppStrings.examDate}:', style: AppTextStyles.medium18),
               SizedBox(width: MyResponsive.width(value: 10)),
               Text(
                 '|',
@@ -60,7 +62,7 @@ class ExamDetailes extends StatelessWidget {
               SizedBox(width: MyResponsive.width(value: 10)),
 
               Text(
-                '$examNumberOfQuestions Questions',
+                '$examNumberOfQuestions ${AppStrings.questions}',
                 style: AppTextStyles.regular16.copyWith(
                   color: AppColors.baseGray,
                 ),

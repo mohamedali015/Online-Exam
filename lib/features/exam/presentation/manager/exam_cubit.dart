@@ -5,7 +5,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:injectable/injectable.dart';
 import 'package:online_exam/features/exam/domain/entities/exam_result_entity.dart';
 import 'package:online_exam/features/exam/domain/use_cases/get_exam_questions_use_case.dart';
-import 'package:online_exam/features/exams/domain/entities/exam_model.dart';
+import 'package:online_exam/features/exams/domain/entities/exam_entity.dart';
 
 import '../../../../config/error_handling/result.dart';
 import '../../domain/entities/questions_entity.dart';
@@ -18,7 +18,7 @@ class ExamCubit extends Cubit<ExamState> {
 
   GetExamQuestionsUseCase getExamQuestionsUseCase;
 
-  ExamsModel? exam;
+  ExamEntity? exam;
   ExamResultEntity? examResult;
   PageController pageViewController = PageController();
   Timer? _timer;
