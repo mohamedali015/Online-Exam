@@ -81,7 +81,7 @@ abstract class ApiModule {
           if (requiresAuth && isTokenError) {
             await SecureCacheHelper.removeData(key: CacheKeys.token);
 
-            getIt<UserCubit>().doEvent(UnauthorizedUser());
+            getIt<UserCubit>().doEvent(UnauthorizedUserEvent());
           }
 
           return handler.next(error);

@@ -1,5 +1,6 @@
 import 'package:online_exam/features/exam/domain/entities/questions_entity.dart';
-import 'package:online_exam/features/exams/domain/entities/exam_entity.dart';
+
+import '../../../exams/domain/entities/exam_entity.dart';
 
 class ExamResultEntity {
   final ExamEntity exam;
@@ -7,6 +8,7 @@ class ExamResultEntity {
   final int correctAnswers;
   final int wrongAnswers;
   final double percentage;
+  final int spentMinutes;
 
   const ExamResultEntity({
     required this.exam,
@@ -14,5 +16,6 @@ class ExamResultEntity {
     required this.correctAnswers,
     required this.wrongAnswers,
     required this.percentage,
+    required this.spentMinutes,
   });
 }

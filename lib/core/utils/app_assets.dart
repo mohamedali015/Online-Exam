@@ -7,6 +7,8 @@ abstract class AppAssets {
   static const String logoSplashPath = "$baseSavePathPng/logo_splash.png";
   static const String profileImagePath = "$baseSavePathPng/profile.png";
 
+  static const String examImagePath = "$baseSavePathPng/exam.png";
+
   static const String timerImagePath = "$baseSavePathPng/time_image.png";
   static const String timeOutImagePath = "$baseSavePathPng/time_out_image.png";
   static const String noFoundResearch = "$baseSavePathPng/no_found.gif";

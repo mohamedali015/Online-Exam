@@ -8,7 +8,7 @@ class GetExamsUseCase {
   GetExamsUseCase(this.examsRepo);
   ExamsRepo examsRepo;
 
-  Future<Result<List<ExamEntity>>> call({required String subjectId}) {
-    return examsRepo.getSubjectExams(subjectId: subjectId);
+  Future<Result<List<ExamEntity>>> call({required String subjectId}) async {
+    return await examsRepo.getSubjectExams(subjectId: subjectId);
   }
 }

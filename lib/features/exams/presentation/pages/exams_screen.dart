@@ -14,9 +14,7 @@ import '../../../home/domain/entities/get_all_subjects_entity.dart';
 class ExamsScreen extends StatelessWidget {
   final SubjectEntity item;
 
-  ExamsScreen({super.key, required this.item});
-
-  final ExamsCubit examsCubit = getIt.get<ExamsCubit>();
+  const ExamsScreen({super.key, required this.item});
 
   @override
   Widget build(BuildContext context) {
@@ -29,52 +27,44 @@ class ExamsScreen extends StatelessWidget {
         ),
       ),
       body: BlocProvider<ExamsCubit>(
-        create: (context) {
-          final cubit = examsCubit;
+        create: (context) =>
+            getIt<ExamsCubit>()..doEvent(GetSubjectExams(subject: item)),
+        child: Builder(
+          builder: (context) {
+            return BlocBuilder<ExamsCubit, ExamsState>(
+              builder: (context, state) {
+                if (state is ExamsLoading) {
+                  return CustomLoadingIndicator();
+                }
 
-          if (item.id != null) {
-            cubit.doEvent(GetSubjectExams(subjectId: item.id!));
-          }
-
-          return cubit;
-        },
-        child: BlocBuilder<ExamsCubit, ExamsState>(
-          builder: (context, state) {
-            if (item.id == null) {
-              return const CustomErrorWidget(
-                errorMessage: 'Invalid subject or no subject selected',
-              );
-            }
-
-            switch (state) {
-              case ExamsLoading():
-                return const CustomLoadingIndicator();
-
-              case ExamsSuccessState():
-                final exams = state.exams;
-
-                if (exams.isEmpty) {
-                  return const CustomErrorWidget(
-                    errorMessage: AppStrings.noExamsAvailable,
+                if (state is ExamsSuccessState && state.exams.isNotEmpty) {
+                  return SingleChildScrollView(
+                    scrollDirection: Axis.vertical,
+                    child: Column(
+                      children: [ExamsList(title: AppStrings.exams, exams: state.exams)],
+                    ),
                   );
                 }
 
-                return ExamsList(title: AppStrings.exams, exams: exams);
+                if (state is ExamsSuccessState && state.exams.isEmpty) {
+                  return CustomErrorWidget(errorMessage: AppStrings.noExamsAvailable);
+                }
 
-              case ExamsErrorState():
-                return CustomErrorWidget(
-                  errorMessage: state.errorMessage,
-                  haveTryAgain: true,
-                  onPressed: () {
-                    context.read<ExamsCubit>().doEvent(
-                      GetSubjectExams(subjectId: item.id!),
-                    );
-                  },
-                );
+                if (state is ExamsErrorState) {
+                  return CustomErrorWidget(
+                    errorMessage: state.errorMessage,
+                    haveTryAgain: true,
+                    onPressed: () {
+                      context.read<ExamsCubit>().doEvent(
+                        GetSubjectExams(subject: item),
+                      );
+                    },
+                  );
+                }
 
-              default:
                 return const SizedBox();
-            }
+              },
+            );
           },
         ),
       ),

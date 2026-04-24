@@ -3,20 +3,23 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:online_exam/config/route_manager/routes.dart';
 import 'package:online_exam/features/auth/presention/pages/register/register_screen.dart';
+import 'package:online_exam/features/results/presentation/manager/results_cubit.dart';
+import '../../features/auth/presention/manager/register/register_cubit.dart';
 import '../../features/exam/domain/entities/exam_result_entity.dart';
 import '../../features/exam/presentation/manager/exam_cubit.dart';
 import '../../features/exam/presentation/pages/exam_score_view.dart';
+import '../../features/exam/presentation/pages/exam_view.dart';
+import '../../features/exams/domain/entities/exam_entity.dart';
+import '../../features/exams/presentation/pages/exam_details_screen.dart';
 import '../../features/exams/presentation/pages/exams_screen.dart';
 import '../../features/home/domain/entities/get_all_subjects_entity.dart';
 import '../../features/home/presentation/manager/all_subjects_cubit.dart';
 import '../../features/home/presentation/manager/all_subjects_event.dart';
 import '../../features/profile/presentation/manager/change_password_cubit/change_password_cubit.dart';
 import '../../features/profile/presentation/pages/change_password/change_password.dart';
+import '../../features/results/presentation/pages/result_details_screen.dart';
+import '../../features/results/presentation/manager/results_events.dart';
 import '../../features/splash/splash_screen.dart';
-import 'package:online_exam/features/auth/presention/manager/register/register_cubit.dart';
-import 'package:online_exam/features/exams/domain/entities/exam_entity.dart';
-import 'package:online_exam/features/exams/presentation/pages/exam_details_screen.dart';
-import '../../features/exam/presentation/pages/exam_view.dart';
 import '../../core/shared_widgets/custom_bottom_nav.dart';
 import '../../core/values/app_strings.dart';
 import '../../features/auth/presention/manager/login/login_cubit.dart';
@@ -82,9 +85,25 @@ class RouteGenerator {
             ),
           );
 
-        /// Exams Screen
-        case Routes.examsRoute:
-          SubjectEntity item = settings.arguments as SubjectEntity;
+      case Routes.homeRoute:
+        final index = settings.arguments as int? ?? 0;
+
+        return CupertinoPageRoute(
+          builder: (_) => MultiBlocProvider(
+            providers: [
+              BlocProvider(
+                create: (_) =>
+                    getIt.get<SubjectsCubit>()..doEvent(GetAllSubjectsEvent()),
+              ),
+              BlocProvider(
+                create: (_) => getIt.get<ResultsCubit>()..doEvent(GetResults()),
+              ),
+            ],
+            child: CustomBottomNavBar(initialIndex: index),
+          ),
+        );
+      case Routes.examsRoute:
+        SubjectEntity item = settings.arguments as SubjectEntity;
 
           return CupertinoPageRoute(
             builder: (_) => ExamsScreen(item: item),
@@ -110,24 +129,22 @@ class RouteGenerator {
             settings: settings,
           );
 
-        /// Home
+      case Routes.examScoreViewRoute:
+        final examResult = settings.arguments as ExamResultEntity;
 
-        case Routes.homeRoute:
-          return CupertinoPageRoute(
-            builder: (_) => BlocProvider(
-              create: (context) =>
-                  getIt.get<SubjectsCubit>()..doEvent(GetAllSubjectsEvent()),
-              child: CustomBottomNavBar(),
-            ),
-          );
+        return CupertinoPageRoute(
+          builder: (_) => ExamScoreView(examResult: examResult),
+          settings: settings,
+        );
 
-        case Routes.examScoreViewRoute:
-          final examResult = settings.arguments as ExamResultEntity;
+      case Routes.resultDetailsRoute:
+        final examResult = settings.arguments as ExamResultEntity;
 
-          return CupertinoPageRoute(
-            builder: (_) => ExamScoreView(examResult: examResult),
-            settings: settings,
-          );
+        return CupertinoPageRoute(
+          builder: (_) => ResultDetailsScreen(exam: examResult),
+          settings: settings,
+        );
+
 
         case Routes.changePasswordRoute:
           return CupertinoPageRoute(
