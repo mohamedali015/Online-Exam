@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:online_exam/core/shared_widgets/svg_wrapper.dart';
 import 'package:online_exam/core/values/app_strings.dart';
+import 'package:online_exam/features/profile/presentation/pages/profile/profile_wrapper.dart';
 import '../../features/home/presentation/pages/home_screen.dart';
-import '../../features/profile/presentation/pages/profile_screen.dart';
 import '../../features/result/presentation/pages/result_screen.dart';
 import '../helpers/my_responsive.dart';
 import '../utils/app_colors.dart';
@@ -18,10 +18,10 @@ class CustomBottomNavBar extends StatefulWidget {
 class _CustomBottomNavBarState extends State<CustomBottomNavBar> {
   int currentIndex = 0;
 
-  final List<Widget> _screens = [
+  final List<Widget> _screens = const [
     HomeScreen(),
-    const ResultScreen(),
-    const ProfileScreen(),
+    ResultScreen(),
+    ProfileWrapper(),
   ];
 
   void _onTap(int index) {
@@ -33,7 +33,7 @@ class _CustomBottomNavBarState extends State<CustomBottomNavBar> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: _screens[currentIndex],
+      body: IndexedStack(index: currentIndex, children: _screens),
       bottomNavigationBar: BottomNavigationBar(
         currentIndex: currentIndex,
         onTap: _onTap,
