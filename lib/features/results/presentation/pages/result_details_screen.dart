@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import '../../../../core/helpers/my_responsive.dart';
 import '../../../../core/values/app_strings.dart';
 import '../../../exam/domain/entities/exam_result_entity.dart';
-import '../../../results/presentation/widgets/question_esult_card.dart';
+import '../widgets/question_result_card.dart';
 
 class ResultDetailsScreen extends StatelessWidget {
   const ResultDetailsScreen({super.key, required this.exam});

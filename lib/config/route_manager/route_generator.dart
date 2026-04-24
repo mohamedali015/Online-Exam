@@ -9,13 +9,13 @@ import '../../features/exam/domain/entities/exam_result_entity.dart';
 import '../../features/exam/presentation/manager/exam_cubit.dart';
 import '../../features/exam/presentation/pages/exam_score_view.dart';
 import '../../features/exam/presentation/pages/exam_view.dart';
-import '../../features/exams/domain/entities/exam_model.dart';
+import '../../features/exams/domain/entities/exam_entity.dart';
 import '../../features/exams/presentation/pages/exam_details_screen.dart';
 import '../../features/exams/presentation/pages/exams_screen.dart';
 import '../../features/home/domain/entities/get_all_subjects_entity.dart';
 import '../../features/home/presentation/manager/all_subjects_cubit.dart';
 import '../../features/home/presentation/manager/all_subjects_event.dart';
-import '../../features/home/presentation/pages/result_details_screen.dart';
+import '../../features/results/presentation/pages/result_details_screen.dart';
 import '../../features/results/presentation/manager/results_events.dart';
 import '../../features/splash/splash_screen.dart';
 import '../../core/shared_widgets/custom_bottom_nav.dart';
@@ -107,14 +107,14 @@ class RouteGenerator {
         );
 
       case Routes.examDetailsRoute:
-        final examsModel = settings.arguments as ExamsModel;
+        final examsModel = settings.arguments as ExamEntity;
         return CupertinoPageRoute(
           builder: (_) => ExamDetailsScreen(exam: examsModel),
           settings: settings,
         );
 
       case Routes.examViewRoute:
-        final examsModel = settings.arguments as ExamsModel;
+        final examsModel = settings.arguments as ExamEntity;
 
         return CupertinoPageRoute(
           builder: (_) => BlocProvider(

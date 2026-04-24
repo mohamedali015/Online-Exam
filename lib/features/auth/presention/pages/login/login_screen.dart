@@ -61,11 +61,11 @@ class _LoginScreenState extends State<LoginScreen> {
 
             if (state.authEntity.user != null) {
               context.read<UserCubit>().doEvent(
-                SetUserData(user: state.authEntity.user!),
+                SetUserDataEvent(user: state.authEntity.user!),
               );
             }
 
-            context.read<UserCubit>().doEvent(ResetUnauthorized());
+            context.read<UserCubit>().doEvent(ResetUnauthorizedEvent());
 
             Navigator.pushNamedAndRemoveUntil(
               context,

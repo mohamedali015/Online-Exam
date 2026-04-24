@@ -4,12 +4,12 @@ import 'package:online_exam/core/helpers/my_responsive.dart';
 import 'package:online_exam/core/utils/app_colors.dart';
 import 'package:online_exam/core/utils/app_text_styles.dart';
 import 'package:online_exam/core/values/app_strings.dart';
-import 'package:online_exam/features/exams/domain/entities/exam_model.dart';
+import 'package:online_exam/features/exams/domain/entities/exam_entity.dart';
 
 class ExamCard extends StatelessWidget {
   const ExamCard({super.key, required this.exam});
 
-  final ExamsModel exam;
+  final ExamEntity exam;
 
   @override
   Widget build(BuildContext context) {

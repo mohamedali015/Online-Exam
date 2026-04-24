@@ -16,26 +16,26 @@ class UserCubit extends Cubit<UserState> {
   /// events
   void doEvent(UserEvents event) {
     switch (event) {
-      case GetUserData():
+      case GetUserDataEvent():
         {
           _getUserData();
           break;
         }
-      case SetUserData():
+      case SetUserDataEvent():
         {
           emit(state.copyWith(user: event.user));
           break;
         }
-      case UnauthorizedUser():
+      case UnauthorizedUserEvent():
         {
           _handleUnauthorized();
           break;
         }
-      case ResetUnauthorized():
-        _handledUnauthorized = false;
-
-        emit(state.copyWith(isUnauthorized: false));
-        break;
+      case ResetUnauthorizedEvent():
+        {
+          _resetUnauthorized();
+          break;
+        }
     }
   }
 
@@ -53,6 +53,11 @@ class UserCubit extends Cubit<UserState> {
         emit(state.copyWith(isLoading: false, error: response.errorMessage));
         break;
     }
+  }
+
+  void _resetUnauthorized() {
+    _handledUnauthorized = false;
+    emit(state.copyWith(isUnauthorized: false));
   }
 
   void _handleUnauthorized() {

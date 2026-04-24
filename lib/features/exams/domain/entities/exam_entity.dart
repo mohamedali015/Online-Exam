@@ -1,6 +1,6 @@
 import 'package:equatable/equatable.dart';
 
-class ExamsModel extends Equatable {
+class ExamEntity extends Equatable {
   final String id;
   final String title;
   final int duration;
@@ -8,7 +8,7 @@ class ExamsModel extends Equatable {
   final String subjectName;
   final String icon;
 
-  const ExamsModel({
+  const ExamEntity({
     required this.id,
     required this.title,
     required this.duration,
@@ -17,7 +17,7 @@ class ExamsModel extends Equatable {
     required this.icon,
   });
 
-  ExamsModel copyWith({
+  ExamEntity copyWith({
     String? idParam,
     String? titleParam,
     int? durationParam,
@@ -25,7 +25,7 @@ class ExamsModel extends Equatable {
     String? subjectNameParam,
     String? iconParam,
   }) {
-    return ExamsModel(
+    return ExamEntity(
       id: idParam ?? id,
       title: titleParam ?? title,
       duration: durationParam ?? duration,

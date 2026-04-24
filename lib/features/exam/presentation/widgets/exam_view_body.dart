@@ -22,14 +22,14 @@ class ExamViewBody extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final cubit = context.read<ExamCubit>();
+
     return Padding(
       padding: MyResponsive.paddingSymmetric(
         horizontal: AppConstants.paddingHorizontal,
       ),
       child: BlocConsumer<ExamCubit, ExamState>(
         listener: (context, state) {
-          final cubit = context.read<ExamCubit>();
-
           if (cubit.remainingSeconds == 0 &&
               state.examState.data != null &&
               state.examState.data!.isNotEmpty) {
@@ -45,9 +45,7 @@ class ExamViewBody extends StatelessWidget {
                 ),
               ),
             );
-          }
-
-          if (state.isSaved) {
+          } else if (state.isSaved) {
             Navigator.pop(context);
             Navigator.pushReplacementNamed(
               context,
@@ -63,13 +61,9 @@ class ExamViewBody extends StatelessWidget {
         },
 
         builder: (context, state) {
-          final cubit = context.read<ExamCubit>();
-
           if (state.examState.isLoading) {
             return const CustomLoadingIndicator();
-          }
-
-          if (state.examState.errorMessage != null &&
+          } else if (state.examState.errorMessage != null &&
               state.examState.errorMessage!.isNotEmpty) {
             return CustomErrorWidget(
               errorMessage: state.examState.errorMessage!,
@@ -78,9 +72,7 @@ class ExamViewBody extends StatelessWidget {
                 cubit.doEvent(GetExamQuestions());
               },
             );
-          }
-
-          if (state.examState.data != null &&
+          } else if (state.examState.data != null &&
               state.examState.data!.isNotEmpty) {
             return Column(
               children: [
@@ -179,9 +171,8 @@ class ExamViewBody extends StatelessWidget {
                 SizedBox(height: MyResponsive.height(value: 180)),
               ],
             );
-          }
-
-          if (state.examState.data != null && state.examState.data!.isEmpty) {
+          } else if (state.examState.data != null &&
+              state.examState.data!.isEmpty) {
             return CustomErrorWidget(
               errorMessage: AppStrings.noQuestions,
               haveTryAgain: true,
@@ -191,7 +182,7 @@ class ExamViewBody extends StatelessWidget {
             );
           }
 
-          return const SizedBox();
+          return const SizedBox.shrink();
         },
       ),
     );
