@@ -1,7 +1,9 @@
+import 'package:online_exam/features/home/domain/entities/get_all_subjects_entity.dart';
+
 sealed class ExamsEvents {}
 
 class GetSubjectExams extends ExamsEvents {
-  final String subjectId;
+  final SubjectEntity subject;
 
-  GetSubjectExams({required this.subjectId});
+  GetSubjectExams({required this.subject});
 }

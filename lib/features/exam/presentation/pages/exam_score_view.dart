@@ -64,7 +64,17 @@ class ExamScoreView extends StatelessWidget {
               ],
             ),
             SizedBox(height: MyResponsive.height(value: 80)),
-            CustomButton(title: AppStrings.showResult, onPressed: () {}),
+            CustomButton(
+              title: AppStrings.showResult,
+              onPressed: () {
+                Navigator.pushNamedAndRemoveUntil(
+                  context,
+                  Routes.homeRoute,
+                  arguments: 1,
+                  (route) => false,
+                );
+              },
+            ),
             SizedBox(height: MyResponsive.height(value: 24)),
             CustomButton(
               title: AppStrings.startAgain,

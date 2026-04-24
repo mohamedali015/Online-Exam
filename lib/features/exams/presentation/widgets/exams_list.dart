@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:online_exam/core/helpers/my_responsive.dart';
-import 'package:online_exam/features/exams/domain/entities/exam_model.dart';
+import 'package:online_exam/features/exams/domain/entities/exam_entity.dart';
 import 'package:online_exam/features/exams/presentation/widgets/exam_card.dart';
 
 class ExamsList extends StatelessWidget {
   final String? title;
-  final List<ExamsModel> exams;
+  final List<ExamEntity> exams;
 
   const ExamsList({super.key, this.title, this.exams = const []});
 

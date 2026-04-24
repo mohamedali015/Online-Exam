@@ -62,7 +62,7 @@ class _SplashScreenState extends State<SplashScreen>
     if (!mounted) return;
 
     if (token != null && token.isNotEmpty && rememberMe == 'true') {
-      cubit.doEvent(GetUserData());
+      cubit.doEvent(GetUserDataEvent());
     } else {
       if (!_dataResult.isCompleted) {
         _dataResult.complete(false);
