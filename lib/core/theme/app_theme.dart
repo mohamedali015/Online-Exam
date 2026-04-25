@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:online_exam/core/helpers/my_responsive.dart';
 import 'package:online_exam/core/utils/app_colors.dart';
 import 'package:online_exam/core/utils/app_text_styles.dart';
 
@@ -12,7 +13,6 @@ class AppTheme {
     inputDecorationTheme: InputDecorationTheme(
       floatingLabelBehavior: FloatingLabelBehavior.always,
       errorMaxLines: 2,
-
       labelStyle: WidgetStateTextStyle.resolveWith((states) {
         if (states.contains(WidgetState.error)) {
           return AppTextStyles.regular12.copyWith(color: AppColors.error);
@@ -26,35 +26,36 @@ class AppTheme {
         }
         return AppTextStyles.regular12.copyWith(color: AppColors.baseGray);
       }),
-
       filled: true,
+
       fillColor: AppColors.baseWhite,
       errorStyle: AppTextStyles.regular12.copyWith(color: AppColors.error),
-
       hintStyle: AppTextStyles.regular14.copyWith(
         color: AppColors.hintTextGray,
       ),
 
-      contentPadding: const EdgeInsets.symmetric(horizontal: 8, vertical: 12),
-
+      contentPadding: EdgeInsets.symmetric(
+        horizontal: MyResponsive.width(value: 8),
+        vertical: MyResponsive.height(value: 12),
+      ),
       enabledBorder: OutlineInputBorder(
-        borderRadius: BorderRadius.circular(4),
+        borderRadius: BorderRadius.circular(MyResponsive.radius(value: 4)),
         borderSide: BorderSide(color: AppColors.baseGray),
       ),
       focusedBorder: OutlineInputBorder(
-        borderRadius: BorderRadius.circular(4),
+        borderRadius: BorderRadius.circular(MyResponsive.radius(value: 4)),
         borderSide: BorderSide(color: AppColors.baseGray),
       ),
       errorBorder: OutlineInputBorder(
-        borderRadius: BorderRadius.circular(4),
+        borderRadius: BorderRadius.circular(MyResponsive.radius(value: 4)),
         borderSide: BorderSide(color: AppColors.error),
       ),
       focusedErrorBorder: OutlineInputBorder(
-        borderRadius: BorderRadius.circular(4),
+        borderRadius: BorderRadius.circular(MyResponsive.radius(value: 4)),
         borderSide: BorderSide(color: AppColors.error),
       ),
       disabledBorder: OutlineInputBorder(
-        borderRadius: BorderRadius.circular(4),
+        borderRadius: BorderRadius.circular(MyResponsive.radius(value: 4)),
         borderSide: BorderSide(color: AppColors.baseGray),
       ),
     ),
@@ -63,18 +64,18 @@ class AppTheme {
       hintStyle: WidgetStatePropertyAll(
         AppTextStyles.medium14.copyWith(color: AppColors.baseGray),
       ),
-
       backgroundColor: WidgetStateProperty.all(AppColors.baseWhite),
       elevation: WidgetStateProperty.all(0),
-
       padding: WidgetStateProperty.all(
-        const EdgeInsets.symmetric(horizontal: 16, vertical: 4),
+        MyResponsive.paddingSymmetric(horizontal: 16, vertical: 4),
       ),
-
       shape: WidgetStateProperty.all(
         RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(20),
-          side: BorderSide(color: AppColors.baseGray, width: 1.2),
+          borderRadius: BorderRadius.circular(MyResponsive.radius(value: 20)),
+          side: BorderSide(
+            color: AppColors.baseGray,
+            width: MyResponsive.width(value: 1.2),
+          ),
         ),
       ),
     ),
@@ -83,12 +84,14 @@ class AppTheme {
       style: ElevatedButton.styleFrom(
         elevation: 0,
         disabledForegroundColor: AppColors.baseWhite,
-        minimumSize: const Size(double.infinity, 48),
+        minimumSize: Size(double.infinity, MyResponsive.height(value: 48)),
         textStyle: AppTextStyles.medium16,
         foregroundColor: AppColors.baseWhite,
         backgroundColor: AppColors.primaryColor,
         disabledBackgroundColor: AppColors.disabledGray,
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(100)),
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(MyResponsive.radius(value: 100)),
+        ),
       ),
     ),
 
