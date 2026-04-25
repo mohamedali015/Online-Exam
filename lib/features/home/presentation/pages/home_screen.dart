@@ -44,81 +44,86 @@ class _HomeScreenState extends State<HomeScreen> {
         automaticallyImplyLeading: false,
       ),
 
-      body: Padding(
-        padding: MyResponsive.paddingSymmetric(horizontal: 16),
-        child: Column(
-          children: [
-            SizedBox(height: MyResponsive.height(value: 16)),
+      body: RefreshIndicator(
+        onRefresh: () async {
+          context.read<SubjectsCubit>().doEvent(GetAllSubjectsEvent());
+        },
+        child: Padding(
+          padding: MyResponsive.paddingSymmetric(horizontal: 16),
+          child: Column(
+            children: [
+              SizedBox(height: MyResponsive.height(value: 16)),
 
-            SearchBar(
-              backgroundColor: WidgetStatePropertyAll(AppColors.baseWhite),
+              SearchBar(
+                backgroundColor: WidgetStatePropertyAll(AppColors.baseWhite),
 
-              padding: WidgetStatePropertyAll<EdgeInsets>(
-                MyResponsive.paddingSymmetric(horizontal: 8),
-              ),
-              hintText: AppStrings.search,
-              leading: Icon(Icons.search, color: AppColors.baseGray),
-              controller: searchController,
-              onChanged: (value) {
-                context.read<SubjectsCubit>().doEvent(
-                  GetSearchSubjectsEvent(query: value),
-                );
-              },
-            ),
-
-            SizedBox(height: MyResponsive.height(value: 20)),
-
-            Expanded(
-              child: BlocBuilder<SubjectsCubit, SubjectsState>(
-                builder: (context, state) {
-                  if (state.isLoading == true) {
-                    return const CustomLoadingIndicator();
-                  }
-
-                  if (state.errorMessage != null) {
-                    return CustomErrorWidget(
-                      errorMessage: state.errorMessage!,
-                      haveTryAgain: true,
-                      onPressed: () {
-                        context.read<SubjectsCubit>().doEvent(
-                          GetAllSubjectsEvent(),
-                        );
-                      },
-                    );
-                  }
-
-                  if (state.subjects.isEmpty) {
-                    return Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Image.asset(
-                          AppAssets.noFoundResearch,
-                          fit: BoxFit.contain,
-                        ),
-                        Text(
-                          AppStrings.noSubjectsFound,
-                          style: AppTextStyles.medium18,
-                        ),
-                      ],
-                    );
-                  }
-
-                  return ListView.builder(
-                    itemCount: state.subjects.length,
-                    itemBuilder: (context, index) {
-                      final subject = state.subjects[index];
-                      return SubjectCard(item: subject);
-                    },
+                padding: WidgetStatePropertyAll<EdgeInsets>(
+                  MyResponsive.paddingSymmetric(horizontal: 8),
+                ),
+                hintText: AppStrings.search,
+                leading: Icon(Icons.search, color: AppColors.baseGray),
+                controller: searchController,
+                onChanged: (value) {
+                  context.read<SubjectsCubit>().doEvent(
+                    GetSearchSubjectsEvent(query: value),
                   );
                 },
-
-                buildWhen: (prev, curr) =>
-                    prev.subjects != curr.subjects ||
-                    prev.isLoading != curr.isLoading ||
-                    prev.errorMessage != curr.errorMessage,
               ),
-            ),
-          ],
+
+              SizedBox(height: MyResponsive.height(value: 20)),
+
+              Expanded(
+                child: BlocBuilder<SubjectsCubit, SubjectsState>(
+                  builder: (context, state) {
+                    if (state.isLoading == true) {
+                      return const CustomLoadingIndicator();
+                    }
+
+                    if (state.errorMessage != null) {
+                      return CustomErrorWidget(
+                        errorMessage: state.errorMessage!,
+                        haveTryAgain: true,
+                        onPressed: () {
+                          context.read<SubjectsCubit>().doEvent(
+                            GetAllSubjectsEvent(),
+                          );
+                        },
+                      );
+                    }
+
+                    if (state.subjects.isEmpty) {
+                      return Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Image.asset(
+                            AppAssets.noFoundResearch,
+                            fit: BoxFit.contain,
+                          ),
+                          Text(
+                            AppStrings.noSubjectsFound,
+                            style: AppTextStyles.medium18,
+                          ),
+                        ],
+                      );
+                    }
+
+                    return ListView.builder(
+                      itemCount: state.subjects.length,
+                      itemBuilder: (context, index) {
+                        final subject = state.subjects[index];
+                        return SubjectCard(item: subject);
+                      },
+                    );
+                  },
+
+                  buildWhen: (prev, curr) =>
+                      prev.subjects != curr.subjects ||
+                      prev.isLoading != curr.isLoading ||
+                      prev.errorMessage != curr.errorMessage,
+                ),
+              ),
+            ],
+          ),
         ),
       ),
     );

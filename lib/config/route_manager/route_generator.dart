@@ -10,6 +10,8 @@ import '../../features/exam/presentation/manager/exam_cubit.dart';
 import '../../features/exam/presentation/pages/exam_score_view.dart';
 import '../../features/exam/presentation/pages/exam_view.dart';
 import '../../features/exams/domain/entities/exam_entity.dart';
+import '../../features/exams/presentation/manager/exams_cubit/exams_cubit.dart';
+import '../../features/exams/presentation/manager/exams_cubit/exams_events.dart';
 import '../../features/exams/presentation/pages/exam_details_screen.dart';
 import '../../features/exams/presentation/pages/exams_screen.dart';
 import '../../features/home/domain/entities/get_all_subjects_entity.dart';
@@ -110,7 +112,11 @@ class RouteGenerator {
           SubjectEntity item = settings.arguments as SubjectEntity;
 
           return CupertinoPageRoute(
-            builder: (_) => ExamsScreen(item: item),
+            builder: (_) => BlocProvider(
+              create: (context) =>
+                  getIt<ExamsCubit>()..doEvent(GetSubjectExams(subject: item)),
+              child: ExamsScreen(item: item),
+            ),
             settings: settings,
           );
 

@@ -21,79 +21,83 @@ class ResultsScreen extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(title: Text(AppStrings.result)),
 
-      body: Padding(
-        padding: MyResponsive.paddingSymmetric(horizontal: 16),
-        child: BlocBuilder<ResultsCubit, ResultsState>(
-          builder: (context, state) {
-            final resultsState = state.resultsState;
+      body: RefreshIndicator(
+        onRefresh: () async {
+          context.read<ResultsCubit>().doEvent(GetResults());
+        },
+        child: Padding(
+          padding: MyResponsive.paddingSymmetric(horizontal: 16),
+          child: BlocBuilder<ResultsCubit, ResultsState>(
+            builder: (context, state) {
+              final resultsState = state.resultsState;
 
-            if (resultsState.isLoading) {
-              return const CustomLoadingIndicator();
-            } else if (resultsState.errorMessage != null &&
-                resultsState.errorMessage!.isNotEmpty) {
-              return CustomErrorWidget(
-                errorMessage: resultsState.errorMessage!,
-                haveTryAgain: true,
-                onPressed: () {
-                  context.read<ResultsCubit>().doEvent(GetResults());
-                },
-              );
-            } else if (resultsState.data != null &&
-                resultsState.data!.isEmpty) {
-              return Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  SizedBox(width: double.infinity,),
-                  Image.asset(
-                    AppAssets.noFoundResearch,
-                    fit: BoxFit.contain,
-                    height: MyResponsive.height(value: 200),
-                  ),
-                  Text(AppStrings.noResults, style: AppTextStyles.medium18),
-                ],
-              );
-            } else if (resultsState.data != null &&
-                resultsState.data!.isNotEmpty) {
-              final grouped = resultsState.data!;
-              final subjects = grouped.keys.toList();
+              if (resultsState.isLoading) {
+                return const CustomLoadingIndicator();
+              } else if (resultsState.errorMessage != null &&
+                  resultsState.errorMessage!.isNotEmpty) {
+                return CustomErrorWidget(
+                  errorMessage: resultsState.errorMessage!,
+                  haveTryAgain: true,
+                  onPressed: () {
+                    context.read<ResultsCubit>().doEvent(GetResults());
+                  },
+                );
+              } else if (resultsState.data != null &&
+                  resultsState.data!.isEmpty) {
+                return Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    SizedBox(width: double.infinity),
+                    Image.asset(
+                      AppAssets.noFoundResearch,
+                      fit: BoxFit.contain,
+                      height: MyResponsive.height(value: 200),
+                    ),
+                    Text(AppStrings.noResults, style: AppTextStyles.medium18),
+                  ],
+                );
+              } else if (resultsState.data != null &&
+                  resultsState.data!.isNotEmpty) {
+                final grouped = resultsState.data!;
+                final subjects = grouped.keys.toList();
 
-              return ListView.builder(
-                itemCount: subjects.length,
-                itemBuilder: (context, index) {
-                  final subject = subjects[index];
-                  final exams = grouped[subject]!;
+                return ListView.builder(
+                  itemCount: subjects.length,
+                  itemBuilder: (context, index) {
+                    final subject = subjects[index];
+                    final exams = grouped[subject]!;
 
-                  return Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      SizedBox(height: MyResponsive.height(value: 20)),
+                    return Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        SizedBox(height: MyResponsive.height(value: 20)),
 
-                      Text(subject, style: AppTextStyles.medium18),
+                        Text(subject, style: AppTextStyles.medium18),
 
-                      SizedBox(height: MyResponsive.height(value: 24)),
+                        SizedBox(height: MyResponsive.height(value: 24)),
 
-                      ...exams.map(
-                            (exam) =>
-                            GestureDetector(
-                              onTap: () {
-                                Navigator.pushNamed(
-                                  context,
-                                  Routes.resultDetailsRoute,
-                                  arguments: exam,
-                                );
-                              },
-                              child: ResultExamCard(exam: exam),
-                            ),
-                      ),
-                    ],
-                  );
-                },
-              );
-            }
+                        ...exams.map(
+                          (exam) => GestureDetector(
+                            onTap: () {
+                              Navigator.pushNamed(
+                                context,
+                                Routes.resultDetailsRoute,
+                                arguments: exam,
+                              );
+                            },
+                            child: ResultExamCard(exam: exam),
+                          ),
+                        ),
+                      ],
+                    );
+                  },
+                );
+              }
 
-            return Container();
-          },
+              return Container();
+            },
+          ),
         ),
       ),
     );

@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:online_exam/config/di/di.dart';
 import 'package:online_exam/core/shared_widgets/custom_error_widget.dart';
 import 'package:online_exam/core/shared_widgets/custom_loading_indicator.dart';
 import 'package:online_exam/core/values/app_strings.dart';
@@ -26,51 +25,48 @@ class ExamsScreen extends StatelessWidget {
           icon: const Icon(Icons.arrow_back_ios_new),
         ),
       ),
-      body: BlocProvider<ExamsCubit>(
-        create: (context) =>
-            getIt<ExamsCubit>()..doEvent(GetSubjectExams(subject: item)),
-        child: Builder(
-          builder: (context) {
-            return BlocBuilder<ExamsCubit, ExamsState>(
-              builder: (context, state) {
-                if (state is ExamsLoading) {
-                  return CustomLoadingIndicator();
-                }
+      body: RefreshIndicator(
+        onRefresh: () async {
+          context.read<ExamsCubit>().doEvent(GetSubjectExams(subject: item));
+        },
+        child: BlocBuilder<ExamsCubit, ExamsState>(
+          builder: (context, state) {
+            if (state is ExamsLoading) {
+              return CustomLoadingIndicator();
+            }
 
-                if (state is ExamsSuccessState && state.exams.isNotEmpty) {
-                  return Column(
-                    children: [
-                      Expanded(
-                        child: ExamsList(
-                          title: AppStrings.exams,
-                          exams: state.exams,
-                        ),
-                      ),
-                    ],
+            if (state is ExamsSuccessState && state.exams.isNotEmpty) {
+              return Column(
+                children: [
+                  Expanded(
+                    child: ExamsList(
+                      title: AppStrings.exams,
+                      exams: state.exams,
+                    ),
+                  ),
+                ],
+              );
+            }
+
+            if (state is ExamsSuccessState && state.exams.isEmpty) {
+              return CustomErrorWidget(
+                errorMessage: AppStrings.noExamsAvailable,
+              );
+            }
+
+            if (state is ExamsErrorState) {
+              return CustomErrorWidget(
+                errorMessage: state.errorMessage,
+                haveTryAgain: true,
+                onPressed: () {
+                  context.read<ExamsCubit>().doEvent(
+                    GetSubjectExams(subject: item),
                   );
-                }
+                },
+              );
+            }
 
-                if (state is ExamsSuccessState && state.exams.isEmpty) {
-                  return CustomErrorWidget(
-                    errorMessage: AppStrings.noExamsAvailable,
-                  );
-                }
-
-                if (state is ExamsErrorState) {
-                  return CustomErrorWidget(
-                    errorMessage: state.errorMessage,
-                    haveTryAgain: true,
-                    onPressed: () {
-                      context.read<ExamsCubit>().doEvent(
-                        GetSubjectExams(subject: item),
-                      );
-                    },
-                  );
-                }
-
-                return const SizedBox();
-              },
-            );
+            return const SizedBox();
           },
         ),
       ),
