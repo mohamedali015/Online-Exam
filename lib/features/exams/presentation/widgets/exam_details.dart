@@ -5,17 +5,21 @@ import 'package:online_exam/core/utils/app_colors.dart';
 import 'package:online_exam/core/utils/app_text_styles.dart';
 import 'package:online_exam/core/values/app_strings.dart';
 
+import '../../../../core/shared_widgets/cached_network_image_wrapper.dart';
+
 class ExamDetails extends StatelessWidget {
   const ExamDetails({
     super.key,
     required this.examTitle,
     required this.examDuration,
     required this.examNumberOfQuestions,
+    required this.examIcon,
   });
 
   final String examTitle;
   final int examDuration;
   final int examNumberOfQuestions;
+  final String examIcon;
 
   @override
   Widget build(BuildContext context) {
@@ -25,11 +29,19 @@ class ExamDetails extends StatelessWidget {
         children: [
           Row(
             children: [
-              Image.asset(
-                AppAssets.examPath,
-                width: MyResponsive.width(value: 42),
-                height: MyResponsive.height(value: 47),
-              ),
+              examIcon.isNotEmpty
+                  ? CachedNetworkImageWrapper(
+                      imagePath: examIcon,
+                      width: MyResponsive.width(value: 48),
+                      height: MyResponsive.height(value: 48),
+                      fit: BoxFit.contain,
+                    )
+                  : Image.asset(
+                      AppAssets.examImagePath,
+                      width: MyResponsive.width(value: 48),
+                      height: MyResponsive.height(value: 48),
+                      fit: BoxFit.fill,
+                    ),
               SizedBox(width: MyResponsive.width(value: 10)),
               Expanded(
                 child: Row(

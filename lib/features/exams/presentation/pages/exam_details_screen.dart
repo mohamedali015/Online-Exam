@@ -28,6 +28,7 @@ class ExamDetailsScreen extends StatelessWidget {
             examTitle: exam.title,
             examDuration: exam.duration,
             examNumberOfQuestions: exam.numberOfQuestions,
+            examIcon: exam.icon,
           ),
           Divider(color: AppColors.selectedBlue),
           Padding(
