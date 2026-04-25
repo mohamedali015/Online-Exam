@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:online_exam/core/helpers/my_responsive.dart';
-import 'package:online_exam/core/shared_widgets/custom_loading_indicator.dart';
+import 'package:online_exam/core/shared_widgets/custom_button.dart';
 import 'package:online_exam/core/values/app_strings.dart';
 
 class UpdateProfileButton extends StatelessWidget {
@@ -17,15 +16,10 @@ class UpdateProfileButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ElevatedButton(
+    return CustomButton(
       onPressed: canSubmit && !isLoading ? onPressed : null,
-      child: isLoading
-          ? SizedBox(
-              height: MyResponsive.height(value: 22),
-              width: MyResponsive.width(value: 22),
-              child: CustomLoadingIndicator(),
-            )
-          : const Text(AppStrings.update),
+      isLoading: isLoading,
+      title: AppStrings.update,
     );
   }
 }

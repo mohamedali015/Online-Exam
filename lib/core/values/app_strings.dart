@@ -150,9 +150,12 @@ abstract class AppStrings {
   static const String failedToSaveExamResult = "Failed to save exam results";
   static const String failedToGetAllResults = "Failed to get all results";
   static const String noResults = "No Results Yet";
-  static const String minutes = "minutes";
   static const String correctedAnswersIn = "Corrected answers in";
   static const String min = "min.";
 
   static const String answers = "Answers";
+  static const String logOut = "Log out";
+
+  static const String logoutWarning =
+      "Are you sure you want to log out from your account?";
 }

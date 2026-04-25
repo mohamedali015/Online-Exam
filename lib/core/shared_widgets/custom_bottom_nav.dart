@@ -1,10 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:online_exam/core/shared_widgets/svg_wrapper.dart';
 import 'package:online_exam/core/values/app_strings.dart';
-import 'package:online_exam/features/profile/presentation/pages/profile/profile_wrapper.dart';
 import '../../features/home/presentation/pages/home_screen.dart';
-import '../../features/result/presentation/pages/result_screen.dart';
-import '../../features/profile/presentation/pages/profile_screen.dart';
+import '../../features/profile/presentation/pages/profile/profile_screen.dart';
 import '../../features/results/presentation/pages/results_screen.dart';
 import '../helpers/my_responsive.dart';
 import '../utils/app_colors.dart';
@@ -25,7 +23,7 @@ class _CustomBottomNavBarState extends State<CustomBottomNavBar> {
   final List<Widget> _screens = const [
     HomeScreen(),
     ResultsScreen(),
-    ProfileWrapper(),
+    ProfileScreen(),
   ];
 
   @override

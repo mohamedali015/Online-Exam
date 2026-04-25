@@ -15,6 +15,7 @@ class ProfileForm extends StatelessWidget {
     required this.lastNameController,
     required this.emailController,
     required this.phoneController,
+    required this.isLoading,
   });
 
   final GlobalKey<FormState> formKey;
@@ -24,6 +25,7 @@ class ProfileForm extends StatelessWidget {
   final TextEditingController lastNameController;
   final TextEditingController emailController;
   final TextEditingController phoneController;
+  final bool isLoading;
 
   @override
   Widget build(BuildContext context) {
@@ -34,6 +36,7 @@ class ProfileForm extends StatelessWidget {
         children: [
           TextFormField(
             controller: usernameController,
+            enabled: !isLoading,
             decoration: InputDecoration(
               label: Text(AppStrings.userName),
               hintText: AppStrings.enterYouUserName,
@@ -49,6 +52,7 @@ class ProfileForm extends StatelessWidget {
               Expanded(
                 child: TextFormField(
                   controller: firstNameController,
+                  enabled: !isLoading,
                   decoration: InputDecoration(
                     label: Text(AppStrings.firstName),
                     hintText: AppStrings.enterFirstName,
@@ -61,6 +65,7 @@ class ProfileForm extends StatelessWidget {
               Expanded(
                 child: TextFormField(
                   controller: lastNameController,
+                  enabled: !isLoading,
                   decoration: InputDecoration(
                     label: Text(AppStrings.lastName),
                     hintText: AppStrings.enterLastName,
@@ -76,6 +81,7 @@ class ProfileForm extends StatelessWidget {
 
           TextFormField(
             controller: emailController,
+            enabled: !isLoading,
             decoration: InputDecoration(
               label: Text(AppStrings.email),
               hintText: AppStrings.enterYouEmail,
@@ -114,6 +120,7 @@ class ProfileForm extends StatelessWidget {
 
           TextFormField(
             controller: phoneController,
+            enabled: !isLoading,
             decoration: InputDecoration(
               label: Text(AppStrings.phoneNumber),
               hintText: AppStrings.enterPhoneNumber,

@@ -16,7 +16,8 @@ import '../../features/home/domain/entities/get_all_subjects_entity.dart';
 import '../../features/home/presentation/manager/all_subjects_cubit.dart';
 import '../../features/home/presentation/manager/all_subjects_event.dart';
 import '../../features/profile/presentation/manager/change_password_cubit/change_password_cubit.dart';
-import '../../features/profile/presentation/pages/change_password/change_password.dart';
+import '../../features/profile/presentation/manager/update_profile/update_profile_cubit.dart';
+import '../../features/profile/presentation/pages/change_password/change_password_screen.dart';
 import '../../features/results/presentation/pages/result_details_screen.dart';
 import '../../features/results/presentation/manager/results_events.dart';
 import '../../features/splash/splash_screen.dart';
@@ -85,25 +86,28 @@ class RouteGenerator {
             ),
           );
 
-      case Routes.homeRoute:
-        final index = settings.arguments as int? ?? 0;
+        case Routes.homeRoute:
+          final index = settings.arguments as int? ?? 0;
 
-        return CupertinoPageRoute(
-          builder: (_) => MultiBlocProvider(
-            providers: [
-              BlocProvider(
-                create: (_) =>
-                    getIt.get<SubjectsCubit>()..doEvent(GetAllSubjectsEvent()),
-              ),
-              BlocProvider(
-                create: (_) => getIt.get<ResultsCubit>()..doEvent(GetResults()),
-              ),
-            ],
-            child: CustomBottomNavBar(initialIndex: index),
-          ),
-        );
-      case Routes.examsRoute:
-        SubjectEntity item = settings.arguments as SubjectEntity;
+          return CupertinoPageRoute(
+            builder: (_) => MultiBlocProvider(
+              providers: [
+                BlocProvider(
+                  create: (_) =>
+                      getIt.get<SubjectsCubit>()
+                        ..doEvent(GetAllSubjectsEvent()),
+                ),
+                BlocProvider(
+                  create: (_) =>
+                      getIt.get<ResultsCubit>()..doEvent(GetResults()),
+                ),
+                BlocProvider(create: (_) => getIt<UpdateProfileCubit>()),
+              ],
+              child: CustomBottomNavBar(initialIndex: index),
+            ),
+          );
+        case Routes.examsRoute:
+          SubjectEntity item = settings.arguments as SubjectEntity;
 
           return CupertinoPageRoute(
             builder: (_) => ExamsScreen(item: item),
@@ -129,28 +133,27 @@ class RouteGenerator {
             settings: settings,
           );
 
-      case Routes.examScoreViewRoute:
-        final examResult = settings.arguments as ExamResultEntity;
+        case Routes.examScoreViewRoute:
+          final examResult = settings.arguments as ExamResultEntity;
 
-        return CupertinoPageRoute(
-          builder: (_) => ExamScoreView(examResult: examResult),
-          settings: settings,
-        );
+          return CupertinoPageRoute(
+            builder: (_) => ExamScoreView(examResult: examResult),
+            settings: settings,
+          );
 
-      case Routes.resultDetailsRoute:
-        final examResult = settings.arguments as ExamResultEntity;
+        case Routes.resultDetailsRoute:
+          final examResult = settings.arguments as ExamResultEntity;
 
-        return CupertinoPageRoute(
-          builder: (_) => ResultDetailsScreen(exam: examResult),
-          settings: settings,
-        );
-
+          return CupertinoPageRoute(
+            builder: (_) => ResultDetailsScreen(exam: examResult),
+            settings: settings,
+          );
 
         case Routes.changePasswordRoute:
           return CupertinoPageRoute(
             builder: (_) => BlocProvider(
               create: (context) => getIt<ChangePasswordCubit>(),
-              child: ChangePassword(),
+              child: ChangePasswordScreen(),
             ),
           );
 

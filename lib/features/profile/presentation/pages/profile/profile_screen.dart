@@ -3,10 +3,13 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:online_exam/config/user/manager/user_cubit.dart';
 import 'package:online_exam/config/user/manager/user_events.dart';
 import 'package:online_exam/config/user/manager/user_state.dart';
+import 'package:online_exam/core/shared_widgets/custom_error_widget.dart';
 import 'package:online_exam/core/values/app_strings.dart';
 import 'package:online_exam/features/profile/presentation/manager/profile_controller.dart';
 import 'package:online_exam/features/profile/presentation/manager/update_profile/update_profile_cubit.dart';
 import 'package:online_exam/features/profile/presentation/widgets/profile_content.dart';
+
+import '../../../../../core/shared_widgets/custom_loading_indicator.dart';
 
 class ProfileScreen extends StatefulWidget {
   const ProfileScreen({super.key});
@@ -55,7 +58,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
           controller.initializeFromUser(state.updateProfile);
 
           context.read<UserCubit>().doEvent(
-            SetUserData(user: state.updateProfile),
+            SetUserDataEvent(user: state.updateProfile),
           );
         }
       },
@@ -68,11 +71,11 @@ class _ProfileScreenState extends State<ProfileScreen> {
         body: BlocBuilder<UserCubit, UserState>(
           builder: (context, state) {
             if (state.isLoading) {
-              return const Center(child: CircularProgressIndicator());
+              return const CustomLoadingIndicator();
             }
 
             if (state.user == null) {
-              return Center(child: Text(AppStrings.noUserData));
+              return CustomErrorWidget(errorMessage: AppStrings.noUserData);
             }
 
             return ProfileContent(
