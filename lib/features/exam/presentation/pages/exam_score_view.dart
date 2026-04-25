@@ -67,11 +67,10 @@ class ExamScoreView extends StatelessWidget {
             CustomButton(
               title: AppStrings.showResult,
               onPressed: () {
-                Navigator.pushNamedAndRemoveUntil(
+                Navigator.pushNamed(
                   context,
-                  Routes.homeRoute,
-                  arguments: 1,
-                  (route) => false,
+                  Routes.resultDetailsRoute,
+                  arguments: examResult,
                 );
               },
             ),

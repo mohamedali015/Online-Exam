@@ -15,7 +15,11 @@ class ExamLocalDataSourceImpl implements ExamLocalDataSource {
   @override
   Future<Result<bool>> saveExamResult(ExamResultHiveModel model) async {
     try {
-      await _storage.add(box: HiveBoxKeys.examResults, value: model);
+      await _storage.put(
+        box: HiveBoxKeys.examResults,
+        key: model.exam.id,
+        value: model,
+      );
 
       return Success(data: true);
     } catch (e) {
