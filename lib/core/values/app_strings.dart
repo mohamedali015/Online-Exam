@@ -130,6 +130,9 @@ abstract class AppStrings {
 
   static const String tryAgain = 'Try Again';
 
+  static const String examBackWarning = 'Are you sure you want to Exit Exam?';
+  static const String exit = 'Exit';
+
   static const String warning = 'Warning';
 
   static const String warningSubtitle =

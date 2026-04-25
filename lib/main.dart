@@ -35,22 +35,26 @@ class MyApp extends StatelessWidget {
       builder: (context, child) {
         return BlocProvider(
           create: (_) => getIt<UserCubit>(),
-          child: MaterialApp(
-            navigatorKey: AppConstants.navigatorKey,
-            title: 'Online Exam',
-            theme: AppTheme.appTheme,
-            debugShowCheckedModeBanner: false,
-            initialRoute: Routes.splashRoute,
-            onGenerateRoute: RouteGenerator.getRoute,
+          child: Builder(
+            builder: (context) {
+              return MaterialApp(
+                navigatorKey: AppConstants.navigatorKey,
+                title: 'Online Exam',
+                theme: AppTheme.appTheme(),
+                debugShowCheckedModeBanner: false,
+                initialRoute: Routes.splashRoute,
+                onGenerateRoute: RouteGenerator.getRoute,
 
-            builder: (context, child) {
-              return BlocListener<UserCubit, UserState>(
-                listener: (context, state) {
-                  if (state.isUnauthorized) {
-                    showSessionExpiredDialog();
-                  }
+                builder: (context, child) {
+                  return BlocListener<UserCubit, UserState>(
+                    listener: (context, state) {
+                      if (state.isUnauthorized) {
+                        showSessionExpiredDialog();
+                      }
+                    },
+                    child: child!,
+                  );
                 },
-                child: child!,
               );
             },
           ),
