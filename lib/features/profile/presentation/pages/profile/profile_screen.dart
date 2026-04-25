@@ -68,22 +68,32 @@ class _ProfileScreenState extends State<ProfileScreen> {
           automaticallyImplyLeading: false,
         ),
 
-        body: BlocBuilder<UserCubit, UserState>(
-          builder: (context, state) {
-            if (state.isLoading) {
-              return const CustomLoadingIndicator();
-            }
+        body: RefreshIndicator(
+          onRefresh: () async {
+            final user = context.read<UserCubit>().state.user;
 
-            if (state.user == null) {
-              return CustomErrorWidget(errorMessage: AppStrings.noUserData);
+            if (user != null) {
+              controller.initializeFromUser(user, force: true);
+              setState(() {});
             }
-
-            return ProfileContent(
-              controller: controller,
-              formKey: _formKey,
-              user: state.user!,
-            );
           },
+          child: BlocBuilder<UserCubit, UserState>(
+            builder: (context, state) {
+              if (state.isLoading) {
+                return const CustomLoadingIndicator();
+              }
+
+              if (state.user == null) {
+                return CustomErrorWidget(errorMessage: AppStrings.noUserData);
+              }
+
+              return ProfileContent(
+                controller: controller,
+                formKey: _formKey,
+                user: state.user!,
+              );
+            },
+          ),
         ),
       ),
     );

@@ -40,8 +40,12 @@ class ExamsScreen extends StatelessWidget {
                 if (state is ExamsSuccessState && state.exams.isNotEmpty) {
                   return Column(
                     children: [
-                      Expanded(child: ExamsList(title: AppStrings.exams,
-                          exams: state.exams)),
+                      Expanded(
+                        child: ExamsList(
+                          title: AppStrings.exams,
+                          exams: state.exams,
+                        ),
+                      ),
                     ],
                   );
                 }

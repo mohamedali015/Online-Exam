@@ -13,7 +13,7 @@ class ProfileController {
   bool isInitialized = false;
 
   /// بدل fillFromUser
-  void initializeFromUser(UserEntity user) {
+  void initializeFromUser(UserEntity user, {bool force = false}) {
     final newData = {
       "username": user.username ?? "",
       "firstName": user.firstName ?? "",
@@ -22,7 +22,7 @@ class ProfileController {
       "phone": user.phone ?? "",
     };
 
-    if (_isSameProfileData(newData, _originalData)) return;
+    if (!force && _isSameProfileData(newData, _originalData)) return;
 
     username.text = newData["username"]!;
     firstName.text = newData["firstName"]!;

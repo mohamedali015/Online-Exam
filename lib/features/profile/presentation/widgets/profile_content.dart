@@ -51,6 +51,7 @@ class ProfileContentState extends State<ProfileContent> {
 
     return SafeArea(
       child: SingleChildScrollView(
+        physics: const AlwaysScrollableScrollPhysics(),
         child: Padding(
           padding: MyResponsive.paddingAll(value: 16),
           child: Column(
