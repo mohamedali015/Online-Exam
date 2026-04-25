@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:online_exam/core/helpers/my_responsive.dart';
+import 'package:online_exam/core/utils/app_text_styles.dart';
 import 'package:online_exam/features/exams/domain/entities/exam_entity.dart';
 import 'package:online_exam/features/exams/presentation/widgets/exam_card.dart';
 
@@ -17,11 +18,8 @@ class ExamsList extends StatelessWidget {
       itemBuilder: (context, index) {
         if (index == 0) {
           return Padding(
-            padding: const EdgeInsets.only(bottom: 12),
-            child: Text(
-              title ?? '',
-              style: const TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
-            ),
+            padding: MyResponsive.paddingOnly(bottom: 12),
+            child: Text(title ?? '', style: AppTextStyles.bold20),
           );
         }
 

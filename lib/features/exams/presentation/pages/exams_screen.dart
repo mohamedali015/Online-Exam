@@ -38,16 +38,18 @@ class ExamsScreen extends StatelessWidget {
                 }
 
                 if (state is ExamsSuccessState && state.exams.isNotEmpty) {
-                  return SingleChildScrollView(
-                    scrollDirection: Axis.vertical,
-                    child: Column(
-                      children: [ExamsList(title: AppStrings.exams, exams: state.exams)],
-                    ),
+                  return Column(
+                    children: [
+                      Expanded(child: ExamsList(title: AppStrings.exams,
+                          exams: state.exams)),
+                    ],
                   );
                 }
 
                 if (state is ExamsSuccessState && state.exams.isEmpty) {
-                  return CustomErrorWidget(errorMessage: AppStrings.noExamsAvailable);
+                  return CustomErrorWidget(
+                    errorMessage: AppStrings.noExamsAvailable,
+                  );
                 }
 
                 if (state is ExamsErrorState) {
