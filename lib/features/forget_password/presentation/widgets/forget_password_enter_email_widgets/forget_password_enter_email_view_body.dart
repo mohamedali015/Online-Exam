@@ -30,7 +30,8 @@ class ForgetPasswordEnterEmailViewBody extends StatelessWidget {
 
           Text(
             AppStrings.forgetPassword,
-            style: AppTextStyles.medium18.copyWith(color: AppColors.baseBlack),
+            style: AppTextStyles.medium18().copyWith(
+                color: AppColors.baseBlack),
             textAlign: TextAlign.center,
           ),
 
@@ -38,7 +39,8 @@ class ForgetPasswordEnterEmailViewBody extends StatelessWidget {
 
           Text(
             AppStrings.enterYourEmailAssociatedToYourAccount,
-            style: AppTextStyles.regular14.copyWith(color: AppColors.baseBlack),
+            style: AppTextStyles.regular14().copyWith(
+                color: AppColors.baseBlack),
             textAlign: TextAlign.center,
           ),
 

@@ -150,13 +150,13 @@ class RegisterScreenState extends State<RegisterScreen> {
               RichText(
                 text: TextSpan(
                   text: AppStrings.alreadyHaveAnAccount,
-                  style: AppTextStyles.regular16.copyWith(
+                  style: AppTextStyles.regular16().copyWith(
                     color: AppColors.baseBlack,
                   ),
                   children: [
                     TextSpan(
                       text: " ${AppStrings.login}",
-                      style: AppTextStyles.regular16.copyWith(
+                      style: AppTextStyles.regular16().copyWith(
                         color: AppColors.primaryColor,
                         decoration: TextDecoration.underline,
                       ),

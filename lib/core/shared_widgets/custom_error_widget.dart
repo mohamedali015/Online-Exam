@@ -26,7 +26,7 @@ class CustomErrorWidget extends StatelessWidget {
         children: [
           Text(
             errorMessage,
-            style: AppTextStyles.bold16,
+            style: AppTextStyles.bold16(),
             textAlign: TextAlign.center,
           ),
           if (haveTryAgain) ...[

@@ -102,7 +102,7 @@ class ProfileForm extends StatelessWidget {
                 },
                 child: Text(
                   AppStrings.change,
-                  style: AppTextStyles.semiBold12.copyWith(
+                  style: AppTextStyles.semiBold12().copyWith(
                     color: AppColors.primaryColor,
                   ),
                 ),
@@ -110,7 +110,7 @@ class ProfileForm extends StatelessWidget {
               label: Text(AppStrings.password),
             ),
             obscureText: true,
-            style: AppTextStyles.regular16.copyWith(
+            style: AppTextStyles.regular16().copyWith(
               color: AppColors.passwordGray,
             ),
             obscuringCharacter: AppStrings.obscuringCharacter,

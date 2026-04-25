@@ -31,7 +31,8 @@ class ForgetPasswordVerifyOtpViewBody extends StatelessWidget {
 
           Text(
             AppStrings.emailVerification,
-            style: AppTextStyles.medium18.copyWith(color: AppColors.baseBlack),
+            style: AppTextStyles.medium18().copyWith(
+                color: AppColors.baseBlack),
             textAlign: TextAlign.center,
           ),
 
@@ -39,7 +40,8 @@ class ForgetPasswordVerifyOtpViewBody extends StatelessWidget {
 
           Text(
             AppStrings.enterYourCode,
-            style: AppTextStyles.regular14.copyWith(color: AppColors.baseBlack),
+            style: AppTextStyles.regular14().copyWith(
+                color: AppColors.baseBlack),
             textAlign: TextAlign.center,
           ),
 

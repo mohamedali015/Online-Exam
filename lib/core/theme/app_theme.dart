@@ -16,22 +16,22 @@ class AppTheme {
         errorMaxLines: 2,
         labelStyle: WidgetStateTextStyle.resolveWith((states) {
           if (states.contains(WidgetState.error)) {
-            return AppTextStyles.regular12.copyWith(color: AppColors.error);
+            return AppTextStyles.regular12().copyWith(color: AppColors.error);
           }
-          return AppTextStyles.regular12.copyWith(color: AppColors.baseGray);
+          return AppTextStyles.regular12().copyWith(color: AppColors.baseGray);
         }),
 
         floatingLabelStyle: WidgetStateTextStyle.resolveWith((states) {
           if (states.contains(WidgetState.error)) {
-            return AppTextStyles.regular12.copyWith(color: AppColors.error);
+            return AppTextStyles.regular12().copyWith(color: AppColors.error);
           }
-          return AppTextStyles.regular12.copyWith(color: AppColors.baseGray);
+          return AppTextStyles.regular12().copyWith(color: AppColors.baseGray);
         }),
         filled: true,
 
         fillColor: AppColors.baseWhite,
-        errorStyle: AppTextStyles.regular12.copyWith(color: AppColors.error),
-        hintStyle: AppTextStyles.regular14.copyWith(
+        errorStyle: AppTextStyles.regular12().copyWith(color: AppColors.error),
+        hintStyle: AppTextStyles.regular14().copyWith(
           color: AppColors.hintTextGray,
         ),
 
@@ -63,7 +63,7 @@ class AppTheme {
 
       searchBarTheme: SearchBarThemeData(
         hintStyle: WidgetStatePropertyAll(
-          AppTextStyles.medium14.copyWith(color: AppColors.baseGray),
+          AppTextStyles.medium14().copyWith(color: AppColors.baseGray),
         ),
         backgroundColor: WidgetStateProperty.all(AppColors.baseWhite),
         elevation: WidgetStateProperty.all(0),
@@ -86,7 +86,7 @@ class AppTheme {
           elevation: 0,
           disabledForegroundColor: AppColors.baseWhite,
           minimumSize: Size(double.infinity, MyResponsive.height(value: 48)),
-          textStyle: AppTextStyles.medium16,
+          textStyle: AppTextStyles.medium16(),
           foregroundColor: AppColors.baseWhite,
           backgroundColor: AppColors.primaryColor,
           disabledBackgroundColor: AppColors.disabledGray,
@@ -102,7 +102,7 @@ class AppTheme {
         backgroundColor: AppColors.baseWhite,
         elevation: 0,
         scrolledUnderElevation: 0,
-        titleTextStyle: AppTextStyles.medium20.copyWith(
+        titleTextStyle: AppTextStyles.medium20().copyWith(
           color: AppColors.baseBlack,
         ),
         iconTheme: IconThemeData(color: AppColors.baseBlack),
@@ -116,10 +116,10 @@ class AppTheme {
         backgroundColor: AppColors.questionsLightBlue,
         selectedItemColor: AppColors.primaryColor,
         unselectedItemColor: AppColors.disabledGray,
-        unselectedLabelStyle: AppTextStyles.medium12.copyWith(
+        unselectedLabelStyle: AppTextStyles.medium12().copyWith(
           color: AppColors.disabledGray,
         ),
-        selectedLabelStyle: AppTextStyles.medium12,
+        selectedLabelStyle: AppTextStyles.medium12(),
         showSelectedLabels: true,
         showUnselectedLabels: true,
         elevation: 0,

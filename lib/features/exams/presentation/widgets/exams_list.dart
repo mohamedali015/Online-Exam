@@ -19,7 +19,7 @@ class ExamsList extends StatelessWidget {
         if (index == 0) {
           return Padding(
             padding: MyResponsive.paddingOnly(bottom: 12),
-            child: Text(title ?? '', style: AppTextStyles.bold20),
+            child: Text(title ?? '', style: AppTextStyles.bold20()),
           );
         }
 

@@ -23,7 +23,7 @@ class QuestionPageViewItem extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text(question.question, style: AppTextStyles.medium18),
+          Text(question.question, style: AppTextStyles.medium18()),
 
           SizedBox(height: MyResponsive.height(value: 24)),
 
@@ -50,7 +50,8 @@ class QuestionPageViewItem extends StatelessWidget {
                   ),
                   child: RadioListTile<String>(
                     value: answer.key,
-                    title: Text(answer.answer, style: AppTextStyles.regular14),
+                    title: Text(
+                        answer.answer, style: AppTextStyles.regular14()),
                   ),
                 );
               }).toList(),

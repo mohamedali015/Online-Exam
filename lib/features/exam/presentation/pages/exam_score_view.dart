@@ -37,7 +37,7 @@ class ExamScoreView extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             SizedBox(height: MyResponsive.height(value: 20)),
-            Text(AppStrings.yourScore, style: AppTextStyles.medium18),
+            Text(AppStrings.yourScore, style: AppTextStyles.medium18()),
             SizedBox(height: MyResponsive.height(value: 24)),
             Row(
               children: [

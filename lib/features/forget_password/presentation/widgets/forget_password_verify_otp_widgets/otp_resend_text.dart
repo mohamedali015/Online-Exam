@@ -25,7 +25,7 @@ class OtpResendText extends StatelessWidget {
       children: [
         Text(
           "$title ",
-          style: AppTextStyles.regular16.copyWith(color: AppColors.baseBlack),
+          style: AppTextStyles.regular16().copyWith(color: AppColors.baseBlack),
         ),
         GestureDetector(
           onTap: onTap,
@@ -37,7 +37,7 @@ class OtpResendText extends StatelessWidget {
                 )
               : Text(
                   actionText,
-                  style: AppTextStyles.regular16.copyWith(
+                  style: AppTextStyles.regular16().copyWith(
                     decoration: TextDecoration.underline,
                     color: AppColors.primaryColor,
                   ),

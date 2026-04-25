@@ -62,10 +62,10 @@ class ExamCard extends StatelessWidget {
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          Text(exam.title, style: AppTextStyles.medium16),
+                          Text(exam.title, style: AppTextStyles.medium16()),
                           Text(
                             '${exam.duration} ${AppStrings.minutes}',
-                            style: AppTextStyles.regular13.copyWith(
+                            style: AppTextStyles.regular13().copyWith(
                               color: AppColors.primaryColor,
                             ),
                           ),
@@ -73,7 +73,7 @@ class ExamCard extends StatelessWidget {
                       ),
                       Text(
                         '${exam.numberOfQuestions} ${AppStrings.questions}',
-                        style: AppTextStyles.regular13.copyWith(
+                        style: AppTextStyles.regular13().copyWith(
                           color: AppColors.baseGray,
                         ),
                       ),
@@ -84,13 +84,13 @@ class ExamCard extends StatelessWidget {
                       RichText(
                         text: TextSpan(
                           text: AppStrings.from,
-                          style: AppTextStyles.regular13.copyWith(
+                          style: AppTextStyles.regular13().copyWith(
                             color: AppColors.baseBlack,
                           ),
                           children: [
                             TextSpan(
                               text: AppStrings.startTime,
-                              style: AppTextStyles.medium14.copyWith(
+                              style: AppTextStyles.medium14().copyWith(
                                 color: AppColors.baseBlack,
                               ),
                             ),
@@ -101,13 +101,13 @@ class ExamCard extends StatelessWidget {
                       RichText(
                         text: TextSpan(
                           text: AppStrings.to,
-                          style: AppTextStyles.regular13.copyWith(
+                          style: AppTextStyles.regular13().copyWith(
                             color: AppColors.baseBlack,
                           ),
                           children: [
                             TextSpan(
                               text: AppStrings.endTime,
-                              style: AppTextStyles.medium14.copyWith(
+                              style: AppTextStyles.medium14().copyWith(
                                 color: AppColors.baseBlack,
                               ),
                             ),

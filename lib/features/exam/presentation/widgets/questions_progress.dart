@@ -21,7 +21,7 @@ class QuestionsProgress extends StatelessWidget {
       children: [
         Text(
           "${AppStrings.question} $currentQuestion ${AppStrings.of} $totalQuestions",
-          style: AppTextStyles.medium14.copyWith(color: AppColors.baseGray),
+          style: AppTextStyles.medium14().copyWith(color: AppColors.baseGray),
         ),
 
         SizedBox(height: MyResponsive.height(value: 4)),

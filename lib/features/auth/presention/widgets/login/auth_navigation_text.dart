@@ -22,13 +22,13 @@ class AuthNavigationText extends StatelessWidget {
       children: [
         Text(
           "$title ",
-          style: AppTextStyles.regular16.copyWith(color: AppColors.baseBlack),
+          style: AppTextStyles.regular16().copyWith(color: AppColors.baseBlack),
         ),
         GestureDetector(
           onTap: onTap,
           child: Text(
             actionText,
-            style: AppTextStyles.regular16.copyWith(
+            style: AppTextStyles.regular16().copyWith(
               decoration: TextDecoration.underline,
               color: AppColors.primaryColor,
             ),

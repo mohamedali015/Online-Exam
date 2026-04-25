@@ -47,11 +47,11 @@ class ExamDetails extends StatelessWidget {
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    Text(examTitle, style: AppTextStyles.semiBold20),
+                    Text(examTitle, style: AppTextStyles.semiBold20()),
                     SizedBox(width: MyResponsive.width(value: 10)),
                     Text(
                       '$examDuration ${AppStrings.minutes}',
-                      style: AppTextStyles.regular13.copyWith(
+                      style: AppTextStyles.regular13().copyWith(
                         color: AppColors.primaryColor,
                       ),
                     ),
@@ -63,11 +63,11 @@ class ExamDetails extends StatelessWidget {
           SizedBox(height: MyResponsive.height(value: 10)),
           Row(
             children: [
-              Text('${AppStrings.examDate}:', style: AppTextStyles.medium18),
+              Text('${AppStrings.examDate}:', style: AppTextStyles.medium18()),
               SizedBox(width: MyResponsive.width(value: 10)),
               Text(
                 '|',
-                style: AppTextStyles.medium18.copyWith(
+                style: AppTextStyles.medium18().copyWith(
                   color: AppColors.selectedBlue,
                 ),
               ),
@@ -75,7 +75,7 @@ class ExamDetails extends StatelessWidget {
 
               Text(
                 '$examNumberOfQuestions ${AppStrings.questions}',
-                style: AppTextStyles.regular16.copyWith(
+                style: AppTextStyles.regular16().copyWith(
                   color: AppColors.baseGray,
                 ),
               ),

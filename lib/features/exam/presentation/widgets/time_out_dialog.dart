@@ -33,7 +33,7 @@ class TimeOutDialog extends StatelessWidget {
                 SizedBox(width: MyResponsive.width(value: 6)),
                 Text(
                   AppStrings.timeOut,
-                  style: AppTextStyles.regular24.copyWith(
+                  style: AppTextStyles.regular24().copyWith(
                     color: AppColors.error,
                   ),
                 ),

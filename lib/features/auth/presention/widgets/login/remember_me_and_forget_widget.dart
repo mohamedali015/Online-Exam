@@ -36,7 +36,7 @@ class _RememberMeAndForgetWidgetState extends State<RememberMeAndForgetWidget> {
 
         Text(
           AppStrings.rememberMe,
-          style: AppTextStyles.regular13.copyWith(color: AppColors.baseBlack),
+          style: AppTextStyles.regular13().copyWith(color: AppColors.baseBlack),
         ),
 
         const Spacer(),
@@ -48,7 +48,7 @@ class _RememberMeAndForgetWidgetState extends State<RememberMeAndForgetWidget> {
           },
           child: Text(
             "${AppStrings.forgetPassword}?",
-            style: AppTextStyles.regular12.copyWith(
+            style: AppTextStyles.regular12().copyWith(
               decoration: TextDecoration.underline,
               color: AppColors.baseBlack,
             ),

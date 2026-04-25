@@ -9,7 +9,7 @@ abstract class AppSnackbar {
       SnackBar(
         content: Text(
           message,
-          style: AppTextStyles.regular16.copyWith(color: AppColors.baseWhite),
+          style: AppTextStyles.regular16().copyWith(color: AppColors.baseWhite),
         ),
         backgroundColor: AppColors.error,
         duration: const Duration(seconds: 5),
@@ -22,7 +22,7 @@ abstract class AppSnackbar {
       SnackBar(
         content: Text(
           message,
-          style: AppTextStyles.regular16.copyWith(color: AppColors.baseWhite),
+          style: AppTextStyles.regular16().copyWith(color: AppColors.baseWhite),
         ),
         backgroundColor: AppColors.success,
         duration: const Duration(seconds: 3),

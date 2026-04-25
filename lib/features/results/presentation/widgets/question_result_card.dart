@@ -24,7 +24,7 @@ class QuestionResultCard extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text(question.question, style: AppTextStyles.medium18),
+          Text(question.question, style: AppTextStyles.medium18()),
 
           SizedBox(height: MyResponsive.height(value: 16)),
 
@@ -56,7 +56,8 @@ class QuestionResultCard extends StatelessWidget {
                   SizedBox(width: MyResponsive.width(value: 18)),
 
                   Expanded(
-                    child: Text(answer.answer, style: AppTextStyles.regular14),
+                    child: Text(
+                        answer.answer, style: AppTextStyles.regular14()),
                   ),
                 ],
               ),

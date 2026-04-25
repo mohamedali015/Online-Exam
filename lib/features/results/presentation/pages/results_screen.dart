@@ -57,7 +57,7 @@ class ResultsScreen extends StatelessWidget {
                       fit: BoxFit.contain,
                       height: MyResponsive.height(value: 200),
                     ),
-                    Text(AppStrings.noResults, style: AppTextStyles.medium18),
+                    Text(AppStrings.noResults, style: AppTextStyles.medium18()),
                   ],
                 );
               } else if (resultsState.data != null &&
@@ -76,7 +76,7 @@ class ResultsScreen extends StatelessWidget {
                       children: [
                         SizedBox(height: MyResponsive.height(value: 20)),
 
-                        Text(subject, style: AppTextStyles.medium18),
+                        Text(subject, style: AppTextStyles.medium18()),
 
                         SizedBox(height: MyResponsive.height(value: 24)),
 

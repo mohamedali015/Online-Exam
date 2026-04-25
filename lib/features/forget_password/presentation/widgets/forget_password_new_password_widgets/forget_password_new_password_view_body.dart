@@ -31,13 +31,15 @@ class ForgetPasswordNewPasswordViewBody extends StatelessWidget {
 
           Text(
             AppStrings.resetPassword,
-            style: AppTextStyles.medium18.copyWith(color: AppColors.baseBlack),
+            style: AppTextStyles.medium18().copyWith(
+                color: AppColors.baseBlack),
             textAlign: TextAlign.center,
           ),
           SizedBox(height: MyResponsive.height(value: 16)),
           Text(
             AppStrings.passwordMustNotBeEmpty,
-            style: AppTextStyles.regular14.copyWith(color: AppColors.baseBlack),
+            style: AppTextStyles.regular14().copyWith(
+                color: AppColors.baseBlack),
             textAlign: TextAlign.center,
           ),
 

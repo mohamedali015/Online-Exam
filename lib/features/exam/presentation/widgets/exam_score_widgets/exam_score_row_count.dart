@@ -23,7 +23,7 @@ class ExamScoreRowCount extends StatelessWidget {
         Expanded(
           child: Text(
             title,
-            style: AppTextStyles.medium16.copyWith(
+            style: AppTextStyles.medium16().copyWith(
               color: isCorrect ? AppColors.primaryColor : AppColors.error,
             ),
           ),
@@ -40,7 +40,7 @@ class ExamScoreRowCount extends StatelessWidget {
           child: Center(
             child: Text(
               '$count',
-              style: AppTextStyles.medium14.copyWith(
+              style: AppTextStyles.medium14().copyWith(
                 color: isCorrect ? AppColors.primaryColor : AppColors.error,
               ),
             ),

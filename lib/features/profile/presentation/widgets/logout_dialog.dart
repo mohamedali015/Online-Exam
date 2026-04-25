@@ -22,12 +22,12 @@ class LogoutDialog extends StatelessWidget {
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
-            Text(AppStrings.warning, style: AppTextStyles.regular24),
+            Text(AppStrings.warning, style: AppTextStyles.regular24()),
             SizedBox(height: MyResponsive.height(value: 36)),
             Text(
               AppStrings.logoutWarning,
               textAlign: TextAlign.center,
-              style: AppTextStyles.medium16.copyWith(
+              style: AppTextStyles.medium16().copyWith(
                 color: AppColors.baseBlack.withValues(alpha: 0.5),
               ),
             ),

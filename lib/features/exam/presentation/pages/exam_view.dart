@@ -78,7 +78,7 @@ class _ExamViewState extends State<ExamView> {
                     builder: (context, state) {
                       return Text(
                         context.read<ExamCubit>().formattedTime,
-                        style: AppTextStyles.regular20.copyWith(
+                        style: AppTextStyles.regular20().copyWith(
                           color: context.read<ExamCubit>().lastFewMinutes
                               ? AppColors.error
                               : AppColors.success,

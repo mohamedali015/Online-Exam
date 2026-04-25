@@ -53,7 +53,7 @@ class SubjectCard extends StatelessWidget {
                   item.name ?? AppStrings.noNameFound,
                   maxLines: 1,
                   overflow: TextOverflow.ellipsis,
-                  style: AppTextStyles.regular16,
+                  style: AppTextStyles.regular16(),
                 ),
               ),
             ],

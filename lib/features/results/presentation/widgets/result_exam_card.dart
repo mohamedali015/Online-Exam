@@ -62,7 +62,7 @@ class ResultExamCard extends StatelessWidget {
                         Expanded(
                           child: Text(
                             exam.exam.title,
-                            style: AppTextStyles.medium16,
+                            style: AppTextStyles.medium16(),
                             maxLines: 1,
                             overflow: TextOverflow.ellipsis,
                           ),
@@ -76,12 +76,12 @@ class ResultExamCard extends StatelessWidget {
                           children: [
                             Text(
                               "${exam.exam.duration}",
-                              style: AppTextStyles.regular13,
+                              style: AppTextStyles.regular13(),
                             ),
                             SizedBox(width: MyResponsive.width(value: 4)),
                             Text(
                               AppStrings.minutes,
-                              style: AppTextStyles.regular13,
+                              style: AppTextStyles.regular13(),
                             ),
                           ],
                         ),
@@ -96,14 +96,14 @@ class ResultExamCard extends StatelessWidget {
                       children: [
                         Text(
                           "${exam.questions.length}",
-                          style: AppTextStyles.regular13.copyWith(
+                          style: AppTextStyles.regular13().copyWith(
                             color: AppColors.baseGray,
                           ),
                         ),
                         SizedBox(width: MyResponsive.width(value: 4)),
                         Text(
                           AppStrings.question,
-                          style: AppTextStyles.regular13.copyWith(
+                          style: AppTextStyles.regular13().copyWith(
                             color: AppColors.baseGray,
                           ),
                         ),
@@ -119,7 +119,7 @@ class ResultExamCard extends StatelessWidget {
                   children: [
                     Text(
                       "${exam.correctAnswers}",
-                      style: AppTextStyles.semiBold12.copyWith(
+                      style: AppTextStyles.semiBold12().copyWith(
                         color: AppColors.primaryColor,
                       ),
                     ),
@@ -127,7 +127,7 @@ class ResultExamCard extends StatelessWidget {
                     Flexible(
                       child: Text(
                         AppStrings.correctedAnswersIn,
-                        style: AppTextStyles.medium12.copyWith(
+                        style: AppTextStyles.medium12().copyWith(
                           color: AppColors.primaryColor,
                         ),
                         overflow: TextOverflow.ellipsis,
@@ -141,14 +141,14 @@ class ResultExamCard extends StatelessWidget {
                       children: [
                         Text(
                           "${exam.spentMinutes}",
-                          style: AppTextStyles.semiBold12.copyWith(
+                          style: AppTextStyles.semiBold12().copyWith(
                             color: AppColors.primaryColor,
                           ),
                         ),
                         SizedBox(width: MyResponsive.width(value: 4)),
                         Text(
                           AppStrings.min,
-                          style: AppTextStyles.medium12.copyWith(
+                          style: AppTextStyles.medium12().copyWith(
                             color: AppColors.primaryColor,
                           ),
                         ),

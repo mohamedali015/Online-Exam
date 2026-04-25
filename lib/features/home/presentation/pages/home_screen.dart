@@ -39,7 +39,8 @@ class _HomeScreenState extends State<HomeScreen> {
       appBar: AppBar(
         title: Text(
           AppStrings.survey,
-          style: AppTextStyles.medium20.copyWith(color: AppColors.primaryColor),
+          style: AppTextStyles.medium20().copyWith(
+              color: AppColors.primaryColor),
         ),
         automaticallyImplyLeading: false,
       ),
@@ -96,7 +97,7 @@ class _HomeScreenState extends State<HomeScreen> {
                           ),
                           Text(
                             AppStrings.noSubjectsFound,
-                            style: AppTextStyles.medium18,
+                            style: AppTextStyles.medium18(),
                           ),
                         ],
                       );

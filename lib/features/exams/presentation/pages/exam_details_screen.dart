@@ -39,7 +39,7 @@ class ExamDetailsScreen extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text(AppStrings.instructions, style: AppTextStyles.medium18),
+                Text(AppStrings.instructions, style: AppTextStyles.medium18()),
                 SizedBox(height: MyResponsive.height(value: 10)),
                 Padding(
                   padding: MyResponsive.paddingSymmetric(horizontal: 8),
@@ -85,12 +85,12 @@ Widget _instructionItem(String text) {
       children: [
         Text(
           '• ',
-          style: AppTextStyles.medium14.copyWith(color: AppColors.baseGray),
+          style: AppTextStyles.medium14().copyWith(color: AppColors.baseGray),
         ),
         Expanded(
           child: Text(
             text,
-            style: AppTextStyles.medium14.copyWith(color: AppColors.baseGray),
+            style: AppTextStyles.medium14().copyWith(color: AppColors.baseGray),
           ),
         ),
       ],
