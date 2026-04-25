@@ -58,15 +58,21 @@ class AppTheme {
     ),
 
     searchBarTheme: SearchBarThemeData(
+      hintStyle: WidgetStatePropertyAll(
+        AppTextStyles.medium14.copyWith(color: AppColors.baseGray),
+      ),
       backgroundColor: WidgetStateProperty.all(AppColors.baseWhite),
       elevation: WidgetStateProperty.all(0),
       padding: WidgetStateProperty.all(
-        MyResponsive.paddingSymmetric(horizontal: 18, vertical: 4),
+        MyResponsive.paddingSymmetric(horizontal: 16, vertical: 4),
       ),
       shape: WidgetStateProperty.all(
         RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(MyResponsive.radius(value: 20)),
-          side: BorderSide(color: AppColors.baseGray, width: 1.2),
+          side: BorderSide(
+            color: AppColors.baseGray,
+            width: MyResponsive.width(value: 1.2),
+          ),
         ),
       ),
     ),

@@ -55,11 +55,6 @@ class _HomeScreenState extends State<HomeScreen> {
               SizedBox(height: MyResponsive.height(value: 16)),
 
               SearchBar(
-                backgroundColor: WidgetStatePropertyAll(AppColors.baseWhite),
-
-                padding: WidgetStatePropertyAll<EdgeInsets>(
-                  MyResponsive.paddingSymmetric(horizontal: 8),
-                ),
                 hintText: AppStrings.search,
                 leading: Icon(Icons.search, color: AppColors.baseGray),
                 controller: searchController,

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:online_exam/config/route_manager/routes.dart';
 import 'package:online_exam/core/helpers/my_responsive.dart';
+import 'package:online_exam/core/shared_widgets/custom_button.dart';
 import 'package:online_exam/core/utils/app_colors.dart';
 import 'package:online_exam/core/utils/app_text_styles.dart';
 import 'package:online_exam/core/values/app_strings.dart';
@@ -56,7 +57,7 @@ class ExamDetailsScreen extends StatelessWidget {
                   ),
                 ),
                 SizedBox(height: MyResponsive.height(value: 20)),
-                ElevatedButton(
+                CustomButton(
                   onPressed: () {
                     Navigator.pushNamed(
                       context,
@@ -64,7 +65,7 @@ class ExamDetailsScreen extends StatelessWidget {
                       arguments: exam,
                     );
                   },
-                  child: Text(AppStrings.start),
+                  title: AppStrings.start,
                 ),
               ],
             ),

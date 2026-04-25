@@ -7,6 +7,8 @@ import 'package:online_exam/core/utils/app_text_styles.dart';
 import 'package:online_exam/core/values/app_strings.dart';
 import 'package:online_exam/features/exams/domain/entities/exam_entity.dart';
 
+import '../../../../core/shared_widgets/cached_network_image_wrapper.dart';
+
 class ExamCard extends StatelessWidget {
   const ExamCard({super.key, required this.exam});
 
@@ -34,11 +36,19 @@ class ExamCard extends StatelessWidget {
         ),
         child: Row(
           children: [
-            Image.asset(
-              AppAssets.examPath,
-              width: MyResponsive.width(value: 60),
-              height: MyResponsive.height(value: 70),
-            ),
+            exam.icon.isNotEmpty
+                ? CachedNetworkImageWrapper(
+                    imagePath: exam.icon,
+                    width: MyResponsive.width(value: 60),
+                    height: MyResponsive.height(value: 60),
+                    fit: BoxFit.contain,
+                  )
+                : Image.asset(
+                    AppAssets.examImagePath,
+                    width: MyResponsive.width(value: 60),
+                    height: MyResponsive.height(value: 60),
+                    fit: BoxFit.fill,
+                  ),
             SizedBox(width: MyResponsive.width(value: 10)),
             Expanded(
               child: Column(

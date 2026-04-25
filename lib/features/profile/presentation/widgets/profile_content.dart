@@ -93,29 +93,37 @@ class ProfileContentState extends State<ProfileContent> {
                           );
                         },
                       ),
+                      SizedBox(height: MyResponsive.height(value: 16)),
+                      CustomButton(
+                        title: AppStrings.logOut,
+                        backgroundColor: AppColors.baseWhite,
+                        foregroundColor: isLoading
+                            ? AppColors.baseWhite
+                            : AppColors.primaryColor,
+                        onPressed: isLoading
+                            ? null
+                            : () {
+                                showDialog(
+                                  context: context,
+                                  builder: (context) => LogoutDialog(
+                                    onLogout: () {
+                                      SecureCacheHelper.removeData(
+                                        key: CacheKeys.token,
+                                      );
+                                      SecureCacheHelper.removeData(
+                                        key: CacheKeys.rememberMe,
+                                      );
+                                      Navigator.pushNamedAndRemoveUntil(
+                                        context,
+                                        Routes.loginRoute,
+                                        (route) => false,
+                                      );
+                                    },
+                                  ),
+                                );
+                              },
+                      ),
                     ],
-                  );
-                },
-              ),
-              SizedBox(height: MyResponsive.height(value: 16)),
-              CustomButton(
-                title: AppStrings.logOut,
-                backgroundColor: AppColors.baseWhite,
-                foregroundColor: AppColors.primaryColor,
-                onPressed: () {
-                  showDialog(
-                    context: context,
-                    builder: (context) => LogoutDialog(
-                      onLogout: () {
-                        SecureCacheHelper.removeData(key: CacheKeys.token);
-                        SecureCacheHelper.removeData(key: CacheKeys.rememberMe);
-                        Navigator.pushNamedAndRemoveUntil(
-                          context,
-                          Routes.loginRoute,
-                          (route) => false,
-                        );
-                      },
-                    ),
                   );
                 },
               ),

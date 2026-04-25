@@ -19,7 +19,10 @@ class ResultsScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text(AppStrings.result)),
+      appBar: AppBar(
+        title: Text(AppStrings.result),
+        automaticallyImplyLeading: false,
+      ),
 
       body: RefreshIndicator(
         onRefresh: () async {
