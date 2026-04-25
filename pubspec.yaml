@@ -50,6 +50,7 @@ dependencies:
   cached_network_image: ^3.4.1
   hive_ce:
   hive_ce_flutter:
+  google_fonts:
 
 dev_dependencies:
   flutter_test:
