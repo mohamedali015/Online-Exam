@@ -3,10 +3,12 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:online_exam/config/user/manager/user_cubit.dart';
 import 'package:online_exam/config/user/manager/user_events.dart';
 import 'package:online_exam/config/user/manager/user_state.dart';
+import 'package:online_exam/core/helpers/app_snackbar.dart';
 import 'package:online_exam/core/shared_widgets/custom_error_widget.dart';
 import 'package:online_exam/core/values/app_strings.dart';
 import 'package:online_exam/features/profile/presentation/manager/profile_controller.dart';
 import 'package:online_exam/features/profile/presentation/manager/update_profile/update_profile_cubit.dart';
+import 'package:online_exam/features/profile/presentation/widgets/cancel_edits_dialog.dart';
 import 'package:online_exam/features/profile/presentation/widgets/profile_content.dart';
 
 import '../../../../../core/shared_widgets/custom_loading_indicator.dart';
@@ -50,10 +52,34 @@ class _ProfileScreenState extends State<ProfileScreen> {
     super.dispose();
   }
 
+  Future<void> _handleDiscardChanges() async {
+    FocusManager.instance.primaryFocus?.unfocus();
+
+    final shouldDiscard = await showDialog<bool>(
+      context: context,
+      builder: (context) => CancelEditsDialog(),
+    );
+
+    if (shouldDiscard == true) {
+      final user = context.read<UserCubit>().state.user;
+
+      if (user != null) {
+        Future.microtask(() {
+          controller.initializeFromUser(user, force: true);
+          setState(() {});
+        });
+      }
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return BlocListener<UpdateProfileCubit, UpdateProfileState>(
       listener: (context, state) {
+        if (state is UpdateProfileError) {
+          AppSnackbar.error(context, state.errorMessage);
+        }
+
         if (state is UpdateProfileSuccess) {
           controller.initializeFromUser(state.updateProfile);
 
@@ -64,35 +90,51 @@ class _ProfileScreenState extends State<ProfileScreen> {
       },
       child: Scaffold(
         appBar: AppBar(
-          title: const Text(AppStrings.profile),
-          automaticallyImplyLeading: false,
+          title: Text(
+            controller.hasChanges ? AppStrings.editProfile : AppStrings.profile,
+          ),
+          automaticallyImplyLeading: controller.hasChanges,
+          leading: controller.hasChanges
+              ? IconButton(
+                  icon: const Icon(Icons.arrow_back_ios_new),
+                  onPressed: _handleDiscardChanges,
+                )
+              : null,
         ),
 
-        body: RefreshIndicator(
-          onRefresh: () async {
-            final user = context.read<UserCubit>().state.user;
+        body: WillPopScope(
+          onWillPop: () async {
+            if (!controller.hasChanges) return true;
 
-            if (user != null) {
-              controller.initializeFromUser(user, force: true);
-              setState(() {});
-            }
+            await _handleDiscardChanges();
+            return false;
           },
-          child: BlocBuilder<UserCubit, UserState>(
-            builder: (context, state) {
-              if (state.isLoading) {
-                return const CustomLoadingIndicator();
-              }
+          child: RefreshIndicator(
+            onRefresh: () async {
+              final user = context.read<UserCubit>().state.user;
 
-              if (state.user == null) {
-                return CustomErrorWidget(errorMessage: AppStrings.noUserData);
+              if (user != null) {
+                controller.initializeFromUser(user, force: true);
+                setState(() {});
               }
-
-              return ProfileContent(
-                controller: controller,
-                formKey: _formKey,
-                user: state.user!,
-              );
             },
+            child: BlocBuilder<UserCubit, UserState>(
+              builder: (context, state) {
+                if (state.isLoading) {
+                  return const CustomLoadingIndicator();
+                }
+
+                if (state.user == null) {
+                  return CustomErrorWidget(errorMessage: AppStrings.noUserData);
+                }
+
+                return ProfileContent(
+                  controller: controller,
+                  formKey: _formKey,
+                  user: state.user!,
+                );
+              },
+            ),
           ),
         ),
       ),
