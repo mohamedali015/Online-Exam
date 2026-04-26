@@ -161,4 +161,9 @@ abstract class AppStrings {
 
   static const String logoutWarning =
       "Are you sure you want to log out from your account?";
+
+  static const String discardChanges = "Discard changes?";
+  static const String discardChangesContent = "You have unsaved changes.";
+
+  static const String discard = "Discard";
 }
