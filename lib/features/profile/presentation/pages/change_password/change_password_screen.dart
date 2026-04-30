@@ -119,13 +119,20 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
                     isLoading: state.isLoading,
                     onPressed: () {
                       if (formKey.currentState!.validate()) {
-                        context.read<ChangePasswordCubit>().doEvent(
-                          SubmitChangePasswordEvent(
-                            oldPassword: oldPasswordController.text,
-                            newPassword: passwordController.text,
-                            rePassword: rePasswordController.text,
-                          ),
-                        );
+                        if (oldPasswordController.text.trim() ==
+                            passwordController.text.trim()) {
+                          AppSnackbar.error(
+                              context, AppStrings.oldAndNewPasswordSame);
+                          return;
+                        } else {
+                          context.read<ChangePasswordCubit>().doEvent(
+                            SubmitChangePasswordEvent(
+                              oldPassword: oldPasswordController.text,
+                              newPassword: passwordController.text,
+                              rePassword: rePasswordController.text,
+                            ),
+                          );
+                        }
                       }
                     },
                   ),
