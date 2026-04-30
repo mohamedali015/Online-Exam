@@ -141,6 +141,7 @@ exam-related screens.
 This is not a starter template. It is a full exam application with authentication, subjects, exams,
 results, and password reset flows already implemented.
 
+
 ## 👥 Contributors
 
 <div align="center">
@@ -183,7 +184,6 @@ A huge thank you to every developer who has poured their effort into this projec
       <br/>
 
     </td>
-
   </tr>
 </table>
 
