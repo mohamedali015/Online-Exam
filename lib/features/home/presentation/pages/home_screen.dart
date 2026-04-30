@@ -5,6 +5,7 @@ import 'package:online_exam/core/shared_widgets/custom_loading_indicator.dart';
 import 'package:online_exam/core/utils/app_text_styles.dart';
 import 'package:online_exam/features/home/presentation/manager/all_subjects_cubit.dart';
 import 'package:online_exam/features/home/presentation/manager/all_subjects_event.dart';
+
 import '../../../../core/helpers/my_responsive.dart';
 import '../../../../core/utils/app_assets.dart';
 import '../../../../core/utils/app_colors.dart';
@@ -35,90 +36,98 @@ class _HomeScreenState extends State<HomeScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text(
-          AppStrings.survey,
-          style: AppTextStyles.medium20().copyWith(
-              color: AppColors.primaryColor),
+    return GestureDetector(
+      onTap: () {
+        FocusScope.of(context).unfocus();
+      },
+      child: Scaffold(
+        appBar: AppBar(
+          title: Text(
+            AppStrings.survey,
+            style: AppTextStyles.medium20().copyWith(
+                color: AppColors.primaryColor),
+          ),
+          automaticallyImplyLeading: false,
         ),
-        automaticallyImplyLeading: false,
-      ),
 
-      body: RefreshIndicator(
-        onRefresh: () async {
-          context.read<SubjectsCubit>().doEvent(GetAllSubjectsEvent());
-        },
-        child: Padding(
-          padding: MyResponsive.paddingSymmetric(horizontal: 16),
-          child: Column(
-            children: [
-              SizedBox(height: MyResponsive.height(value: 16)),
+        body: RefreshIndicator(
+          onRefresh: () async {
+            context.read<SubjectsCubit>().doEvent(GetAllSubjectsEvent());
+          },
+          child: Padding(
+            padding: MyResponsive.paddingSymmetric(horizontal: 16),
+            child: Column(
+              children: [
+                SizedBox(height: MyResponsive.height(value: 16)),
 
-              SearchBar(
-                hintText: AppStrings.search,
-                leading: Icon(Icons.search, color: AppColors.baseGray),
-                controller: searchController,
-                onChanged: (value) {
-                  context.read<SubjectsCubit>().doEvent(
-                    GetSearchSubjectsEvent(query: value),
-                  );
-                },
-              ),
-
-              SizedBox(height: MyResponsive.height(value: 20)),
-
-              Expanded(
-                child: BlocBuilder<SubjectsCubit, SubjectsState>(
-                  builder: (context, state) {
-                    if (state.isLoading == true) {
-                      return const CustomLoadingIndicator();
-                    }
-
-                    if (state.errorMessage != null) {
-                      return CustomErrorWidget(
-                        errorMessage: state.errorMessage!,
-                        haveTryAgain: true,
-                        onPressed: () {
-                          context.read<SubjectsCubit>().doEvent(
-                            GetAllSubjectsEvent(),
-                          );
-                        },
-                      );
-                    }
-
-                    if (state.subjects.isEmpty) {
-                      return Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Image.asset(
-                            AppAssets.noFoundResearch,
-                            fit: BoxFit.contain,
-                          ),
-                          Text(
-                            AppStrings.noSubjectsFound,
-                            style: AppTextStyles.medium18(),
-                          ),
-                        ],
-                      );
-                    }
-
-                    return ListView.builder(
-                      itemCount: state.subjects.length,
-                      itemBuilder: (context, index) {
-                        final subject = state.subjects[index];
-                        return SubjectCard(item: subject);
-                      },
+                SearchBar(
+                  hintText: AppStrings.search,
+                  leading: Icon(Icons.search, color: AppColors.baseGray),
+                  controller: searchController,
+                  onChanged: (value) {
+                    context.read<SubjectsCubit>().doEvent(
+                      GetSearchSubjectsEvent(query: value),
                     );
                   },
-
-                  buildWhen: (prev, curr) =>
-                      prev.subjects != curr.subjects ||
-                      prev.isLoading != curr.isLoading ||
-                      prev.errorMessage != curr.errorMessage,
+                  onSubmitted: (value) {
+                    FocusScope.of(context).unfocus();
+                  },
                 ),
-              ),
-            ],
+
+                SizedBox(height: MyResponsive.height(value: 20)),
+
+                Expanded(
+                  child: BlocBuilder<SubjectsCubit, SubjectsState>(
+                    builder: (context, state) {
+                      if (state.isLoading == true) {
+                        return const CustomLoadingIndicator();
+                      }
+
+                      if (state.errorMessage != null) {
+                        return CustomErrorWidget(
+                          errorMessage: state.errorMessage!,
+                          haveTryAgain: true,
+                          onPressed: () {
+                            context.read<SubjectsCubit>().doEvent(
+                              GetAllSubjectsEvent(),
+                            );
+                          },
+                        );
+                      }
+
+                      if (state.subjects.isEmpty) {
+                        return Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Image.asset(
+                              AppAssets.noFoundResearch,
+                              fit: BoxFit.contain,
+                            ),
+                            Text(
+                              AppStrings.noSubjectsFound,
+                              style: AppTextStyles.medium18(),
+                            ),
+                          ],
+                        );
+                      }
+
+                      return ListView.builder(
+                        itemCount: state.subjects.length,
+                        itemBuilder: (context, index) {
+                          final subject = state.subjects[index];
+                          return SubjectCard(item: subject);
+                        },
+                      );
+                    },
+
+                    buildWhen: (prev, curr) =>
+                    prev.subjects != curr.subjects ||
+                        prev.isLoading != curr.isLoading ||
+                        prev.errorMessage != curr.errorMessage,
+                  ),
+                ),
+              ],
+            ),
           ),
         ),
       ),

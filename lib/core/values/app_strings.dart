@@ -166,4 +166,6 @@ abstract class AppStrings {
   static const String discardChangesContent = "You have unsaved changes.";
 
   static const String discard = "Discard";
+  static const String oldAndNewPasswordSame =
+      "Old and new password cannot be same";
 }
