@@ -182,8 +182,6 @@ A huge thank you to every developer who has poured their effort into this projec
           <sub>🏆 Flutter Developer </sub>
       <br/>
       <br/>
-
-    </td>
   </tr>
 </table>
 
