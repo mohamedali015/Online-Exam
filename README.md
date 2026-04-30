@@ -43,6 +43,88 @@ then routes the user either to the login screen or to the home screen if the ses
 5. From the home screen, the user can browse subjects, open exams, complete them, and review
    results.
 
+## 📱 Screenshots
+
+🎨 Full UI design available on Figma
+https://www.figma.com/design/xQqC79GT8hoJ2NFKGaBiRM/Online-exam--Copy-?node-id=23-4924&t=vImSgSthCWOAUKUJ-0
+<h3>🔍 Online Exam</h3>
+
+<table>
+
+<tr>
+<td><img width="1125" height="2436" alt="Login" src="https://github.com/user-attachments/assets/c1196f26-ec95-4f0a-bc59-8d57b20c0668" /></td>
+<td><img width="1125" height="2436" alt="Login (Email error)" src="https://github.com/user-attachments/assets/14d5c905-cf29-4ac9-8e6f-f28bbdb18336" /></td>
+<td><img width="1125" height="2436" alt="Login (1)" src="https://github.com/user-attachments/assets/99ef4d1e-d274-4484-aa6a-980d1220a835" /></td>
+</tr>
+</table>
+
+<table>
+
+<tr>
+<td><img width="1125" height="2436" alt="Sign up" src="https://github.com/user-attachments/assets/79870b02-33f4-4c84-817c-16f8bebc3bff" /></td>
+<td><img width="1125" height="2436" alt="Sign up (Email error)" src="https://github.com/user-attachments/assets/79e83840-b7c5-4f41-8e20-54e0e961ce78" /></td>
+<td><img width="1125" height="2436" alt="Sign up (Username error) (1)" src="https://github.com/user-attachments/assets/cfa9cca6-cbab-4def-8142-9fa81a46e201" /></td>
+<td><img width="1125" height="2436" alt="Sign up (Username error)" src="https://github.com/user-attachments/assets/9358f667-8f84-4a4b-995f-a3d890b21347" /></td>
+
+</tr>
+</table>
+
+<table>
+
+<tr>
+<td><img width="1125" height="2436" alt="Reset password" src="https://github.com/user-attachments/assets/fa4f8ae5-953a-4961-8535-d60277e21abc" /></td>
+<td><img width="1125" height="2436" alt="Profile" src="https://github.com/user-attachments/assets/8170e6f0-d0f2-455b-8903-03769fb2a296" /></td>
+
+</tr>
+</table>
+
+<table>
+<tr>
+
+
+<td><img width="1125" height="2436" alt="Forget password (Email error)" src="https://github.com/user-attachments/assets/38f131e3-a07e-4cda-a6b9-68c17b8745bd" /></td>
+<td><img width="1125" height="2436" alt="Forget password" src="https://github.com/user-attachments/assets/b140d097-44b8-46ed-9e3b-69a575873dce" /></td>
+<td><img width="1125" height="2436" alt="Verification code error (1)" src="https://github.com/user-attachments/assets/637fcb85-f102-45e3-bb16-c7d7db887953" /></td>
+<td><img width="1125" height="2436" alt="Verification code error" src="https://github.com/user-attachments/assets/a7ef7e01-b0ae-47bd-9fc2-0278b80e2af7" /></td>
+<td><img width="1125" height="2436" alt="Verification code" src="https://github.com/user-attachments/assets/eaca19df-aab3-455b-b0f3-9e2d63117613" /></td>
+</tr>
+</table>
+
+
+<table>
+<tr>
+<td><img width="1125" height="2436" alt="Start exam" src="https://github.com/user-attachments/assets/5e930010-9f7a-4eac-9092-60da5f9e732f" /></td>
+<td><img width="1125" height="2436" alt="Explore (1)" src="https://github.com/user-attachments/assets/6c5ddd94-28d3-452e-a066-b7d907591abb" /></td>
+<td><img width="1125" height="2436" alt="Explore" src="https://github.com/user-attachments/assets/18a44f77-72f0-447f-9fa6-2f89adaa3e57" /></td>
+</tr>
+</table>
+
+<table>
+<tr>
+<td><img width="1125" height="2436" alt="Exam 1" src="https://github.com/user-attachments/assets/383bbb9a-6508-4a35-8c42-990524978320" /></td>
+<td><img width="1125" height="2436" alt="Exam 4" src="https://github.com/user-attachments/assets/6f13a6fa-deef-4709-81e7-84c0c56a5a5e" /></td>
+<td><img width="1125" height="2436" alt="Time out" src="https://github.com/user-attachments/assets/9eedaa22-adab-45a8-a702-752df9e0be0d" /></td>
+<td><img width="1125" height="2436" alt="Score" src="https://github.com/user-attachments/assets/3792b6fb-07bd-40ed-ba45-bc18938bd3f8" /></td>	
+</tr>
+</table>
+
+<table>
+<tr>
+<td><img width="1125" height="2436" alt="Results" src="https://github.com/user-attachments/assets/9ba27718-317f-455d-bbf2-9d650eabe716" /></td>
+<td><img width="1125" height="5982" alt="Answers" src="https://github.com/user-attachments/assets/b568be2c-ca7d-4874-9b56-bd28f0b3e1f6" /></td>
+</tr>
+</table>
+
+
+<table>
+<tr>
+<td><img width="1125" height="2436" alt="Profile" src="https://github.com/user-attachments/assets/124a14cb-b0eb-46c6-a7b8-0fb5fd2d0d56" /></td>
+<td><img width="1125" height="2436" alt="Reset password" src="https://github.com/user-attachments/assets/10d28d50-a97e-4c8c-85c9-04c01b73e655" /></td>
+</tr>
+</table>
+
+
+
 ## Project Structure
 
 ```text
