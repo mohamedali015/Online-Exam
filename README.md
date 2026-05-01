@@ -52,6 +52,9 @@ https://www.figma.com/design/xQqC79GT8hoJ2NFKGaBiRM/Online-exam--Copy-?node-id=2
 <table>
 
 <tr>
+
+<td><img width="1080" height="2400" alt="WhatsApp Image 2026-05-01 at 4 02 23 PM" src="https://github.com/user-attachments/assets/855e7a8e-3b3e-44ab-99aa-d2edf19fbb8e" /></td>
+
 <td><img width="1125" height="2436" alt="Login" src="https://github.com/user-attachments/assets/c1196f26-ec95-4f0a-bc59-8d57b20c0668" /></td>
 <td><img width="1125" height="2436" alt="Login (Email error)" src="https://github.com/user-attachments/assets/14d5c905-cf29-4ac9-8e6f-f28bbdb18336" /></td>
 <td><img width="1125" height="2436" alt="Login (1)" src="https://github.com/user-attachments/assets/99ef4d1e-d274-4484-aa6a-980d1220a835" /></td>
